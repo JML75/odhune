@@ -1,0 +1,152 @@
+/* ---------------reset css--------------*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/*--------------------------fin du reset --------------*/
+
+body {
+	font-family: 'Heebo', sans-serif;
+   
+}
+
+.navbar a {
+    font-size: 16px;
+}
+
+.navbar-toggler-icon { 
+    width: 1em;
+    height: 1em;
+}
+
+.dropdown-menu{
+    background-color: transparent;
+}
+
+
+/* --------------------- footer -----------------------------------------------*/
+footer {
+    padding: 7em 0; }
+
+
+  .footer {
+    background: #2a1a5e;
+    background: -moz-linear-gradient(45deg, #2a1a5e 0%, #5126a7 100%);
+    background: -webkit-gradient(left bottom, right top, color-stop(0%, #2a1a5e), color-stop(100%, #5126a7));
+    background: -webkit-linear-gradient(45deg, #2a1a5e 0%, #5126a7 100%);
+    background: -o-linear-gradient(45deg, #2a1a5e 0%, #5126a7 100%);
+    background: -ms-linear-gradient(45deg, #2a1a5e 0%, #5126a7 100%);
+    background: linear-gradient(45deg, #2a1a5e 0%, #5126a7 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2a1a5e', endColorstr='#5126a7', GradientType=1 ); }
+    .footer .border-top {
+      border-color: rgba(255, 255, 255, 0.1) !important; }
+    .footer a {
+      text-decoration: none;
+      color: #fe59d7; }
+      .footer a:hover {
+        color: rgba(255, 255, 255, 0.9); }
+    .footer p {
+      color: rgba(255, 255, 255, 0.3); }
+    .footer .footer-heading {
+      color: #fff;
+      font-size: 22px;
+      margin-bottom: 30px; }
+      .footer .footer-heading .icon {
+        width: 40px;
+        margin-right: 10px;
+        border-radius: 50%;
+        height: 40px;
+        display: block;
+        color: #fe59d7;
+        border: 1px solid #fe59d7; }
+    .footer ul.list-unstyled li a {
+      color: rgba(255, 255, 255, 0.5); }
+    .footer .block-21 .heading a {
+      color: rgba(255, 255, 255, 0.5); }
+    .footer .block-21 .meta div a {
+      color: rgba(255, 255, 255, 0.3); }
+    .footer .block-23 ul li {
+      color: rgba(255, 255, 255, 0.5); }
+    .footer .subscribe-form .form-group {
+      position: relative;
+      margin-bottom: 0;
+      border-radius: 0; }
+      .footer .subscribe-form .form-group input {
+        background: rgba(0, 0, 0, 0.05) !important;
+        border: 2px solid #fe8ce3 !important;
+        outline: none !important;
+        color: rgba(255, 255, 255, 0.3) !important;
+        font-size: 16px;
+        border-radius: 0; }
+        .footer .subscribe-form .form-group input::-webkit-input-placeholder {
+          /* Chrome/Opera/Safari */
+          color: rgba(255, 255, 255, 0.3) !important; }
+        .footer .subscribe-form .form-group input::-moz-placeholder {
+          /* Firefox 19+ */
+          color: rgba(255, 255, 255, 0.3) !important; }
+        .footer .subscribe-form .form-group input:-ms-input-placeholder {
+          /* IE 10+ */
+          color: rgba(255, 255, 255, 0.3) !important; }
+        .footer .subscribe-form .form-group input:-moz-placeholder {
+          /* Firefox 18- */
+          color: rgba(255, 255, 255, 0.3) !important; }
+        .footer .subscribe-form .form-group input:focus {
+          outline: none !important;
+          -webkit-box-shadow: none;
+          box-shadow: none; }
+      .footer .subscribe-form .form-group .submit {
+        color: #fff !important;
+        display: block;
+        width: 52px;
+        height: 52px;
+        font-size: 16px;
+        background: #fe8ce3 !important;
+        border: none;
+        border-radius: 0; }
+  
+        .footer .subscribe-form .form-group .submit:hover, .footer-09 .subscribe-form .form-group .submit:focus {
+          text-decoration: none !important;
+          outline: none !important; }
+
+
+/* --------------------- footer -----------------------------------------------*/
