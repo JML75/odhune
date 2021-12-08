@@ -2,19 +2,28 @@
 
 namespace App\Controller;
 
+use App\Repository\ProduitRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ProduitController extends AbstractController
 {
+    /* pour  faire les routes  catalogue et fiche produit */
+
+
     /**
-     * @Route("/produit", name="produit")
+     * @Route("/catalogue", name="catalogue")
      */
-    public function index(): Response
+    public function catalogue(ProduitRepository $repoProduit): Response
     {
-        return $this->render('produit/index.html.twig', [
-            'controller_name' => 'ProduitController',
+        $produitsArray = $repoProduit->findAll();
+        return $this->render('produit/catalogue.html.twig', [
+            "produits" => $produitsArray
+
         ]);
+  
     }
-}
+
+
+} //fin de class

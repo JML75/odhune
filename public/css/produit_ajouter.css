@@ -1,0 +1,27 @@
+h1 {
+    position: absolute;
+     top: -1000px; 
+     left: -1000px;
+ }
+
+.main {
+    background-image: url("../img/background/ODHUNE-monture-scaled.jpeg");
+    background-position: center;
+    background-size: 100%;
+    height: 100%;
+    }
+
+.wrapper {
+        min-height: 690px;
+       
+} 
+.btn {
+    background-color: #FF71AC;
+    color: white;
+    border: solid  1px #CE8ED9;
+}
+#photoProduit {
+  width: 512px;
+  height: 512px;
+  object-fit: cover;
+}

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ parent() }}
+	| Ajouter
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/produit_ajouter.css') }}">
+{% endblock %}
+{% block h1 %}Ajouter un  produit
+{% endblock %}
+{% block body %}
+	<div class="wrapper">
+
+		<div class="col-md-12 d-flex flex-row justify-content-around align-items-center my-5">
+
+			<div class="col-md-5 mx-auto">
+				{{ form_start(formProduit) }}
+				<div class="col-md-12 text-white">{{ form_row(formProduit.nom) }}</div>
+                    <div class="row">
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.ref) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.categorie) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.forme) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.couleur) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.taille) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.motif) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.prix_rev_ht) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.prix_pub_ttc) }}</div>
+                        <div class="col-md-12 text-dark">
+                        {{ form_row(formProduit.photo , {'attr' : {"onChange" : "loadFile(event)"}}
+                            ) }}
+                    </div>
+				</div>
+				
+			</div>
+
+			<img id="photoProduit" class="col-md-5 mx-auto my-auto">
+        
+		</div>
+            <div class="col-md-10 mx-auto">
+                <input type="submit" value="Ajouter" class="col-md-12 btn my-5">
+            </div>
+        {{ form_end(formProduit) }}
+
+	</div>
+	{% block javascripts %}
+		<script>
+			loadFile = function (event) {
+let image = document.querySelector('#photoProduit');
+image.src = URL.createObjectURL(event.target.files[0]);
+console.log(event.target.files)
+}
+		</script>
+
+
+	{% endblock %}
+
+{% endblock %}

@@ -9,8 +9,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
         <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{  asset('css/style.css')  }}">
-        <link rel="icon" href="{{ asset('img/favicon_odhune.svg') }}" />
-        <link rel="apple-touch-icon" href="{{ asset('img/favicon_odhune_appletouch.svg') }}" />
+        <link rel="icon" href="{{ asset('img/icones/favicon_odhune.svg') }}" />
+        <link rel="apple-touch-icon" href="{{ asset('img/icones/favicon_odhune_appletouch.svg') }}" />
 
         {% block stylesheets %}{% endblock %}
 
@@ -30,21 +30,21 @@
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                             <li class="nav-item">
-                                <a class="nav-link" href="#}}">Accueil</a>
+                                <a class="nav-link"href="{{ path('accueil') }}">Accueil</a>
                             </li>
                              <li class="nav-item">
                                 <a class="nav-link" href="#}}">News</a>
                             </li>
                         
                             <li class="nav-item">
-                                <a class="nav-link"  href="#">Produits</a>
+                                <a class="nav-link"  href="{{ path('catalogue') }}">Produits</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"  href="#">Magasins</a>
                             </li>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link"  href="#">Espace opriciens</a>
+                                <a class="nav-link"  href="#">Espace opticiens</a>
                             </li>
                              <li class="nav-item">
                                 <a class="nav-link" href="#}}">Notre histoire</a>
@@ -60,6 +60,15 @@
                                     <li class="nav-item"><a class="nav-link" href="#">Connexion</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li class="nav-item"><a class="nav-link" href="#">Deconnexion</a></li>
+                                </ul>
+                            </li>
+                             <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li class="nav-item"><a class="nav-link" href="{{ path('produit_afficher') }}">liste produits</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ path('produit_ajouter') }}">ajouter produit</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="{{ path('produit_modifier') }}">modifier produit</a></li>
+                          
                                 </ul>
                             </li>
 
@@ -100,7 +109,7 @@
 					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
 						<h2 class="footer-heading d-flex align-items-center"><span class="icon d-flex align-items-center justify-content-center"><i class="fa-regular fa-file-lines"></i></span>Latest News</h2>
 						<div class="block-21 mb-4 d-flex">
-              <a class="img mr-4 rounded" style="background-image: url(images/image_1.jpg);"></a>
+              {# <a class="img mr-4 rounded" style="background-image: url(images/image_1.jpg);"></a> #}
               <div class="text">
                 <h3 class="heading"><a href="#">News 1</a></h3>
                 <div class="meta">
@@ -110,7 +119,7 @@
                 </div>
               </div>
             </div>
-            <div class="block-21 mb-4 d-flex">
+            {# <div class="block-21 mb-4 d-flex">
               <a class="img mr-4 rounded" style="background-image: url(images/image_2.jpg);"></a>
               <div class="text">
                 <h3 class="heading"><a href="#">News 2</a></h3>
@@ -120,7 +129,7 @@
                   <div><a href="#"><span class="icon-chat"></span> 21</a></div>
                 </div>
               </div>
-            </div>
+            </div> #}
 					</div>
 					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
 						<h2 class="footer-heading d-flex align-items-center"><span class="icon d-flex align-items-center justify-content-center"><i class="ion-ios-document"></i></span>Information</h2>
@@ -134,33 +143,33 @@
 					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
 						<h2 class="footer-heading d-flex align-items-center">
                             <span class="icon d-flex align-items-center justify-content-center"></span>Instagram</h2>
-						<div class="block-24">
+						{# <div class="block-24">
 							<div class="row no-gutters">
 								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(images/insta-1.jpg);"></a>
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVS0X3dNf4P/);"></a>
 								</div>
 								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(images/insta-2.jpg);"></a>
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVQs9fDthX7/);"></a>
 								</div>
 								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(images/insta-3.jpg);"></a>
+									<a href="#" class="img rounded" style="background-image: ur(lhttps://www.instagram.com/p/CVPazNothpp/);"></a>
 								</div>
 								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(images/insta-4.jpg);"></a>
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVr4fZvNBoL/);"></a>
 								</div>
 								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(images/insta-5.jpg);"></a>
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVey7WANmwR/);"></a>
 								</div>
 								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(images/insta-6.jpg);"></a>
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVr7pnhjetu/);"></a>
 								</div>
 							</div>
-						</div>
+						</div> #}
 					</div>
 				</div>
 				<div class="row mt-5 pt-4 border-top">
           <div class="col-md-6 col-lg-8">
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved.</p>
+  {# Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved.</p> #}
           </div>
     
         </div>
@@ -168,7 +177,7 @@
 		</footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <script src="https://kit.fontawesome.com/c6d0a84024.js" crossorigin="anonymous"></script>
-        <script src="{{ asset('js/script.js') }}"></script>
+        {# <script src="{{ asset('js/script.js') }}"></script> #}
         {% block javascripts %}{% endblock %}
     </body>
 </html>
