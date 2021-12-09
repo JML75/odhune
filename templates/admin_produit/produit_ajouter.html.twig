@@ -33,8 +33,11 @@
 				</div>
 				
 			</div>
+			<div id="listPhoto" class="col-md-5 d-flex flex-wrap  mx-auto my-auto">
 
-			<img id="photoProduit" class="col-md-5 mx-auto my-auto">
+				{# <img id="photoProduit" class="col-md-5 mx-auto my-auto">
+			 #}
+			 </div>
         
 		</div>
             <div class="col-md-10 mx-auto">
@@ -44,13 +47,25 @@
 
 	</div>
 	{% block javascripts %}
-		<script>
-			loadFile = function (event) {
-let image = document.querySelector('#photoProduit');
-image.src = URL.createObjectURL(event.target.files[0]);
-console.log(event.target.files)
-}
-		</script>
+<script>
+	var a = 0 ;
+	loadFile = function (event) {
+	let photoArray =event.target.files
+	let div = document.querySelector("#listPhoto")
+	
+	for (i=0; i < photoArray.length; i++) {
+		let img =document.createElement('img');
+		id = "photo"+(a+i+1);
+		img.setAttribute("id", id);
+		div.appendChild(img);
+		let image = document.getElementById(id);
+		image.src = URL.createObjectURL(photoArray[i]);
+	}
+	// la variable "a" est globlale  on l'utilise pour ne pas écraser les photos si elles sont chargées un plusieurs fois
+	a = a + photoArray.length
+
+	}
+</script>
 
 
 	{% endblock %}

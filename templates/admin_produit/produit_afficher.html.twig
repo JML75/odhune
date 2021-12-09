@@ -20,9 +20,7 @@
 
         <table class="table table-hover table-striped text-center mt-3">
             <thead class="bg-dark text-white">
-
-                <tr>
-                
+                <tr>       
                     <th>ID</th>
                     <th>Nom</th>
                     <th>Ref</th>
@@ -31,9 +29,9 @@
                     <th>Couleur</th>
                     <th>Taille</th>
                     <th>Motif</th>
-                    <th>Prix rev HT</th>
-                    <th>Prix pub TTC</th>
-                    <th>Photo</th>
+                    <th>Prix rev HT </th>
+                    <th>Prix pub TTC </th>
+                    <th>photo</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 
@@ -45,29 +43,25 @@
                     
                     <tr class="align-middle">
              
-                        <td>{{ produit.id }}</td>
-                        <td>{{ produit.nom }}</td>
-                        <td>{{ produit.ref }}</td>                   
-                        <td>{{ produit.forme }}</td>
-                        <td>{{ produit.couleur }}</td>
-                        <td>{{ produit.taille }}</td>
-                        <td>{{ produit.motif }}</td>
-                        <td>{{ produit.prix_rev_ht }}</td>
-                        <td>{{ produit.prix_pub_ttc }}</td>
-                        <td>
-                            {% if produit.photo %}
-                                <img src="{{ asset("img/imagesProduitUpload/" ~ produit.phoro ) }}" alt="image du produit" style="width:80px"> 
-                            {% else %}
-                                <img src="{{ asset('img/imageDefault.jpg') }}" alt="" style="width:80px">
-                            {% endif %}
-                        </td>
-                        <td>
+                        <td class="align-middle h5">{{ produit.id }}</td>
+                        <td class="align-middle h5">{{ produit.nom }}</td>
+                        <td class="align-middle h5">{{ produit.ref }}</td>
+                        <td class="align-middle h5">{{ produit.categorie }}</td>                  
+                        <td class="align-middle h5">{{ produit.forme }}</td>
+                        <td class="align-middle h5">{{ produit.couleur }}</td>
+                        <td class="align-middle h5">{{ produit.taille }}</td>
+                        <td class="align-middle h5">{{ produit.motif }}</td>
+                        <td class="align-middle h5">{{ produit.getPrixRevHt()}}</td>
+                        <td class="align-middle h5">{{ produit.getPrixPubTtc() }}</td>
+                       
+                        <td class="align-middle"><img src="{{ asset("img/photoProduitUpload/" ~ produit.photoProduits[0].nom ) }}" alt="image du produit" style="width:80px"></td>
+                        <td class="align-middle">
                             <a href="{{ path ('produit_modifier', {'id' : produit.id})}}">
-                                <img src="{{ asset('img/icones/update.png') }}" alt="">
+                                <img src="{{ asset('img/icones/update.png') }}" alt=""  style="width:48px">
                             </a>
                         </td>
 
-                        <td>
+                        <td class="align-middle">
                             <a href="{{ path('produit_supprimer', {'id' : produit.id } ) }}" onclick="return confirm('Confirmez-vous la suppression de ce produit ?')">
                                 <img src="{{ asset('img/icones/delete.png') }}" alt="">
                             </a>

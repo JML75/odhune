@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ProduitRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -63,10 +65,16 @@ class Produit
     private $prix_rev_ht;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity=PhotoProduit::class, mappedBy="produit", orphanRemoval=true)
      */
-    private $photo;
+    private $photoProduits;
 
+    public function __construct()
+    {
+        $this->photoProduits = new ArrayCollection();
+    }
+
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -180,15 +188,34 @@ class Produit
         return $this;
     }
 
-    public function getPhoto(): ?string
+    /**
+     * @return Collection|PhotoProduit[]
+     */
+    public function getPhotoProduits(): Collection
     {
-        return $this->photo;
+        return $this->photoProduits;
     }
 
-    public function setPhoto(?string $photo): self
+    public function addPhotoProduit(PhotoProduit $photoProduit): self
     {
-        $this->photo = $photo;
+        if (!$this->photoProduits->contains($photoProduit)) {
+            $this->photoProduits[] = $photoProduit;
+            $photoProduit->setProduit($this);
+        }
 
         return $this;
     }
+
+    public function removePhotoProduit(PhotoProduit $photoProduit): self
+    {
+        if ($this->photoProduits->removeElement($photoProduit)) {
+            // set the owning side to null (unless already changed)
+            if ($photoProduit->getProduit() === $this) {
+                $photoProduit->setProduit(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
