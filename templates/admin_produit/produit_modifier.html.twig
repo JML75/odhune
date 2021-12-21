@@ -3,18 +3,131 @@
 {% block title %}{{ parent() }} | modifier {% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/produit_modifier.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}"/> 
+     <style>
+        body {
+            background: rgb(243, 244, 245);
+            height: 100%;
+            color: rgb(100, 108, 127);
+            line-height: 1.4rem;
+            font-family: Roboto, "Open Sans", sans-serif;
+            font-size: 20px;
+            font-weight: 300;
+            text-rendering: optimizeLegibility;
+        }
+        
+        h1 { text-align: center; }
+        
+        .dropzone {
+            background: white;
+            border-radius: 5px;
+            border: 2px dashed rgb(0, 135, 247);
+            border-image: none;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+    </style>
 {% endblock %}
-{% block h1 %}Modifier un  produit{% endblock %}
+{% block h1 %}Modifier : {{ produit.nom }} {% endblock %}
 {% block body %}
 
-<div class="wrapper">
 
+	<div class="wrapper">
 
-    <h4 class ='text-center text-white mt-3'>Il n'y a aucun produit pour l'instant</h4>
-     
+		<div class="col-md-12 d-flex flex-row justify-content-around align-items-center my-5">
 
+			<div class="col-md-5 mx-auto">
+				{{ form_start(formProduit) }}
+				<div class="col-md-12 ">{{ form_row(formProduit.nom) }}</div>
+                    <div class="row">
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.ref) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.categorie) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.forme) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.couleur) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.taille) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.motif) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.prix_rev_ht) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.prix_pub_ttc) }}</div>
+                
+					</div>
+                    <div class="col-md-10 mx-auto">
+                <input type="submit" value="Ajouter" class="col-md-12 btn my-5">
+            </div>
+              {{ form_end(formProduit) }}
+         
+				</div>
+				 
+				<div id="listPhoto" class="col-md-5  mx-auto my-auto">
 
+		    {# ----------  section dropzone #}
+    
+            <div class="container" >
+                <div class='content'>
+                    <form action="{{ path('produit_ajouter') }}" class="dropzone" id="dropzonewidget" type = "file" multiple ="multiple">
+                        <div class="dz-message needsclick"> glisser les photos ici ou  cliquer pour télécharger.<br>
+                        <span class="note needsclick">( la première servira de vignette)</span>
+                        </div>
+                        
+                    </form>  
+                </div> 
+            </div>
+					
+	        {# ----------  fin section dropzone #}
+				</div>
 
-</div>
+				
+			</div>
+
+		 	
+    
+		</div>
+           
+	
+	</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('js/dropzone.js') }}"></script>
+<script>
+var pos = 1 // variable qui sera utilisée pour classer les photo
+
+Dropzone.options.dropzonewidget = {
+    maxFilesize: 2, // MB
+    addRemoveLinks: true,
+    parallelUploads: 5,
+    preventDuplicates: true,
+    dictDuplicateFile: "cette photo est déjà chargée",
+    uploadMultiple:true,
+    acceptedFiles: 'image/*',
+    renameFile: function (file) { // rend unique le nom de la photo pour pouvoir supprimer un duplicate 
+    let newName = pos + '_' + file.name;
+    pos=pos+1
+    Object.defineProperty(file, 'name', {
+        value: newName
+    })
+    return newName;
+    },  
+    removedfile:function(file){ // fonction si supprimer
+    console.log (file.name)
+      let  name = file.name
+        $.ajax({
+          method:'post',
+          url  :'ajouter',
+          data : {name: name, remove: true},
+          success: function (response){
+            console.log ('removed success');
+          }
+       
+        });
+        let previewzone;
+        return (previewzone = file.previewElement) != null ? previewzone.parentNode.removeChild(file.previewElement): void 0;
+
+    }
+   
+  };
+  
+
+</script>
 
 {% endblock %}

@@ -11,8 +11,8 @@
         <link rel="stylesheet" href="{{  asset('css/style.css')  }}">
         <link rel="icon" href="{{ asset('img/icones/favicon_odhune.svg') }}" />
         <link rel="apple-touch-icon" href="{{ asset('img/icones/favicon_odhune_appletouch.svg') }}" />
+        {% block stylesheets %} {% endblock %}
 
-        {% block stylesheets %}{% endblock %}
 
     </head>
 
@@ -67,7 +67,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li class="nav-item"><a class="nav-link" href="{{ path('produit_afficher') }}">liste produits</a></li>
                                     <li class="nav-item"><a class="nav-link" href="{{ path('produit_ajouter') }}">ajouter produit</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ path('produit_modifier') }}">modifier produit</a></li>
+                                    {# <li class="nav-item"><a class="nav-link" href="{{ path('produit_modifier') }}">modifier produit</a></li> #}
                           
                                 </ul>
                             </li>
@@ -83,7 +83,7 @@
                     {% block body %}{% endblock %}
             </div>
         </div> 
-        		<footer class="footer">
+        <footer class="footer">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
@@ -92,11 +92,11 @@
 							About
 						</h2>
 						<div class="block-23 mb-3">
-              <ul>
-                <li><span class="icon ion-ios-pin"></span><span class="text">Adresse</span></li>
-                <li><a href="#"><span class="text"><i class="fa-solid fa-phone"></i>telephone</span></a></li>
-                <li><a href="#"><span class="fa-solid fa-envelope"></span><span class="text">info@odhune.com</span></a></li>
-              </ul>
+                <ul>
+                    <li><span class="icon ion-ios-pin"></span><span class="text">Adresse</span></li>
+                    <li><a href="#"><span class="text"><i class="fa-solid fa-phone"></i>telephone</span></a></li>
+                    <li><a href="#"><span class="fa-solid fa-envelope"></span><span class="text">info@odhune.com</span></a></li>
+                </ul>
     
             </div>
             <form action="#" class="subscribe-form">
@@ -168,18 +168,19 @@
 					</div>
 				</div>
 				<div class="row mt-5 pt-4 border-top">
-          <div class="col-md-6 col-lg-8">
-  {# Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved.</p> #}
-          </div>
+            <div class="col-md-6 col-lg-8">
+                    {# Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved.</p> #}
+            </div>
     
-        </div>
+            </div>
 			</div>
-		</footer>
-        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-        <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <script src="https://kit.fontawesome.com/c6d0a84024.js" crossorigin="anonymous"></script>
-        {# <script src="{{ asset('js/script.js') }}"></script> #}
-        {% block javascripts %}{% endblock %}
+        </footer>
     </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/c6d0a84024.js" crossorigin="anonymous"></script>
+    {# <script src="{{ asset('js/script.js') }}"></script> #}
+    {% block javascripts %}{% endblock %}
+   
 </html>

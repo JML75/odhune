@@ -10,10 +10,11 @@
 <div class="wrapper">
     <a class='btn btn-success' href="{{ path('produit_ajouter') }}">Ajouter un produit</a>
 
-    {% for notification in app.flashes("succes") %}
+    {% for notification in app.flashes("success") %}
     <div class="class col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
         
     {% endfor %}
+
 
      {% if produits %} 
 
@@ -21,7 +22,6 @@
         <table class="table table-hover table-striped text-center mt-3">
             <thead class="bg-dark text-white">
                 <tr>       
-                    <th>ID</th>
                     <th>Nom</th>
                     <th>Ref</th>
                     <th>Categorie</th>
@@ -42,29 +42,29 @@
                 {% for produit in produits %}
                     
                     <tr class="align-middle">
-             
-                        <td class="align-middle h5">{{ produit.id }}</td>
-                        <td class="align-middle h5">{{ produit.nom }}</td>
-                        <td class="align-middle h5">{{ produit.ref }}</td>
+
+                        <td class="align-middle">{{ produit.nom }}</td>
+                        <td class="align-middle">{{ produit.ref }}</td>
                         <td class="align-middle h5">{{ produit.categorie }}</td>                  
                         <td class="align-middle h5">{{ produit.forme }}</td>
                         <td class="align-middle h5">{{ produit.couleur }}</td>
                         <td class="align-middle h5">{{ produit.taille }}</td>
                         <td class="align-middle h5">{{ produit.motif }}</td>
-                        <td class="align-middle h5">{{ produit.getPrixRevHt()}}</td>
-                        <td class="align-middle h5">{{ produit.getPrixPubTtc() }}</td>
+                        <td class="align-middle h5 monnaie">{{ produit.getPrixRevHt()}}</td>
+                        <td class="align-middle h5 monnaie">{{ produit.getPrixPubTtc() }}</td>
+                        	<td>
+                                <img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:80px"> 
+							</td>
                        
-                        <td class="align-middle"><img src="{{ asset("img/photoProduitUpload/" ~ produit.photoProduits[0].nom ) }}" alt="image du produit" style="width:80px"></td>
                         <td class="align-middle">
-                            <a href="{{ path ('produit_modifier', {'id' : produit.id})}}">
-                                <img src="{{ asset('img/icones/update.png') }}" alt=""  style="width:48px">
+                            <a href="{{ path('produit_modifier', {'id' : produit.id } ) }}">
+                                <img src="{{ asset('img/icones/update.png') }}" alt="icone editer"  style="width:36px">
                             </a>
                         </td>
 
                         <td class="align-middle">
                             <a href="{{ path('produit_supprimer', {'id' : produit.id } ) }}" onclick="return confirm('Confirmez-vous la suppression de ce produit ?')">
-                                <img src="{{ asset('img/icones/delete.png') }}" alt="">
-                            </a>
+                                <img src="{{ asset('img/icones/delete.png') }}" alt="icone effacer" style="width:24px">
                         </td>  
                     </tr>
                 {% endfor %}          
@@ -83,4 +83,17 @@
 
 </div>
 
+{% endblock %}
+{% block javascripts %}
+<script> 
+// mise  des prix au format currency
+    let list = document.querySelectorAll(".monnaie")
+    list.forEach(
+        function(currentValue){
+            let prix = currentValue.innerHTML
+            prix=  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(prix);
+            currentValue.innerHTML = prix
+        })
+
+</script>
 {% endblock %}

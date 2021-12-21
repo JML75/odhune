@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Catalogue {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/catalogue.css') }}">
+{% endblock %}
+{% block h1 %}fiche produit{% endblock %}
+{% block body %}
+    {% for notification in app.flashes('success') %}
+        <div class="col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
+    {% endfor %}
+
+	<div class ="row">
+        <div class="col-md-4 mt-5"> 
+			<h4>Fiche Produit</h4>
+			<div>
+				<p>Nom :
+					{{ produit.nom }}</p>
+			</div>
+			<div>
+				<p> Référence :
+					{{ produit.ref }}</p>
+			</div>
+			<div>
+				<p>Catégorie :
+					{{produit.categorie}}</p>
+				<p>forme:
+					{{ produit.forme}}</p>
+				<p>couleur:
+				    {{ produit.couleur}}</p>
+				<p>prix:
+					{{ produit.prixPubTtc}} €</p>
+			</div>
+			
+
+		</div>
+		<div class ="col-md-4 mt-5">
+            <div class="row">
+                {% for photo in produit.photoProduits %}
+                 <img src="{{ asset("img/photoProduitUpload/" ~ photo.nom ) }}" alt="" style="width:400px">
+                    
+                {% endfor %}
+            </div>
+        </div>
+		<div class="col-md-4 mt-5">
+			
+
+		</div>
+		
+
+	</div>
+        
+  
+
+
+{% endblock %}

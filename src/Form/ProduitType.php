@@ -22,7 +22,7 @@ class ProduitType extends AbstractType
                 "required" => false,
                  "attr" => [
                     "placeholder" => "saisir le nom du produit",
-                    "class" => "bg-light text-white"
+                    "class" => "bg-light"
                 ]
             ])
             ->add('ref', TextType::class, [
@@ -30,7 +30,7 @@ class ProduitType extends AbstractType
                 "required" => false,
                  "attr" => [
                     "placeholder" => "FOCOMOTCAAMM",
-                    "class" => "bg-light text-white"
+                    "class" => "bg-light "
                 ]
             ])
             ->add('categorie', TextType::class, [
@@ -38,7 +38,7 @@ class ProduitType extends AbstractType
                 "required" => false,
                  "attr" => [
                     "placeholder" => "vue ou solaire",
-                    "class" => "bg-light text-white"
+                    "class" => "bg-light "
                 ]
             ])
             ->add('forme', TextType::class, [
@@ -46,7 +46,7 @@ class ProduitType extends AbstractType
                 "required" => false,
                  "attr" => [
                     "placeholder" => "nom de la forme",
-                    "class" => "bg-light text-white"
+                    "class" => "bg-light "
                 ]
             ])
             ->add('couleur', TextType::class, [
@@ -54,7 +54,7 @@ class ProduitType extends AbstractType
                 "required" => false,
                  "attr" => [
                     "placeholder" => "nom de la couleur",
-                    "class" => "bg-light text-white"
+                    "class" => "bg-light "
                 ]
             ])
             ->add('taille', TextType::class, [
@@ -62,7 +62,7 @@ class ProduitType extends AbstractType
                 "required" => false,
                  "attr" => [
                     "placeholder" => "taille",
-                    "class" => "bg-light text-white"
+                    "class" => "bg-light "
                 ]
             ])
             ->add('motif', TextType::class, [
@@ -70,32 +70,33 @@ class ProduitType extends AbstractType
                 "required" => false,
                  "attr" => [
                     "placeholder" => "motif",
-                    "class" => "bg-light text-white"
+                    "class" => "bg-light"
                 ]
             ])
             ->add('prix_pub_ttc', MoneyType::class,[
                 "label"=> "Prix public conseillé TTC",
                 "required" => false,
                 "attr" => [
-                    "class" => "bg-light text-white"
+                    "class" => "bg-light"
                 ]
             ])
             ->add('prix_rev_ht', MoneyType::class, [
                 "label"=> "Prix revendeur HT",
                 "required" => false,
                 "attr" => [
-                    "class" => "bg-light text-white"
+                    "class" => "bg-light"
                 ]
             ])
-            ->add('photo', FileType::class, [
-                "multiple"=> true,
-                "mapped" => false,
-                "required" => false,
-                "attr" => [
-                    "class" => "bg-light text-dark"
-                ]
+            // ->add('photo', FileType::class, [
+            //     "multiple"=> true,
+            //     "mapped" => false,
+            //     "required" => false,
+            //     "attr" => [
+            //         "id"=>'dropzone-widget',
+            //         "class" => "dropzone dz-clickable dz-started"
+            //     ]
               
-            ])
+            // ])
         ;
     }
 

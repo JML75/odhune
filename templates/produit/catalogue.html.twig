@@ -8,6 +8,8 @@
 {% block body %}
 
 <div class="wrapper">
+
+
  {% if produits %} {# {% if produits is not empty %} #}
 
 
@@ -20,16 +22,14 @@
                 
                     <h5>{{ produit.nom|capitalize }}</h5>
 
-                    {% if produit.photo %}
-                        <img src="{{ asset("img/photoProduitUpload/" ~ produit.photo ) }}" alt="image du produit" style="width:150px"> 
+                    {% if produit.photoProduits %}
+                        <img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:150px"> 
                     {% else %}
                         <img src="{{ asset('img/ProduitUpload/photoDefault.jpg') }}" alt=""  style="width:150px">
                     {% endif %}
-        
-                    <h5>{{ produit.forme." " ~  produit.couleur}}</h5>
             
                     
-                    <h5>{{ produit.prix_pub_ttc }} €</h5>
+                    <h5>{{ produit.getPrixPubTtc()}} €</h5>
 
                     <a class="btn btn-danger col-md-12" href="{{ path('fiche_produit', {'id' : produit.id}) }}">Voir la fiche</a>
                 
