@@ -18,7 +18,7 @@ class ProduitType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
-                "label" => "nom du produit",
+                "label" => "Nom du produit",
                 "required" => false,
                  "attr" => [
                     "placeholder" => "saisir le nom du produit",
@@ -30,7 +30,7 @@ class ProduitType extends AbstractType
                 "required" => false,
                  "attr" => [
                     "placeholder" => "FOCOMOTCAAMM",
-                    "class" => "bg-light "
+                    "class" => "bg-light"
                 ]
             ])
             ->add('categorie', TextType::class, [
@@ -87,16 +87,6 @@ class ProduitType extends AbstractType
                     "class" => "bg-light"
                 ]
             ])
-            // ->add('photo', FileType::class, [
-            //     "multiple"=> true,
-            //     "mapped" => false,
-            //     "required" => false,
-            //     "attr" => [
-            //         "id"=>'dropzone-widget',
-            //         "class" => "dropzone dz-clickable dz-started"
-            //     ]
-              
-            // ])
         ;
     }
 

@@ -1,10 +1,13 @@
-h1 {
-    text-align: center;
-    font-size: 24px;
-    color:white;
-   
- }
-
+body {
+    background: rgb(243, 244, 245);
+    height: 100%;
+    color: rgb(100, 108, 127);
+    line-height: 1.4rem;
+    font-family: Roboto, "Open Sans", sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+    text-rendering: optimizeLegibility;
+}
 .main {
     background-image: url("../img/background/ODHUNE-monture-scaled.jpeg");
     background-position: center;
@@ -33,3 +36,38 @@ img {
 input {
     color: #333;
 }
+
+
+h1 { 
+    text-align: center;
+    padding-top: 100px;
+    text-align: center;
+    font-size: 24px;
+    color:white;
+
+ }
+
+.dropzone {
+    background: white;
+    border-radius: 5px;
+    border: 2px dashed rgb(0, 135, 247);
+    border-image: none;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+label{
+    font-size:1.5vw;
+    }
+  @media (max-width: 991.98px) {
+    label{
+    font-size:1.7vw;
+    }
+  }
+
+   @media (max-width: 767.98px) {
+    label{
+    font-size:2.5vw;
+    }
+   }

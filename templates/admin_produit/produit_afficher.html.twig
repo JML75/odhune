@@ -8,10 +8,10 @@
 {% block body %}
 
 <div class="wrapper">
-    <a class='btn btn-success' href="{{ path('produit_ajouter') }}">Ajouter un produit</a>
+    <a class='btn btn-dark mt-5' href="{{ path('produit_ajouter') }}">Ajouter un produit</a>
 
     {% for notification in app.flashes("success") %}
-    <div class="class col-md-6 mx-auto text-center alert alert-success">{{ notification }}</div>
+    <div class="class col-md-6 mx-auto text-center alert alert-success mt-3">{{ notification }}</div>
         
     {% endfor %}
 
@@ -25,7 +25,7 @@
                     <th>Nom</th>
                     <th>Ref</th>
                     <th>Categorie</th>
-                    <th>Forme (€)</th>
+                    <th>Forme</th>
                     <th>Couleur</th>
                     <th>Taille</th>
                     <th>Motif</th>

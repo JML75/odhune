@@ -18,4 +18,14 @@ h1 {
         align-items: center;
         min-height: 690px;
        
-}  
+} 
+
+img {
+    width:150px;
+    margin: 10px;
+    object-fit: contain;
+}
+input {
+    color: #333;
+}
+

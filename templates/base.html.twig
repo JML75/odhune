@@ -19,58 +19,65 @@
     <body>
         <div class="main">
 
-            <nav class="navbar navbar-expand-md navbar-dark text-white">
+            <nav class="navbar navbar-expand-lg navbar-dark text-white fixed-top">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">Odhune</a>
+                   
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex">
 
-                            <li class="nav-item">
-                                <a class="nav-link"href="{{ path('accueil') }}">Accueil</a>
-                            </li>
-                             <li class="nav-item">
-                                <a class="nav-link" href="#}}">News</a>
-                            </li>
-                        
-                            <li class="nav-item">
-                                <a class="nav-link"  href="{{ path('catalogue') }}">Produits</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"  href="#">Magasins</a>
-                            </li>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"  href="#">Espace opticiens</a>
-                            </li>
-                             <li class="nav-item">
-                                <a class="nav-link" href="#}}">Notre histoire</a>
-                            </li>                          
+                            <div class="d-flex flex-lg-row flex-md-column flex-md-column">
 
-                            <li class="nav-item">
-                                <a class="nav-link"  href="#"><i class="fas fa-shopping-cart"></i></a>
-                            </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"href="{{ path('accueil') }}">Accueil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-3 " href="#}}">News</a>
+                                </li>
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"  href="{{ path('catalogue') }}">Produits</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"  href="#" >Magasins</a>
+                                </li>
+                                </li>
+                                
+
+                            </div>
+                             <li class="navbar-brand mx-3 d-md-none  d-sm-none d-lg-block">
+                                <img src="{{ asset('img/icones/favicon_odhune.svg') }}" style ="width:32px;" alt="logo">
+                            </li>                      
+                            <div class="d-flex flex-lg-row flex-md-column flex-sm-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"  href="#">Espace opticiens</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"  href="#"><i class="fas fa-shopping-cart"></i></a>
+                                </li>
                                 <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="far fa-user"></i> </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="nav-link  py-3 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="far fa-user"></i> </a>
+                                <ul class="dropdown-menu py-3" aria-labelledby="navbarDropdown">
                                     <li class="nav-item"><a class="nav-link" href="#">Inscription</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#">Connexion</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li class="nav-item"><a class="nav-link" href="#">Deconnexion</a></li>
                                 </ul>
-                            </li>
-                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li class="nav-item"><a class="nav-link" href="{{ path('produit_afficher') }}">liste produits</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="{{ path('produit_ajouter') }}">ajouter produit</a></li>
-                                    {# <li class="nav-item"><a class="nav-link" href="{{ path('produit_modifier') }}">modifier produit</a></li> #}
-                          
-                                </ul>
-                            </li>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle py-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li class="nav-item"><a class="nav-link" href="{{ path('produit_afficher') }}">liste produits</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ path('produit_ajouter') }}">ajouter produit</a></li>
+                                        {# <li class="nav-item"><a class="nav-link" href="{{ path('produit_modifier') }}">modifier produit</a></li> #}
+                            
+                                    </ul>
+                                </li>
+                            </div>
 
                         </ul>
 

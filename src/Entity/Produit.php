@@ -6,6 +6,7 @@ use App\Repository\ProduitRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert; /** permet de rajouter des contraintes sur les saisies des fomulaires avant d'envoyer en bdd , c'est plus sécurisé que les required en front office, Assert est un alias pour constraints */
 
 /**
  * @ORM\Entity(repositoryClass=ProduitRepository::class)
@@ -21,46 +22,63 @@ class Produit
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank (message="Renseigner le nom du produit")
+     * @Assert\Length(
+     * min = 6,
+     * max = 30,
+     * minMessage = "1 caratère minimum",
+     * maxMessage = "30 caratères maximum"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank (message="Renseigner la référence")
      */
     private $ref;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank (message="Renseigner la catégorie")
      */
     private $categorie;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank (message="Renseigner la forme")
      */
     private $forme;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank (message="Renseigner la couleur")
      */
     private $couleur;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank(message="Renseigner la taille")
      */
     private $taille;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *  @Assert\NotBlank (message="Renseigner le motif")
      */
     private $motif;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank (message="Renseigner le prix")
+     * @Assert\PositiveOrZero  (message="le prix doit être positif")
      */
     private $prix_pub_ttc;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\NotBlank (message="Renseigner le prix")
+     * @Assert\PositiveOrZero (message="le prix doit être positif")
      */
     private $prix_rev_ht;
 
