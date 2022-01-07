@@ -2,17 +2,34 @@ security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
+        App\Entity\User:
+            algorithm: bcrypt
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+    
+    # un provider permet de définir où se trouve les données de l'utilisateur 
     providers:
-        users_in_memory: { memory: null }
+        in_database: #nom du provider
+            entity:
+                class: App\Entity\User
+                property: email
+        
     firewalls:
         dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/ #accès développeur
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: in_database # defini dans providers
+
+            form_login:
+                login_path: connexion
+                check_path: connexion
+                default_target_path: roles
+
+            logout:
+                path: deconnexion
+                target: connexion
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -23,5 +40,12 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: ^/profil, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/deconnexion, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/inscription, roles: IS_ANONYMOUS }
+         - { path: ^/connexion, roles: IS_ANONYMOUS }
+         
+    role_hierarchy:
+         ROLE_ADMIN: ROLE_USER
+         ROLE_TOUT: [ROLE_ADMIN, ROLE_USER]

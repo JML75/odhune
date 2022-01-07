@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Connexion {% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/connexion.css') }}">
+
+
+{% endblock %}
+
+{% block h1 %}Connexion{% endblock %}
+{% block body %}
+<div class="wrapper">
+
+    <div class ="col-12 mx-auto mt-5 pt-5">
+
+        <form action="{{ path('connexion')}}" method ="post" class = 'col-md-6 mx-auto text-center m-3'>
+
+        <div class ="col-6 form-group mt-3 mx-auto" >
+            <input type="text" id="inputEmail" class ="form-control " name ="_username" placeholder ="Email">
+        </div>
+        <div class ="col-6 form-group mt-3 mx-auto" >
+             <div class='input-group'>
+                <input type="password" id="inputPassword" class ="form-control" name = "_password" data-toggle="password" placeholder ="Mot de passe">
+                <span class="input-group-text bg-white"><i class="fa fa-eye"></i></span>
+             </div>
+        </div>
+        {#_username et _password  dont partie  l'ensemble sécurité #}
+
+        <input type="submit" value="Connexion" class= "col-6 btn btn-dark mt-3">
+
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}
+ {% block javascripts %}
+
+<script  src="{{ asset("js/bootstrap-show-password.min.js") }}"></script>
+
+{% endblock %}
+

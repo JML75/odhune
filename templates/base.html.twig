@@ -17,9 +17,9 @@
     </head>
 
     <body>
-        <div class="main">
+        <div class="col d-flex main">
 
-            <nav class="navbar navbar-expand-lg navbar-dark text-white fixed-top">
+            <nav class="navbar navbar-expand-lg fixed-top">
                 <div class="container-fluid">
                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,23 +60,45 @@
                                     <a class="nav-link py-3"  href="#"><i class="fas fa-shopping-cart"></i></a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link  py-3 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="far fa-user"></i> </a>
-                                <ul class="dropdown-menu py-3" aria-labelledby="navbarDropdown">
-                                    <li class="nav-item"><a class="nav-link" href="#">Inscription</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Connexion</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Deconnexion</a></li>
-                                </ul>
+                                    <a class="nav-link  py-3 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {% if app.user %}
+                                          {{ app.user.prenom ~" "~ app.user.nom }}</a>
+                                    {% else %}
+                                        <i class="far fa-user"></i> </a>
+                                    {% endif %}
+                                    <ul class="dropdown-menu py-3" aria-labelledby="navbarDropdown">
+                                     
+                                        
+                                      
+                                        {% if is_granted('ROLE_USER') %}
+                                          
+                                            <li class="nav-item"><a class="nav-link" href="{{ path("profil") }}">Profil</a></li>
+                                           
+                                            <li class="nav-item"><a class="nav-link" href="{{ path("deconnexion") }}">Deconnexion</a></li>
+                                         {% else %}
+                                         <li class="nav-item"><a class="nav-link" href="{{ path("connexion") }}">Connexion</a></li>
+                                          <li><hr class="dropdown-divider"></li>
+                                         <li class="nav-item"><a class="nav-link" href = "{{ path('inscription') }}">Inscription</a></li>
+                                         {% endif %}
+                                       
+                                       
+                                        
+                                    </ul>
                                 </li>
-                                <li class="nav-item dropdown">
+                                {% if app.user %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle py-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li class="nav-item"><a class="nav-link" href="{{ path('produit_afficher') }}">liste produits</a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{ path('produit_ajouter') }}">ajouter produit</a></li>
-                                        {# <li class="nav-item"><a class="nav-link" href="{{ path('produit_modifier') }}">modifier produit</a></li> #}
                             
                                     </ul>
                                 </li>
+                                
+                                {% endif %}
+                                
+                                {% endif %}
                             </div>
 
                         </ul>
@@ -86,8 +108,8 @@
             </nav>
 
             <div class="col-md-12 mx-auto">
-                <h1 class="titre">{% block h1 %}{% endblock %}</h1>    
-                    {% block body %}{% endblock %}
+
+                {% block body %}{% endblock %}
             </div>
         </div> 
         <footer class="footer">

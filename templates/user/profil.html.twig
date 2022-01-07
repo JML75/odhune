@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ parent() }} | Profil{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/profil.css') }}">{% endblock %}
+{% block h1 %}Profil{% endblock %}
+{% block body %}
+
+    {% for notification in app.flashes('success') %}
+        <div class = " alert alert-success text-center m-3 col-md-6 mx-auto">
+        {{notification}}
+        </div>
+    {% endfor %}
+
+
+    <div class="wrapper">
+
+        <div class="col-10 mt-5 pt-5">
+
+            <div >  Prenom : {{app.user.prenom}}</div>
+            <div>  Nom : {{app.user.nom}}</div>
+            <div >  Email : {{app.user.email}}</div>
+
+
+
+            <div class = 'row justify-content-between mt-3' >
+
+                <a  class =" btn btn-dark col-md-4" href="#">Modifier le profil </a>
+                <a  class =" btn btn-dark col-md-4" href="#">Modifier le mot de passe </a>
+
+            </div>
+        </div>
+    
+    </div>
+{% endblock %}

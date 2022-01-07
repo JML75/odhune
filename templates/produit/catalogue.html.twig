@@ -11,27 +11,25 @@
 
 
  {% if produits %} {# {% if produits is not empty %} #}
-
-
-        
-        <div class="row justify-content-around">
+ 
+        <div class="row d-flex flex-wrap content">
 
             {% for produit in produits %}
 
-                <div class="col-md-3 col-sm-5 cardCatalogue p-3 m-4 text-center">
+                <div class="col-4 carte">
                 
-                    <h5>{{ produit.nom|capitalize }}</h5>
+                    <p class="nomProduit">{{ produit.nom|capitalize }}</p>
 
                     {% if produit.photoProduits %}
-                        <img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:150px"> 
+                    <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> </a>
                     {% else %}
-                        <img src="{{ asset('img/ProduitUpload/photoDefault.jpg') }}" alt=""  style="width:150px">
+                        <img class="photo" src="{{ asset('img/ProduitUpload/photoDefault.jpg') }}" alt="">
                     {% endif %}
             
                     
-                    <h5>{{ produit.getPrixPubTtc()}} €</h5>
+                    <p class="pbttc mx-auto">{{ produit.getPrixPubTtc()}} €</p>
 
-                    <a class="btn btn-danger col-md-12" href="{{ path('fiche_produit', {'id' : produit.id}) }}">Voir la fiche</a>
+                   
                 
                 
                 </div>

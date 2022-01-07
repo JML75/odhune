@@ -1,8 +1,4 @@
-h1 {
-    position: absolute;
-     top: -1000px; 
-     left: -1000px;
- }
+
 
 .main {
     background-image: url("../img/background/ODHUNE-monture-scaled.jpeg");
@@ -18,4 +14,33 @@ h1 {
         align-items: center;
         height: 690px;
        
-}  
+} 
+.navbar .navbar-nav .nav-link {
+        color: #888;
+}
+
+.navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
+    color: black;
+}
+.wrapper {
+        min-height: 690px; 
+        width:fit-content;
+} 
+.content {
+    margin-top:70px;
+    margin-bottom: 30px;
+    width:fit-content;
+    padding: 0px;
+}
+
+#separator {
+  
+    height:600px;
+    text-align: center;
+    width: 3px;
+    padding:0px;
+    background-color: red;
+}
+#box {
+    border: 4px solid black;
+}

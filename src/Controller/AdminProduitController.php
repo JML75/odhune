@@ -15,6 +15,16 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+* Cette route placée avant la classe permet d'intégrer à chaque route du controller le *prefix "/admin" on le fait ici pour securiser les routes car /admin est déclaré dans *security.yaml  avec les 2 lignes ci dessous
+*access_control:
+*        - { path: ^/admin, roles: ROLE_ADMIN }
+*/
+
+/** 
+*@Route("/admin_produit")
+ */
+
 class AdminProduitController extends AbstractController
 {
     /* ce controller est pour pour faire le CRUD
@@ -22,7 +32,7 @@ class AdminProduitController extends AbstractController
 
 /*----------------produit afficher--------------------------------------*/
     /**
-     * @Route("/gestion_produit/afficher", name="produit_afficher")
+     * @Route("/afficher", name="produit_afficher")
      */
     public function produit_afficher(ProduitRepository $repoProduit): Response
      // syntaxe avec les dépendences    remplace le  constructeur () $repoProduit = new  ProduitRepository) car les constructions sont variables 
@@ -39,7 +49,7 @@ class AdminProduitController extends AbstractController
 
 /*----------------produit ajouter--------------------------------------*/
     /**
-     * @Route("/gestion_produit/ajouter", name="produit_ajouter")
+     * @Route("/ajouter", name="produit_ajouter")
      */
     public function produit_ajouter(Request $request, EntityManagerInterface $manager): Response
     {
@@ -80,22 +90,26 @@ class AdminProduitController extends AbstractController
         }
     
      
-        
 
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
        
        if($form->isSubmitted() && $form->isValid()){
+         
             $manager->persist ($produit);
             $manager->flush();
 
             $photoFile = scandir($dropZone_dir);
 
+       
+
             if ($photoFile) {
+               
                 for ($i=2 ; $i<count($photoFile); $i++){
                     //les 2 premiers éléments du scandir ne sont pas les fichiers
                     // $upload_dir = $this->getParameter("photos_dropzone");
                     $photo= new PhotoProduit;
+                   
                    
                     $nomPhoto = uniqid() . "-". date("YmdHis") . "-" .substr ($photoFile[$i],2);
 
@@ -116,7 +130,6 @@ class AdminProduitController extends AbstractController
                     $photo->setNom($nomPhoto);
                     $photo->setProduit($produit);
                     $photo->setPosition ($i-1);
-                  
                     $manager->persist($photo);
                     $manager->flush();
                 }
@@ -135,7 +148,7 @@ class AdminProduitController extends AbstractController
 
 /*----------------produit supprimer--------------------------------------*/
 /**
- * @Route("/gestion_produit/supprimer/{id}", name="produit_supprimer")
+ * @Route("/supprimer/{id}", name="produit_supprimer")
  */
     public function produit_supprimer(Produit $produit, EntityManagerInterface $manager) : Response
     {
@@ -163,7 +176,7 @@ class AdminProduitController extends AbstractController
 
 /*----------------produit modifier--------------------------------------*/
     /**
-    * @Route("/gestion_produit/modifier/{id}", name="produit_modifier")
+    * @Route("/modifier/{id}", name="produit_modifier")
      */
     public function produit_modifier(Produit $produit, EntityManagerInterface $manager , Request $request): Response
     {
