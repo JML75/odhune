@@ -1,46 +1,60 @@
 
 
 .main {
-    background-image: url("../img/background/ODHUNE-monture-scaled.jpeg");
-    background-position: center;
+ background-color: white;
     background-size: 100%;
     height: 100%;
     }
 
 .wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-        height: 690px;
+        width:fit-content;
+        min-height: 690px;
        
 } 
 .navbar .navbar-nav .nav-link {
-        color: #888;
+        color: #bbb;
+        font-size: 16px;
 }
 
 .navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
     color: black;
 }
-.wrapper {
-        min-height: 690px; 
-        width:fit-content;
-} 
-.content {
-    margin-top:70px;
-    margin-bottom: 30px;
-    width:fit-content;
-    padding: 0px;
+
+
+   
+.carousel-control-prev-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23888' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+  position: absolute;
+  color:#999;
+  bottom: 20px;
+  left: 20px;
 }
 
-#separator {
-  
-    height:600px;
-    text-align: center;
-    width: 3px;
-    padding:0px;
-    background-color: red;
+
+.carousselIndicator li {
+  border-color: 2px solid red;
 }
-#box {
-    border: 4px solid black;
+.carousel-control-next-icon {
+  background-image : url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23888' viewBox='0 0 8 8'%3E%3Cpath d='M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
+
+p {
+  color: #bbb;
+  margin-left: 10px;
+}
+#data {
+  border-left: 2px solid #bbb; ;
+}
+
+#description {
+  width: 300px;
+}
+.btn {
+  background-color: #999;
+  color:#ddd;
+}
+
+

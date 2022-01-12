@@ -1,52 +1,99 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ parent() }} | Catalogue {% endblock %}
+{% block title %}
+	{{ parent() }}
+	| fiche produit
+{% endblock %}
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('css/catalogue.css') }}">
-	<link rel="stylesheet" href="{{ asset('css/js-image-slider.css') }}">
+	<link rel="stylesheet" href="{{ asset('css/fiche_produit.css') }}">
 {% endblock %}
-{% block body %}
 
-<div id="box">hello</div>
-  
-  <div class="col-12 d-flex content justify-content-end">
+
+{% block content %}
+	<div class="col-12 d-flex main justify-content-start ">
+
+		<div class="col-6">
+
+			<div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					{% for photo in produit.photoProduits %}
+					
+						{% if photo.position ==1 %}
+						<button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ photo.position -1 }}" class="carousselIndiator active" aria-current="true" aria-label="Slide ~{{ photo.position}}"></button>
+							
+						{% else %}
+						<button type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide-to="{{ photo.position -1 }}"   class="carousselIndicator" aria-label="Slide ~{{ photo.position}}"></button>
+							
+						{% endif %}
+						
+					{% endfor %}
+				</div>
+				<div class="carousel-inner">
+
+					{% for photo in produit.photoProduits %}
+					 %}
+						{% if photo.position == 1 %}
+
+						<div class="carousel-item active">
+							<img class="d-block w-100" src="{{ asset("img/photoProduitUpload/" ~  photo.nom ) }}" alt="slide "~{{ photo.position }}>
+						</div>
+
+						{% else %}
+						<div class="carousel-item">
+						<img class="d-block w-100" src="{{ asset("img/photoProduitUpload/" ~  photo.nom ) }}"  alt="slide "~{{ photo.position }}>
+					</div>
+						{% endif %}
+						
+					{% endfor %}
 	
-	<div class="col-6">
-		<div >
-                {% for photo in produit.photoProduits %}
-                 <img src="{{ asset("img/photoProduitUpload/" ~ photo.nom ) }}" alt="" style="width:100%">
-                {% endfor %}
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</div>
 		
-		</div>
-	</div>
-	<div id= "separator" class="col-1 border-primary">pour voir</div>
 
-	<div class=" col-5 d-flex justify-content-center align-items-start">
-			<div class=" mt-5 mx-auto"> 
-				<div>
-					<p>Nom :
-						{{ produit.nom }}</p>
-				</div>
-				<div>
-					<p> Référence :
-						{{ produit.ref }}</p>
-				</div>
-				<div>
-					<p>Catégorie :
-						{{produit.categorie}}</p>
-					<p>forme:
-						{{ produit.forme}}</p>
-					<p>couleur:
-						{{ produit.couleur}}</p>
-					<p>prix:
-						{{ produit.prixPubTtc}} €</p>
+		<div class=" col-5 d-flex justify-content-center align-items-center">
+			<div  class=" mt-5 mx-auto">
+
+				<div id="data">
+					<p>{{ produit.nom }}</p>
+					<p>{{ produit.ref }}</p>
+					<p>{{produit.categorie}}</p>
+					<p>{{ produit.forme}}</p>
+					<p>{{ produit.couleur}}</p>
+					<p>{{ produit.prixPubTtc}}€</p>
+					<br>
+					<p id="description">{{ produit.description}}</p>
 				
-				</div>		
-		</div>
-  
-	 </div>
- </div>
-	
+				</div>
+					<br>
+				<button class="btn ">Ajouter au panier</button>
+			</div>
 
+		</div>
+
+
+	</div>
 {% endblock %}
-{% block javascripts %}{% endblock %}
+
+
+{% block javascripts %}
+
+	<script>
+		$(document).ready(function () {
+$('.carousel').carousel({
+	keyboad: true,
+	touch:true
+	
+	})
+});
+	</script>
+</script>
+}){% endblock %}

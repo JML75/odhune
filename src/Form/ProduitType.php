@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\DependencyInjection\Attribute\When;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ProduitType extends AbstractType
 {
@@ -84,6 +85,14 @@ class ProduitType extends AbstractType
                 "label"=> "Prix revendeur HT",
                 "required" => false,
                 "attr" => [
+                    "class" => "bg-light"
+                ]
+            ])
+            ->add('description', TextareaType::class, [
+                "label" => "Description ",
+                "required" => false,
+                 "attr" => [
+                    "placeholder" => "descritiption",
                     "class" => "bg-light"
                 ]
             ])

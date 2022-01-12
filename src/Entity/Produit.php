@@ -24,7 +24,7 @@ class Produit
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank (message="Renseigner le nom du produit")
      * @Assert\Length(
-     * min = 6,
+     * min = 1,
      * max = 30,
      * minMessage = "1 caratère minimum",
      * maxMessage = "30 caratères maximum"
@@ -40,13 +40,13 @@ class Produit
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Assert\NotBlank (message="Renseigner la catégorie")
+     * @Assert\NotBlank (message="Renseigner la catégorie")
      */
     private $categorie;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Assert\NotBlank (message="Renseigner la forme")
+     * @Assert\NotBlank (message="Renseigner la forme")
      */
     private $forme;
 
@@ -58,13 +58,11 @@ class Produit
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Assert\NotBlank(message="Renseigner la taille")
      */
     private $taille;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *  @Assert\NotBlank (message="Renseigner le motif")
      */
     private $motif;
 
@@ -86,6 +84,11 @@ class Produit
      * @ORM\OneToMany(targetEntity=PhotoProduit::class, mappedBy="produit", orphanRemoval=true)
      */
     private $photoProduits;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
 
     public function __construct()
     {
@@ -232,6 +235,18 @@ class Produit
                 $photoProduit->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): self
+    {
+        $this->description = $description;
 
         return $this;
     }

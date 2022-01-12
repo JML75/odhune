@@ -8,7 +8,7 @@ var sliderOptions = {
   slices: 14,
   boxes: 11,
   hoverPause: 2,
-  autoAdvance: true,
+  autoAdvance: false,
   thumbnailsWrapperId: null,
   m: true,
   license: "mylicense",

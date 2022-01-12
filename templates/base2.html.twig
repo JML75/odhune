@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}odhune{% endblock %}</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="preconnect" href="https://fonts.googleapis.com"> 
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+        <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{  asset('css/style.css')  }}">
+        <link rel="icon" href="{{ asset('img/icones/favicon_odhune.svg') }}" />
+        <link rel="apple-touch-icon" href="{{ asset('img/icones/favicon_odhune_appletouch.svg') }}" />
+        {% block stylesheets %} {% endblock %}
+
+
+    </head>
+
+    <body>
+        <div class="main">
+            <nav class="navbar navbar-expand-lg fixed-top  navbar-light bg-light">
+                <div class="container-fluid">
+                   
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex">
+
+                            <div class="d-flex flex-lg-row flex-md-column flex-md-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"href="{{ path('accueil') }}">Accueil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-3 " href="#}}">News</a>
+                                </li>
+                            
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"  href="{{ path('catalogue') }}">Produits</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"  href="#" >Magasins</a>
+                                </li>
+                                </li>
+                                
+
+                            </div>
+                             <li class="navbar-brand mx-3 d-md-none  d-sm-none d-lg-block">
+                                <img src="{{ asset('img/icones/favicon_odhune.svg') }}" style ="width:32px;" alt="logo">
+                            </li>                      
+                            <div class="d-flex flex-lg-row flex-md-column flex-sm-column">
+
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"  href="#">Espace opticiens</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link py-3"  href="#"><i class="fas fa-shopping-cart"></i></a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link  py-3 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {% if app.user %}
+                                          {{ app.user.prenom ~" "~ app.user.nom }}</a>
+                                    {% else %}
+                                        <i class="far fa-user"></i> </a>
+                                    {% endif %}
+                                    <ul class="dropdown-menu py-3" aria-labelledby="navbarDropdown">
+                                     
+                                        
+                                      
+                                        {% if is_granted('ROLE_USER') %}
+                                          
+                                            <li class="nav-item"><a class="nav-link" href="{{ path("profil") }}">Profil</a></li>
+                                           
+                                            <li class="nav-item"><a class="nav-link" href="{{ path("deconnexion") }}">Deconnexion</a></li>
+                                         {% else %}
+                                         <li class="nav-item"><a class="nav-link" href="{{ path("connexion") }}">Connexion</a></li>
+                                          <li><hr class="dropdown-divider"></li>
+                                         <li class="nav-item"><a class="nav-link" href = "{{ path('inscription') }}">Inscription</a></li>
+                                         {% endif %}
+                                       
+                                       
+                                        
+                                    </ul>
+                                </li>
+                                {% if app.user %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle py-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li class="nav-item"><a class="nav-link" href="{{ path('produit_afficher') }}">liste produits</a></li>
+                                        <li class="nav-item"><a class="nav-link" href="{{ path('produit_ajouter') }}">ajouter produit</a></li>
+                            
+                                    </ul>
+                                </li>
+                                
+                                {% endif %}
+                                
+                                {% endif %}
+                            </div>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </nav>
+    
+
+            <div class="col-12 mx-auto">
+
+                {% block content %}{% endblock %}
+            </div>
+        </div> 
+        <footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
+						<h2 class="footer-heading d-flex">
+							<span class="icon d-flex align-items-center justify-content-center"><i class="ion-logo-ionic"></i></span>
+							About
+						</h2>
+						<div class="block-23 mb-3">
+                <ul>
+                    <li><span class="icon ion-ios-pin"></span><span class="text">Adresse</span></li>
+                    <li><a href="#"><span class="text"><i class="fa-solid fa-phone"></i>telephone</span></a></li>
+                    <li><a href="#"><span class="fa-solid fa-envelope"></span><span class="text">info@odhune.com</span></a></li>
+                </ul>
+    
+            </div>
+            <form action="#" class="subscribe-form">
+              <div class="form-group d-flex">
+                <input type="text" class="form-control rounded-left" placeholder="Entrer votre email">
+                <button type="submit" class="form-control submit rounded-right"><span class="sr-only">Submit</span><i class="ion-ios-send"></i></button>
+              </div>
+            </form>
+					</div>
+					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
+						<h2 class="footer-heading d-flex align-items-center"><span class="icon d-flex align-items-center justify-content-center"><i class="fa-regular fa-file-lines"></i></span>Latest News</h2>
+						<div class="block-21 mb-4 d-flex">
+              {# <a class="img mr-4 rounded" style="background-image: url(images/image_1.jpg);"></a> #}
+              <div class="text">
+                <h3 class="heading"><a href="#">News 1</a></h3>
+                <div class="meta">
+                  <div><a href="#"><span class="icon-calendar"></span> 3 décembre 2021</a></div>
+                  <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                  <div><a href="#"><span class="icon-chat"></span> 21</a></div>
+                </div>
+              </div>
+            </div>
+            {# <div class="block-21 mb-4 d-flex">
+              <a class="img mr-4 rounded" style="background-image: url(images/image_2.jpg);"></a>
+              <div class="text">
+                <h3 class="heading"><a href="#">News 2</a></h3>
+                <div class="meta">
+                  <div><a href="#"><span class="icon-calendar"></span>  3 décembre 2021</a></div>
+                  <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                  <div><a href="#"><span class="icon-chat"></span> 21</a></div>
+                </div>
+              </div>
+            </div> #}
+					</div>
+					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
+						<h2 class="footer-heading d-flex align-items-center"><span class="icon d-flex align-items-center justify-content-center"><i class="ion-ios-document"></i></span>Information</h2>
+						<ul class="list-unstyled">
+                            <li><a href="#" class="py-1 d-block">Notre histoire</a></li>
+                            <li><a href="#" class="py-1 d-block">Produits</a></li>
+                            <li><a href="#" class="py-1 d-block">Contact</a></li>
+                            <li><a href="#" class="py-1 d-block">Mentions légales</a></li>
+                        </ul>
+					</div>
+					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
+						<h2 class="footer-heading d-flex align-items-center">
+                            <span class="icon d-flex align-items-center justify-content-center"></span>Instagram</h2>
+						{# <div class="block-24">
+							<div class="row no-gutters">
+								<div class="col-4 col-md-4 p-1">
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVS0X3dNf4P/);"></a>
+								</div>
+								<div class="col-4 col-md-4 p-1">
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVQs9fDthX7/);"></a>
+								</div>
+								<div class="col-4 col-md-4 p-1">
+									<a href="#" class="img rounded" style="background-image: ur(lhttps://www.instagram.com/p/CVPazNothpp/);"></a>
+								</div>
+								<div class="col-4 col-md-4 p-1">
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVr4fZvNBoL/);"></a>
+								</div>
+								<div class="col-4 col-md-4 p-1">
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVey7WANmwR/);"></a>
+								</div>
+								<div class="col-4 col-md-4 p-1">
+									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVr7pnhjetu/);"></a>
+								</div>
+							</div>
+						</div> #}
+					</div>
+				</div>
+				<div class="row mt-5 pt-4 border-top">
+            <div class="col-md-6 col-lg-8">
+                    {# Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved.</p> #}
+            </div>
+    
+            </div>
+			</div>
+        </footer>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/c6d0a84024.js" crossorigin="anonymous"></script>
+    {# <script src="{{ asset('js/script.js') }}"></script> #}
+    {% block javascripts %}{% endblock %}
+   
+</html>

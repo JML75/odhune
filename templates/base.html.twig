@@ -17,8 +17,7 @@
     </head>
 
     <body>
-        <div class="col d-flex main">
-
+        <div class="main">
             <nav class="navbar navbar-expand-lg fixed-top">
                 <div class="container-fluid">
                    
@@ -106,10 +105,11 @@
                     </div>
                 </div>
             </nav>
+    
 
-            <div class="col-md-12 mx-auto">
+            <div class="col-12 mx-auto">
 
-                {% block body %}{% endblock %}
+                {% block content %}{% endblock %}
             </div>
         </div> 
         <footer class="footer">

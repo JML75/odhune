@@ -5,8 +5,7 @@
     <link rel="stylesheet" href="{{ asset('css/produit_modifier.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}"/> 
 {% endblock %}
-{% block h1 %}Modifier : {{ produit.nom }} {% endblock %}
-{% block body %}
+{% block content %}
 
 
 	<div class="wrapper">
@@ -37,6 +36,7 @@
                         <div class="col-md-6 text-white  text-nowrap" >{{ form_row(formProduit.prix_rev_ht) }}</div>
                         <div class="col-md-6 text-white text-nowrap">{{ form_row(formProduit.prix_pub_ttc) }}</div>
 					</div>
+                     <div class="col-md-12 text-white">{{ form_row(formProduit.description) }}</div>
                     
                     
 			</div>

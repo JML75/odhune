@@ -69,8 +69,8 @@
 }
 a.group1-Prev, a.group1-Next
 {
-    width:50px;height:150px;
-    background:transparent url(navbuttons2.gif); 
+    width:50px;height:50px;
+    background-color: red;
     display:block; 
     cursor:pointer;
     position:absolute;
@@ -88,7 +88,7 @@ a.group1-Next:hover {background-position:50px -150px;}
 a.group2-Prev, a.group2-Next, a.group2-Play, a.group2-Pause 
 {
     width:20px; height:20px; 
-    background:transparent url(navbuttons.gif); 
+    background:transparent url("/public/img/icones/slider/navbuttons.gif"); 
     display:inline-block; 
     *display:inline;zoom:1;/*IE hack*/
     margin-left:4px; margin-right:4px;

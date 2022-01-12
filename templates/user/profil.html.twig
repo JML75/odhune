@@ -2,13 +2,8 @@
 {% block title %}{{ parent() }} | Profil{% endblock %}
 {% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/profil.css') }}">{% endblock %}
 {% block h1 %}Profil{% endblock %}
-{% block body %}
+{% block content %}
 
-    {% for notification in app.flashes('success') %}
-        <div class = " alert alert-success text-center m-3 col-md-6 mx-auto">
-        {{notification}}
-        </div>
-    {% endfor %}
 
 
     <div class="wrapper">

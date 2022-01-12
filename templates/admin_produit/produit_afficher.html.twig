@@ -4,16 +4,12 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('css/produit_afficher.css') }}">
 {% endblock %}
-{% block body %}
+{% block content %}
 
 <div class="wrapper">
 
       <a class="btn btn-dark" href="{{ path("produit_ajouter") }}">Ajouter un produit</a>
 
-    {% for notification in app.flashes("success") %}
-    <div class="class col-md-6 mx-auto text-center alert alert-success mt-3">{{ notification }}</div>
-        
-    {% endfor %}
 
 
      {% if produits %} 
