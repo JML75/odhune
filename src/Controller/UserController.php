@@ -17,6 +17,14 @@ class UserController extends AbstractController
         */ 
         $user = $this->getUser(); 
         return $this->render('user/profil.html.twig');
-}
+    }
+
+    /**
+     * @Route("live", name="live")
+     */
+    public function live(): Response
+    {
+        return $this->render('user/watchLive.html.twig', []);
+    }
 
 }//fin de class

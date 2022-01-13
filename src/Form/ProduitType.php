@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\DependencyInjection\Attribute\When;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -21,6 +22,7 @@ class ProduitType extends AbstractType
             ->add('nom', TextType::class, [
                 "label" => "Nom du produit",
                 "required" => false,
+                "empty_data" => '',
                  "attr" => [
                     "placeholder" => "saisir le nom du produit",
                     "class" => "bg-light"
@@ -29,6 +31,7 @@ class ProduitType extends AbstractType
             ->add('ref', TextType::class, [
                 "label" => "Référence du produit",
                 "required" => false,
+                "empty_data" => '',
                  "attr" => [
                     "placeholder" => "FOCOMOTCAAMM",
                     "class" => "bg-light"
@@ -37,6 +40,7 @@ class ProduitType extends AbstractType
             ->add('categorie', TextType::class, [
                 "label" => "Catégorie",
                 "required" => false,
+                "empty_data" => '',
                  "attr" => [
                     "placeholder" => "vue ou solaire",
                     "class" => "bg-light "
@@ -45,6 +49,7 @@ class ProduitType extends AbstractType
             ->add('forme', TextType::class, [
                 "label" => "Forme",
                 "required" => false,
+                "empty_data" => '',
                  "attr" => [
                     "placeholder" => "nom de la forme",
                     "class" => "bg-light "
@@ -53,6 +58,7 @@ class ProduitType extends AbstractType
             ->add('couleur', TextType::class, [
                 "label" => "Couleur",
                 "required" => false,
+                "empty_data" => '',
                  "attr" => [
                     "placeholder" => "nom de la couleur",
                     "class" => "bg-light "
@@ -61,6 +67,7 @@ class ProduitType extends AbstractType
             ->add('taille', TextType::class, [
                 "label" => "Taille",
                 "required" => false,
+                "empty_data" => '',
                  "attr" => [
                     "placeholder" => "taille",
                     "class" => "bg-light "
@@ -69,6 +76,7 @@ class ProduitType extends AbstractType
             ->add('motif', TextType::class, [
                 "label" => "Motif ",
                 "required" => false,
+                "empty_data" => '',
                  "attr" => [
                     "placeholder" => "motif",
                     "class" => "bg-light"
@@ -92,9 +100,15 @@ class ProduitType extends AbstractType
                 "label" => "Description ",
                 "required" => false,
                  "attr" => [
-                    "placeholder" => "descritiption",
+                    "placeholder" => "description",
                     "class" => "bg-light"
                 ]
+            ])
+
+            ->add('showcase', CheckboxType::class, [
+                "label" => "showcase ",
+                "required" => false,
+                 
             ])
         ;
     }

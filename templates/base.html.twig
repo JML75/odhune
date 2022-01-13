@@ -31,10 +31,10 @@
                             <div class="d-flex flex-lg-row flex-md-column flex-md-column">
 
                                 <li class="nav-item">
-                                    <a class="nav-link py-3"href="{{ path('accueil') }}">Accueil</a>
+                                    <a class="nav-link py-3" href="{{ path('accueil') }}">Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link py-3 " href="#}}">News</a>
+                                    <a class="nav-link py-3 " href="{{ path('showcase') }}">News</a>
                                 </li>
                             
                                 <li class="nav-item">
@@ -72,6 +72,7 @@
                                         {% if is_granted('ROLE_USER') %}
                                           
                                             <li class="nav-item"><a class="nav-link" href="{{ path("profil") }}">Profil</a></li>
+                                            <li class="nav-item"><a class="nav-link" href="{{ path("live") }}">Live</a></li>
                                            
                                             <li class="nav-item"><a class="nav-link" href="{{ path("deconnexion") }}">Deconnexion</a></li>
                                          {% else %}
@@ -91,6 +92,7 @@
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         <li class="nav-item"><a class="nav-link" href="{{ path('produit_afficher') }}">liste produits</a></li>
                                         <li class="nav-item"><a class="nav-link" href="{{ path('produit_ajouter') }}">ajouter produit</a></li>
+                                         <li class="nav-item"><a class="nav-link" href="{{ path('broadcast') }}">Broadcast</a></li>
                             
                                     </ul>
                                 </li>
@@ -112,98 +114,6 @@
                 {% block content %}{% endblock %}
             </div>
         </div> 
-        <footer class="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
-						<h2 class="footer-heading d-flex">
-							<span class="icon d-flex align-items-center justify-content-center"><i class="ion-logo-ionic"></i></span>
-							About
-						</h2>
-						<div class="block-23 mb-3">
-                <ul>
-                    <li><span class="icon ion-ios-pin"></span><span class="text">Adresse</span></li>
-                    <li><a href="#"><span class="text"><i class="fa-solid fa-phone"></i>telephone</span></a></li>
-                    <li><a href="#"><span class="fa-solid fa-envelope"></span><span class="text">info@odhune.com</span></a></li>
-                </ul>
-    
-            </div>
-            <form action="#" class="subscribe-form">
-              <div class="form-group d-flex">
-                <input type="text" class="form-control rounded-left" placeholder="Entrer votre email">
-                <button type="submit" class="form-control submit rounded-right"><span class="sr-only">Submit</span><i class="ion-ios-send"></i></button>
-              </div>
-            </form>
-					</div>
-					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
-						<h2 class="footer-heading d-flex align-items-center"><span class="icon d-flex align-items-center justify-content-center"><i class="fa-regular fa-file-lines"></i></span>Latest News</h2>
-						<div class="block-21 mb-4 d-flex">
-              {# <a class="img mr-4 rounded" style="background-image: url(images/image_1.jpg);"></a> #}
-              <div class="text">
-                <h3 class="heading"><a href="#">News 1</a></h3>
-                <div class="meta">
-                  <div><a href="#"><span class="icon-calendar"></span> 3 décembre 2021</a></div>
-                  <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                  <div><a href="#"><span class="icon-chat"></span> 21</a></div>
-                </div>
-              </div>
-            </div>
-            {# <div class="block-21 mb-4 d-flex">
-              <a class="img mr-4 rounded" style="background-image: url(images/image_2.jpg);"></a>
-              <div class="text">
-                <h3 class="heading"><a href="#">News 2</a></h3>
-                <div class="meta">
-                  <div><a href="#"><span class="icon-calendar"></span>  3 décembre 2021</a></div>
-                  <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                  <div><a href="#"><span class="icon-chat"></span> 21</a></div>
-                </div>
-              </div>
-            </div> #}
-					</div>
-					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
-						<h2 class="footer-heading d-flex align-items-center"><span class="icon d-flex align-items-center justify-content-center"><i class="ion-ios-document"></i></span>Information</h2>
-						<ul class="list-unstyled">
-                            <li><a href="#" class="py-1 d-block">Notre histoire</a></li>
-                            <li><a href="#" class="py-1 d-block">Produits</a></li>
-                            <li><a href="#" class="py-1 d-block">Contact</a></li>
-                            <li><a href="#" class="py-1 d-block">Mentions légales</a></li>
-                        </ul>
-					</div>
-					<div class="col-md-6 col-lg-3 mb-md-0 mb-4">
-						<h2 class="footer-heading d-flex align-items-center">
-                            <span class="icon d-flex align-items-center justify-content-center"></span>Instagram</h2>
-						{# <div class="block-24">
-							<div class="row no-gutters">
-								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVS0X3dNf4P/);"></a>
-								</div>
-								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVQs9fDthX7/);"></a>
-								</div>
-								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: ur(lhttps://www.instagram.com/p/CVPazNothpp/);"></a>
-								</div>
-								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVr4fZvNBoL/);"></a>
-								</div>
-								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVey7WANmwR/);"></a>
-								</div>
-								<div class="col-4 col-md-4 p-1">
-									<a href="#" class="img rounded" style="background-image: url(https://www.instagram.com/p/CVr7pnhjetu/);"></a>
-								</div>
-							</div>
-						</div> #}
-					</div>
-				</div>
-				<div class="row mt-5 pt-4 border-top">
-            <div class="col-md-6 col-lg-8">
-                    {# Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved.</p> #}
-            </div>
-    
-            </div>
-			</div>
-        </footer>
     </body>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>

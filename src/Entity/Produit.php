@@ -46,7 +46,6 @@ class Produit
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank (message="Renseigner la forme")
      */
     private $forme;
 
@@ -86,9 +85,14 @@ class Produit
     private $photoProduits;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $showcase;
 
     public function __construct()
     {
@@ -247,6 +251,18 @@ class Produit
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getShowcase(): ?bool
+    {
+        return $this->showcase;
+    }
+
+    public function setShowcase(bool $showcase): self
+    {
+        $this->showcase = $showcase;
 
         return $this;
     }

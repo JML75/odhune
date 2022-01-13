@@ -31,7 +31,29 @@ class ProduitController extends AbstractController
   
     }
 
+    /**
+     * @Route("/showcase", name="showcase")
+     */
+
+    public function showcase(ProduitRepository $repoProduit): Response
     
+   
+    {
+        $produitsArray = $repoProduit->findAll();
+        $produitShowcase = [];
+        foreach ( $produitsArray as $produit){
+            $showcase =$produit->getShowcase();
+            if ($showcase) {
+               $produitShowcase[] = $produit;
+            }
+        }
+    
+        return $this->render('produit/showcase.html.twig', [
+            "produitsShowcase" => $produitShowcase
+        ]);
+  
+    }
+
 
     /**
      * @Route("/fiche_produit/{id<\d+>}", name="fiche_produit")

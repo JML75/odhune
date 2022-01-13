@@ -10,7 +10,7 @@
 
 	<div class="wrapper">
 
-		<div class="col-md-12 d-flex flex-sm-column flex-md-column flex-lg-row flex-sm-wrap justify-content-around align-items-center my-5">
+		<div class="col-md-12 d-flex flex-sm-column flex-md-column flex-lg-row flex-sm-wrap justify-content-around align-items-center my-5 pt-5">
               {# ----------  section dropzone #}
                     <div id="listPhoto" class="col-md-12 col-lg-6 mx-auto my-auto">
                         <form action="{{ path('produit_ajouter') }}" class="dropzone" id="dropzonewidget" type = "file" multiple ="multiple">
@@ -25,7 +25,10 @@
 
 			<div class="col-lg-5 col-md-10 col-sm-10 mx-auto">
 				{{ form_start(formProduit) }}
-				    <div class="col-md-12 text-white">{{ form_row(formProduit.nom) }}</div>
+                    <div class="row">
+                        <div class="col-12 text-white">{{ form_row(formProduit.nom) }}</div>
+                        <div class="text-white align-item-center">{{ form_row(formProduit.showcase) }}</div>
+                    </div>
                     <div class="row">
                         <div class="col-md-6 text-white ">{{ form_row(formProduit.ref) }}</div>
                         <div class="col-md-6 text-white">{{ form_row(formProduit.categorie) }}</div>

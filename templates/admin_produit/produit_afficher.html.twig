@@ -28,6 +28,7 @@
                     <th>Prix rev HT </th>
                     <th>Prix pub TTC </th>
                     <th>photo</th>
+                    <th>Showcase</th>
                     <th>Modifier</th>
                     <th>Supprimer</th>
                 
@@ -51,7 +52,17 @@
                         	<td>
                                 <img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:80px"> 
 							</td>
-                       
+                        {% if produit.showcase == 1 %}
+                            <td>
+                                <img src="{{ asset('img/icones/button-green.png') }}" alt="icone positif"  style="width:24px"alt="image du produit" > 
+							</td>
+                            
+                        {% else %}
+                            <td>
+                                <img src="{{ asset('img/icones/button-red.png') }}" alt="icone negatif"  style="width:24px"alt="image du produit" > 
+							</td>
+                            
+                        {% endif %}
                         <td class="align-middle">
                             <a href="{{ path('produit_modifier', {'id' : produit.id } ) }}">
                                 <img src="{{ asset('img/icones/update.png') }}" alt="icone editer"  style="width:36px">

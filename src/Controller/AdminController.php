@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 
 class AdminController extends AbstractController
+
 {
     /**
      * @Route("/back_office", name="back_office")
@@ -25,4 +26,16 @@ class AdminController extends AbstractController
     {
         return $this->render('admin/back_office.html.twig');
     }
-}
+
+
+     /**
+     * @Route("/broadcast", name="broadcast")
+     */
+    public function broadcast (): Response
+    {
+        return $this->render('admin/broadcast.html.twig');
+    }
+
+
+
+}// fin de classe

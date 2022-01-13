@@ -1,31 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ODHUNE{% endblock %}
-{% block stylesheets %} <link rel="stylesheet" href="{{  asset('css/accueil.css')  }}">{% endblock %}
-
+{% block title %}{{ parent() }} | Catalogue {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/showcase.css') }}">
+{% endblock %}
+{% block h1 %}Catalogue produit{% endblock %}
 {% block content %}
-{# <img id="background_image">
 
-<source src="{{ asset ('img/background/Paul-Jeanne-NB.jpeg') }}">
-
-</img> #}
+<div class="wrapper col-12  mx-auto">
 
 
-<h1>créateur lunette original artisan France </h1>
-    <div class="wrapper">
-        <div class="titre pt-5">O D H U N E</div>
-        <div class="separator"></div>
-        <h3> CRÉATEUR ARTISAN LUNETIER </h3>
-        <div class="icon-wrapper">
-                <a class="networks_icon" href="https://www.instagram.com/odhune/?hl=fr" target="_blank">
-                <i class="fab fa-instagram fa-3x text-white"></i>
-                </a>
-            </div>
-    </div>
-
-    <div class="focusProduit">
-
-        {% if produitsShowcase %}
+ {% if produitsShowcase %}
 
             {% set nbShowcase = 0 %}
             {% for produit in produitsShowcase  %}
@@ -33,12 +18,10 @@
 
                     {% if nbShowcase % 2 %}
 
-                        <div class="col-12  showcaseImpair">
+                        <div class="col-12 d-flex justify-content-around showcaseImpair align-items-center">
 
                                     <div class="photo"> <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:300px"> </a></div>
-                                   <div class="nomProduit">
-                                        <div class="focus">Focus Produit</div>
-                                        <br>
+                                   <div class="nomProduit"> 
                                         <p>{{ produit.nom|capitalize }}</p>
                                         <br>
                                         <p>{{ produit.description}}</p>
@@ -51,17 +34,16 @@
                      {% else %}
                       
 
-                        <div class=" col-12  align-items-center showcasePair">
-                                 <div class="nomProduit">
-                                    <div class="focus">Focus Produit</div>
-                                    <br>
+                        <div class=" col-12 d-flex justify-content-around  align-items-center showcasePair">
+                                 <div class="nomProduit"> 
                                     <p>{{ produit.nom|capitalize }}</p>
                                     <br>
                                     <p>{{ produit.description}}</p>
                                     <br>
                                     <a class =" btn btn-light "href="{{ path('catalogue') }}">Collection complète</a>
+                                   </div>
 
-                                 </div>
+                                 
                                    
 
                                  <div class="photo"> <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> </a></div>
@@ -71,22 +53,10 @@
                
             {% endfor %}
 
-        {% endif %}
-    
-    </div>
 
-    <div class="produit pb-5">
-        <div class="optique">
-            <a href="{{ path('catalogue') }}"><p class="categorie">Optique</p></a>
-        </div>
-           
-        <div class="solaire">
-         <a href="{{ path('catalogue') }}">  <p class="categorie">Solaire</p> </a>
-          
-        </div>
-        <div class="capsule">
-         <a href="{{ path('catalogue') }}"> <p class="categorie">Capsule</p> </a>
-           
-        </div>
-    </div>
+        {% else %}{# si le tableau produits est vide #}
+            <h4 class="text-center text-danger mt-3 fst-italic">Il n'y a aucun produit pour le moment</h4>
+        {% endif %}
+</div>
+
 {% endblock %}

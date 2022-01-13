@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+{% block title %}{{ parent() }} | Profil{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/broadcast.css') }}">{% endblock %}
+{% block h1 %}Profil{% endblock %}
+{% block content %}
+
+
+
+    <div class="wrapper">
+        <div class="col-12 my-3 d-flex flex-row justify-content-between mt-5" >
+            <video class ="col-5 mx-auto" playsinline autoplay muted></video>
+            <div  class="col-5 mx-auto" style =" border: solid 1px black;">
+            <div class="input-group" placeholder="message">
+                <input id ="input_message" class="form-control" placeholder="message">
+                <button id ="envoi" class = "btn btn-primary">envoi</button>
+                </div>
+        <ul class="chat_ul col-5- flew-column ml-5 mt-2 mx-2" >
+        </ul>
+    </div>
+</div>
+    
+    
+    
+    </div>
+
+    <textarea  hidden name="" id="user2js" cols="30" rows="10"></textarea>
+
+
+        
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+let user ={ 
+    prenom : '{{ app.user.prenom }}',
+    nom : '{{ app.user.nom }}',
+}
+console.log (user)
+ let userstr =  JSON.stringify(user);
+  document.querySelector('#user2js').value = userstr
+  
+</script> 
+<script src="https://inspiring-nash.185-13-64-120.plesk.page/node_modules/socket.io/client-dist/socket.io.js"></script> 
+<script defer src="{{ asset('js/recortRTC.js') }}"></script>
+<script defer src="{{ asset('js/watch.js') }}"></script>
+
+{% endblock %}
