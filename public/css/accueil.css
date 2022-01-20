@@ -21,6 +21,9 @@ background-position: center;
 background-size:cover;
 height: 100vh;
 }
+.navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
+  color: black;
+}
  
 
  /* #background_image{
@@ -80,28 +83,39 @@ p {
 
 }
 
+.box_slogan {
+    height: 70px;
+    width: 100%;
+    background-color:#F2E4DC;
+   
+}
+
+.slogan{
+    margin: auto auto;
+    font-size: 30px;
+    font-weight: 400;
+
+}
+
 .focusProduit{
 
-    margin-top: 400px;
+    margin-top: 100px;
 
 }
 
 .photo {
-    height: 300px;
-    width: 300px;
+    width: 30%;
     margin: 50px 50px;
 }
 .showcaseImpair {
-    border: 2px solid black;
     width: 90%;
-    margin: 50px 50px;
+    margin: 10px 10px;
     display:flex;
     justify-content: space-around;
     align-items: center;
 }
 
 .showcasePair {
-    border: 2px solid black;
     width: 90%;
     margin: 50px 50px;
     display:flex;
@@ -109,7 +123,7 @@ p {
     align-items: center;
 }
 .nomProduit {
-    width: 300px;
+    width: 70%;
     margin : 20px 20px;
 
 }
@@ -158,6 +172,4 @@ p {
 .categorie {
     font-size: 20px;
     color : coral;
-   
-
 }

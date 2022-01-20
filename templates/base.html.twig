@@ -13,7 +13,6 @@
         <link rel="apple-touch-icon" href="{{ asset('img/icones/favicon_odhune_appletouch.svg') }}" />
         {% block stylesheets %} {% endblock %}
 
-
     </head>
 
     <body>
@@ -26,46 +25,46 @@
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex">
+                        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-flex" style="width:100%">
 
-                            <div class="d-flex flex-lg-row flex-md-column flex-md-column">
+                            <div class=" col-5 d-flex flex-column justify-content-start">
 
-                                <li class="nav-item">
-                                    <a class="nav-link py-3" href="{{ path('accueil') }}">Accueil</a>
+                                <li >
+                                    <a class="nav-link py-3 groupe" href="{{ path('accueil') }}">Accueil</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link py-3 " href="{{ path('showcase') }}">News</a>
+                                    <a class="nav-link  px-3" href="{{ path('showcase') }}">Optiques</a>
                                 </li>
                             
                                 <li class="nav-item">
-                                    <a class="nav-link py-3"  href="{{ path('catalogue') }}">Produits</a>
+                                    <a class="nav-link px-3"  href="{{ path('catalogue') }}">Solaires</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link py-3"  href="#" >Magasins</a>
+                                    <a class="nav-link  px-3"  href="#" >Capsules</a>
                                 </li>
                                 </li>
                                 
 
                             </div>
-                             <li class="navbar-brand mx-3 d-md-none  d-sm-none d-lg-block">
-                                <img src="{{ asset('img/icones/favicon_odhune.svg') }}" style ="width:32px;" alt="logo">
-                            </li>                      
-                            <div class="d-flex flex-lg-row flex-md-column flex-sm-column">
+                            <div class="col-2  flex-row justify-content-center">
+                                <li class="navbar-brand mx-3 d-md-none  d-sm-none d-lg-block">
+                                    <img src="{{ asset('img/icones/favicon_odhune.svg') }}" style ="width:64px;" alt="logo">
+                                </li>
+                            </div>                     
+                            <div class=" col-5 d-flex flex-column align-items-end ">
+
 
                                 <li class="nav-item">
-                                    <a class="nav-link py-3"  href="#">Espace opticiens</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-3"  href="#"><i class="fas fa-shopping-cart"></i></a>
+                                    <a class="nav-link py-3 px-5"  href="{{ path('panier')}}"><i class="fas fa-shopping-cart"></i></a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link  py-3 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <a class="nav-link  py-3  px-5 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {% if app.user %}
                                           {{ app.user.prenom ~" "~ app.user.nom }}</a>
                                     {% else %}
                                         <i class="far fa-user"></i> </a>
                                     {% endif %}
-                                    <ul class="dropdown-menu py-3" aria-labelledby="navbarDropdown">
+                                    <ul class="dropdown-menu  py-3" aria-labelledby="navbarDropdown">
                                      
                                         
                                       
@@ -76,7 +75,7 @@
                                            
                                             <li class="nav-item"><a class="nav-link" href="{{ path("deconnexion") }}">Deconnexion</a></li>
                                          {% else %}
-                                         <li class="nav-item"><a class="nav-link" href="{{ path("connexion") }}">Connexion</a></li>
+                                         <li class="nav-item"><a class="nav-link mx-3" href="{{ path("connexion") }}">Connexion</a></li>
                                           <li><hr class="dropdown-divider"></li>
                                          <li class="nav-item"><a class="nav-link" href = "{{ path('inscription') }}">Inscription</a></li>
                                          {% endif %}
@@ -101,7 +100,6 @@
                                 
                                 {% endif %}
                             </div>
-
                         </ul>
 
                     </div>
@@ -109,7 +107,7 @@
             </nav>
     
 
-            <div class="col-12 mx-auto">
+            <div class="col-12 mx-auto content">
 
                 {% block content %}{% endblock %}
             </div>

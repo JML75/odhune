@@ -22,6 +22,9 @@
                 </a>
             </div>
     </div>
+    <div class="box_slogan col-12 d-flex">
+        <p class="slogan mx-auto">DES LUNETTES FABRIQUEES PAR DES PASSIONNÉS POUR DES PASSIONNÉS</p>
+    </div>
 
     <div class="focusProduit">
 
@@ -35,7 +38,7 @@
 
                         <div class="col-12  showcaseImpair">
 
-                                    <div class="photo"> <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:300px"> </a></div>
+                                    <div class="photo"> <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> </a></div>
                                    <div class="nomProduit">
                                         <div class="focus">Focus Produit</div>
                                         <br>

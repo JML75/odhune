@@ -1,6 +1,7 @@
 user = JSON.parse(document.querySelector('#user2js').value)
 let peerConnection;
 
+
 const config = {
   iceServers: [
       { 
@@ -63,13 +64,24 @@ console.log (socket);
     socket.on ("message", text => {
       const el =document.createElement('li')
       el.innerHTML = text
-      document.querySelector('.chat_ul').appendChild(el)
+      document.querySelector('.chat_ul').prepend(el)
+      
   });
   
     document.querySelector ('#envoi').onclick = ()=>{
-      const text = user.prenom + " a dit : " + document.querySelector('#input_message').value
-      socket.emit ('message', text)
+      chatMessage = document.querySelector('#input_message').value
+      console.log(chatMessage)
+      if (chatMessage !== "") {
+        const text = user.prenom + " -> " + chatMessage
+        document.querySelector('#input_message').value = ""
+        socket.emit ('message', text)
+      }
+      
   };
+  
+
+
+
     
     window.onunload = window.onbeforeunload = () => {
       socket.close();

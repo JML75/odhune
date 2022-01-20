@@ -65,16 +65,35 @@
 				<div id="data">
 					<p>{{ produit.nom }}</p>
 					<p>{{ produit.ref }}</p>
-					<p>{{produit.categorie}}</p>
-					<p>{{ produit.forme}}</p>
-					<p>{{ produit.couleur}}</p>
-					<p>{{ produit.prixPubTtc}}€</p>
+					<p>{{ produit.categorie }}</p>
+					<p>{{ produit.forme }}</p>
+					<p>{{ produit.couleur }}</p>
+					<p>{{ produit.prixPubTtc }}€</p>
 					<br>
 					<p id="description">{{ produit.description}}</p>
 				
 				</div>
 					<br>
-				<button class="btn ">Ajouter au panier</button>
+				<form action="{{ path('panier_ajouter') }}" method="post">
+						<div class="row">
+							<div class="col-12 d-flex flex-row my-2 mx-2 color_select align-items-center">			
+								<input id="noire" checked type="radio" name="color" value="noir">
+								<label id="label_noire" for="noire"></label>
+								
+								<input id="ecaille" type="radio" name="color" value="ecaille">
+								<label id="label_ecaille" for="ecaille"></label>
+								
+								<input id="cristal"  type="radio" name="color" value="cristal">
+								<label id="label_cristal"  for="cristal"></label>
+
+								<label  id="label_qty" class ='mx-2' for="qty">Quantité</label>
+								<input id= "qty" type="number" name="qty" id="qty" min="1" max="10" step="1" value="1">
+							</div>
+	
+						</div>
+						  <input type="hidden" name="id" value ="{{ produit.id }}">
+				<button type="submit" class="btn ">Ajouter au panier</button>
+				</form>
 			</div>
 
 		</div>

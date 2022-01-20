@@ -32,6 +32,23 @@ class ProduitController extends AbstractController
     }
 
     /**
+     * @Route("/optiques", name="optiques")
+     */
+    public function optique(ProduitRepository $repoProduit): Response
+    // syntaxe avec les dépendences    remplace le  constructeur () $repoProduit = new  ProduitRepository) car les constructions sont variables 
+   
+
+
+    {
+        $produitsArray = $repoProduit->findAll();
+        
+        return $this->render('produit/catalogue_optiques.html.twig', [
+            "produits" => $produitsArray
+        ]);
+  
+    }
+
+    /**
      * @Route("/showcase", name="showcase")
      */
 

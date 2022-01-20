@@ -38,6 +38,69 @@
   right: 20px;
 }
 
+
+.color_select input[type="radio"]{
+ 
+  visibility: hidden;
+  position: absolute;
+
+}
+
+input[type=radio] + label:before{
+  height:20px;
+  width:20px;
+  margin-right: 10px;
+  content: " ";
+  display:inline-block;
+  vertical-align: baseline;
+}
+
+input[type=radio]:checked + label:before{
+  border:2px solid #999; 
+}
+
+
+input[type=radio] + #label_noire:before{
+  background-color: black;
+  opacity: .7;
+}
+
+input[type=radio] + #label_cristal:before{
+  background-color: #DDD;
+  opacity: .7;
+}
+input[type=radio] + #label_ecaille:before{
+  background-image: url('../img/icones/ecaille.jpg');
+  background-size: contain;
+  opacity: .7;
+}
+
+
+
+input[type=radio]:checked + #label_noire:before {
+  opacity: 1;
+}
+
+input[type=radio]:checked + #label_ecaille:before {
+  opacity: 0.7;
+}
+
+input[type=radio]:checked + #label_cristal:before {
+  opacity: 1;
+}
+
+#label_qty {
+  font-size: 12px;
+  color: #bbb;
+
+}
+
+#qty {
+  font-size: 12px;
+  color: #bbb;
+}
+
+
 p {
   color: #bbb;
   margin-left: 10px;
