@@ -5,21 +5,23 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PhotoProduitRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/inscription", name="inscription")
      */
-    public function inscription(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder): Response
+    public function inscription(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder, PhotoProduitRepository $repophoto): Response
     {
         $user = new User;
-        $form =$this->createForm(UserType::class, $user);
+        $form =$this->createForm(UserType::class, $user, ['inscription' => true]);
+        // on passe l'option inscription au UserType pour différencoier les builders
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
@@ -29,21 +31,41 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
             $manager->persist($user);
             $manager->flush();
-            $this->addFlash("success", $user->getPrenom(). " votre inscription a bien été enregistrée , vous pouvez vous connecter");
+        
             return $this->redirectToRoute("connexion");
         }
+        // on créé un tableau avec les photos pour animer la page
+        $photos=$repophoto->findAll();
+        $nomphotos = [];
+        foreach ( $photos as $photo) {
+            $nomPhotos []=$photo->getNom();
+        }
+        $nomPhotos_str = json_encode($nomPhotos) ;
+       
+
 
         return $this->render('security/inscription.html.twig', [
-            "formUser" =>$form->createView()
+            "formUser" =>$form->createView(),
+            'photos'=>$nomPhotos_str
         ]);
     }
 
      /**
      * @Route("/connexion", name="connexion")
      */
-    public function connexion()
+    public function connexion(PhotoProduitRepository $repophoto)
     {
-        return $this->render("security/connexion.html.twig");
+        $photos=$repophoto->findAll();
+        $nomphotos = [];
+        foreach ( $photos as $photo) {
+            $nomPhotos []=$photo->getNom();
+        }
+        $nomPhotos_str = json_encode($nomPhotos) ;
+       
+
+        return $this->render("security/connexion.html.twig", [
+            'photos'=>$nomPhotos_str
+        ]);
     }
 
       /**

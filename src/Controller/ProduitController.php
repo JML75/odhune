@@ -32,18 +32,47 @@ class ProduitController extends AbstractController
     }
 
     /**
-     * @Route("/optiques", name="optiques")
+     * @Route("/optique", name="optique")
      */
     public function optique(ProduitRepository $repoProduit): Response
     // syntaxe avec les dépendences    remplace le  constructeur () $repoProduit = new  ProduitRepository) car les constructions sont variables 
    
-
-
     {
-        $produitsArray = $repoProduit->findAll();
+        $produitsOptique = $repoProduit->findBy(array('categorie'=>'Optique'));
         
-        return $this->render('produit/catalogue_optiques.html.twig', [
-            "produits" => $produitsArray
+        return $this->render('produit/catalogue.html.twig', [
+            "produits" => $produitsOptique
+        ]);
+  
+    }
+
+    /**
+     * @Route("/solaire", name="solaire")
+     */
+    public function solaire(ProduitRepository $repoProduit): Response
+    // syntaxe avec les dépendences    remplace le  constructeur () $repoProduit = new  ProduitRepository) car les constructions sont variables 
+   
+    {
+        $produitsSolaire = $repoProduit->findBy(array('categorie'=>'Solaire'));
+
+        
+        return $this->render('produit/catalogue.html.twig', [
+            "produits" => $produitsSolaire
+        ]);
+  
+    }
+
+    /**
+     * @Route("/capsule", name="capsule")
+     */
+    public function capsule(ProduitRepository $repoProduit): Response
+    // syntaxe avec les dépendences    remplace le  constructeur () $repoProduit = new  ProduitRepository) car les constructions sont variables 
+   
+    {
+        $produitsCapsule = $repoProduit->findBy(array('categorie'=>'Capsule'));
+        
+        return $this->render('produit/catalogue.html.twig', [
+            "produits" => $produitsCapsule
         ]);
   
     }
@@ -86,6 +115,8 @@ class ProduitController extends AbstractController
         ]);
   
     }
+
+    
 
 
 } //fin de class

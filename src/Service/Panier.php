@@ -84,8 +84,26 @@ class Panier
                 $panierSession["prix"][] = $prix;
                 
                 $this->session->set('panier', $panierSession);
-    
             }
+
+             //on met le panier sous forme de ligne produit et on le stock danssession
+             $panier= [];
+             for ($i=0 ;$i < count($panierSession ['id_produit']) ; $i++){
+                 $panier[$i]['id_produit'] = $panierSession ['id_produit'][$i];
+                 $panier[$i]['produit'] = $panierSession ['produit'][$i];
+                 $panier[$i]['nomPhoto'] = $panierSession ['nomPhoto'][$i];
+                 $panier[$i]['couleur'] = $panierSession ['couleur'][$i];
+                 $panier[$i]['quantite'] = $panierSession ['quantite'][$i];
+                 $panier[$i]['reduction'] = $panierSession ['reduction'][$i];
+                 $panier[$i]['prix'] = $panierSession ['prix'][$i];
+             }
+
+             $this->session->set('panier_ligne',$panier);
+           
+             // on met à jour la variable du badge shopping cart 
+             $nbItems = count($panier);
+            $this->session->set('panier_item', $nbItems);
+            
         } 
 
     public function vider()
@@ -95,31 +113,44 @@ class Panier
         $this->session->remove("panier");
     }
 
-    public function remove($id_produit_supprimer)
+    public function remove($id_produit)
     {
         $panierSession = $this->session->get('panier');
-
-        $position_produit = array_search($id_produit_supprimer, $panierSession['id_produit']);
+        $position_produit = array_search($id_produit, $panierSession['id_produit']);
 
         if(is_int($position_produit))
         {
-            /*
-                Fonction prédéfinie PHP
-                array_splice
-                => permet de supprimer une ou plusieurs lignes dans un tableau
-                3 arguments :
-                1e : le tableau
-                2e : la position à partir de laquelle on veut supprimer
-                3e : le nombre d'éléments à supprimer 
-            */
-
-            array_splice($panierSession['titre'], $position_produit, 1);
             array_splice($panierSession['id_produit'], $position_produit, 1);
+            array_splice($panierSession['produit'], $position_produit, 1);
+            array_splice($panierSession['nomPhoto'], $position_produit, 1);
+            array_splice($panierSession['couleur'], $position_produit, 1);
             array_splice($panierSession['quantite'], $position_produit, 1);
+            array_splice($panierSession['reduction'], $position_produit, 1);
             array_splice($panierSession['prix'], $position_produit, 1);
 
             $this->session->set('panier', $panierSession);
+
         }
+         //on met le panier sous forme de ligne produit et on le stock dans session
+         $panier= [];
+         for ($i=0 ;$i < count($panierSession ['id_produit']) ; $i++){
+             $panier[$i]['id_produit'] = $panierSession ['id_produit'][$i];
+             $panier[$i]['produit'] = $panierSession ['produit'][$i];
+             $panier[$i]['nomPhoto'] = $panierSession ['nomPhoto'][$i];
+             $panier[$i]['couleur'] = $panierSession ['couleur'][$i];
+             $panier[$i]['quantite'] = $panierSession ['quantite'][$i];
+             $panier[$i]['reduction'] = $panierSession ['reduction'][$i];
+             $panier[$i]['prix'] = $panierSession ['prix'][$i];
+         }
+
+         $this->session->set('panier_ligne',$panier);
+       
+         // on met à jour la variable du badge shopping cart 
+         $nbItems = count($panier);
+        $this->session->set('panier_item', $nbItems);
+        
+
+
 
     }
 

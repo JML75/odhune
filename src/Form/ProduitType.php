@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\DependencyInjection\Attribute\When;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
@@ -37,7 +38,12 @@ class ProduitType extends AbstractType
                     "class" => "bg-light"
                 ]
             ])
-            ->add('categorie', TextType::class, [
+            ->add('categorie', ChoiceType::class, [
+                'choices' => [
+                    'Optique' => "Optique",
+                    'Solaire' => "Solaire",
+                    'Capsule' => "Capsule",
+                ],
                 "label" => "Catégorie",
                 "required" => false,
                 "empty_data" => '',

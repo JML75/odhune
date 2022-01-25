@@ -1,46 +1,78 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{{ parent() }} | Inscription {% endblock %}
-{% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('css/inscription.css') }}">
-
-
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent() }}
+	| Profil
 {% endblock %}
-
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+{% block h1 %}Profil
+{% endblock %}
 {% block content %}
-<div class="wrapper">   
-
-    <div class="col-sm-6 mx-auto inscritption">
-        {{ form_start(formUser) }}
-        {{ form_row(formUser.email) }}
-        
-        {{ form_label(formUser.password.first) }}
-        <div class='col-12 input-group'>
-            {{ form_widget(formUser.password.first, {'attr' : {"data-toggle" : "password"}}) }}
-            <span class="input-group-text bg-white"><i class="fa fa-eye"></i></span>
-        </div>
-        {{ form_errors(formUser.password.first) }}
-        {{ form_label(formUser.password.second) }}
-        <div class='col-12 mb-3 input-group'>
-            {{ form_widget(formUser.password.second , {'attr' : {"data-toggle" : "password"}}) }}
-            <span class="input-group-text bg-white"><i class="fa fa-eye"></i></span>
-        </div>
-        {{ form_errors(formUser.password.second) }}
-        
-        {{ form_row(formUser.nom) }}
-        {{ form_row(formUser.prenom) }}
-
-        <input type="submit" value="Sinscrire" class="btn btn-dark col-sm-12  mt-3">
 
 
-    {{ form_end(formUser) }}
-    </div>
-</div>
+	<div class="wrapper">
+		<div class="col-12 d-flex main justify-content-start ">
+			<div class="col-8">
 
+				<img id="slideShow" class="d-block w-100" src="{{ asset('img/photoProduitUpload/61dd68be28846-20220111112342-Monture-Bouture-E-Modele-2.png') }}" alt="">
+
+			</div>
+
+
+			<div class="col-3 d-flex flex-column justify-content-center mx-auto mb-5">
+				{{ form_start(formUser) }}
+				{{ form_row(formUser.email) }}
+
+				{{ form_label(formUser.password.first) }}
+				<div class='col-12 input-group mb-3'>
+					{{ form_widget(formUser.password.first, {'attr' : {"data-toggle" : "password"}}) }}
+					<span class="input-group-text bg-white">
+						<i class="fa fa-eye"></i>
+					</span>
+				</div>
+				{{ form_errors(formUser.password.first) }}
+				{{ form_label(formUser.password.second) }}
+				<div class='col-12 mb-3  input-group'>
+					{{ form_widget(formUser.password.second , {'attr' : {"data-toggle" : "password"}}) }}
+					<span class="input-group-text bg-white">
+						<i class="fa fa-eye"></i>
+					</span>
+				</div>
+				{{ form_errors(formUser.password.second) }}
+
+				{{ form_row(formUser.nom) }}
+				{{ form_row(formUser.prenom) }}
+
+				<input type="submit" value="S'inscrire" class="btn btn-dark col-sm-12  mt-3">
+
+
+				{{ form_end(formUser) }}
+			</div>
+
+		</div>
+
+	</div>
+	<textarea name="" hidden id="photos" cols="30" rows="10">{{photos}}</textarea>
 {% endblock %}
- {% block javascripts %}
 
-<script  src="{{ asset("js/bootstrap-show-password.min.js") }}"></script>
+{% block javascripts %}
+	<script>
 
+		var photos = JSON.parse(document.querySelector('#photos').innerHTML)
+
+nbphotos = photos.length
+setInterval("photoShow()", 5000);
+
+function photoShow() {
+
+let position = Math.trunc(Math.random() * (nbphotos))
+let nomPhoto = photos[position]
+let cheminPhoto = "{{ asset('img/photoProduitUpload/') }}"
+
+document.getElementById('slideShow').setAttribute('src', cheminPhoto + nomPhoto)
+
+
+}
+	</script>
+    <script  src="{{ asset("js/bootstrap-show-password.min.js") }}"></script>
 {% endblock %}
-

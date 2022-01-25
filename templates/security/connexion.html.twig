@@ -1,42 +1,71 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}{{ parent() }} | Connexion {% endblock %}
-{% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('css/connexion.css') }}">
-
-
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent() }}
+	| Profil
 {% endblock %}
-
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% endblock %}
+{% block h1 %}Profil
+{% endblock %}
 {% block content %}
-<div class="wrapper">
-
-    <div class ="col-12 mx-auto mt-5 pt-5">
-
-        <form action="{{ path('connexion')}}" method ="post" class = 'col-md-6 mx-auto text-center mt-5'>
-
-        <div class ="col-6 form-group mt-5 mx-auto" >
-            <input type="text" id="inputEmail" class ="form-control " name ="_username" placeholder ="Email">
-        </div>
-        <div class ="col-6 form-group mt-3 mx-auto" >
-             <div class='input-group'>
-                <input type="password" id="inputPassword" class ="form-control" name = "_password" data-toggle="password" placeholder ="Mot de passe">
-                <span class="input-group-text bg-white"><i class="fa fa-eye"></i></span>
-             </div>
-        </div>
-        {#_username et _password  dont partie  l'ensemble sécurité #}
-
-        <input type="submit" value="Connexion" class= "col-6 btn btn-dark mt-3">
 
 
-        </form>
+	<div class="wrapper">
+		<div class="col-12 d-flex main justify-content-start ">
+			<div class="col-8">
 
-    </div>
-</div>
+				<img id="slideShow" class="d-block w-100" src="{{ asset('img/photoProduitUpload/61dd68be28846-20220111112342-Monture-Bouture-E-Modele-2.png') }}" alt="">
+
+			</div>
+
+
+			<div class="col-3 d-flex flex-column justify-content-center mx-auto mb-5">
+				<form action="{{ path('connexion')}}" method="post" class='col-12 mx-auto text-center mt-5'>
+
+					<div class="col-12 form-group mt-5 mx-auto">
+						<input type="text" id="inputEmail" class="form-control " name="_username" placeholder="Email">
+					</div>
+					<div class="col-12 form-group mt-3 mx-auto">
+						<div class='input-group'>
+							<input type="password" id="inputPassword" class="form-control" name="_password" data-toggle="password" placeholder="Mot de passe">
+							<span class="input-group-text bg-white">
+								<i class="fa fa-eye"></i>
+							</span>
+						</div>
+					</div>
+					{#_username et _password  dont partie  l'ensemble sécurité #}
+
+					<input type="submit" value="Connexion" class="col-12 btn btn-dark mt-3">
+
+
+				</form>
+			</div>
+
+		</div>
+
+	</div>
+	<textarea name="" hidden id="photos" cols="30" rows="10">{{photos}}</textarea>
+{% endblock %}
+
+{% block javascripts %}
+	<script>
+
+		var photos = JSON.parse(document.querySelector('#photos').innerHTML)
+
+nbphotos = photos.length
+setInterval("photoShow()", 5000);
+
+function photoShow() {
+
+let position = Math.trunc(Math.random() * (nbphotos))
+let nomPhoto = photos[position]
+let cheminPhoto = "{{ asset('img/photoProduitUpload/') }}"
+
+document.getElementById('slideShow').setAttribute('src', cheminPhoto + nomPhoto)
+
+
+}
+	</script>
+    <script  src="{{ asset("js/bootstrap-show-password.min.js") }}"></script>
 
 {% endblock %}
- {% block javascripts %}
-
-<script  src="{{ asset("js/bootstrap-show-password.min.js") }}"></script>
-
-{% endblock %}
-

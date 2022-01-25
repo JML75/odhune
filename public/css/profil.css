@@ -4,28 +4,25 @@ h1 {
      left: -1000px;
  }
 
-.main {
-    background-image: url("../img/background/ODHUNE-monture-scaled.jpeg");
-    background-position: center;
+
+ .main {
+    background-color: white;
     background-size: 100%;
-    height: 100%;
-    }
+      height: 100%;
+      }
 
 .wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-        min-height: 690px;
+    width:fit-content;
+    min-height: 690px;
+   
        
 } 
 
-img {
-    width:150px;
-    margin: 10px;
-    object-fit: contain;
+p {
+    color: #777;
+    margin-top :20px;
+    margin-bottom :20px;
 }
-input {
-    color: #333;
-}
+
+
 

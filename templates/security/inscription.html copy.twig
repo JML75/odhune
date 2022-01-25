@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Inscription {% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/inscription.css') }}">
+
+
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">   
+
+    <div class="col-sm-6 mx-auto inscritption">
+        {{ form_start(formUser) }}
+        {{ form_row(formUser.email) }}
+        
+        {{ form_label(formUser.password.first) }}
+        <div class='col-12 input-group'>
+            {{ form_widget(formUser.password.first, {'attr' : {"data-toggle" : "password"}}) }}
+            <span class="input-group-text bg-white"><i class="fa fa-eye"></i></span>
+        </div>
+        {{ form_errors(formUser.password.first) }}
+        {{ form_label(formUser.password.second) }}
+        <div class='col-12 mb-3 input-group'>
+            {{ form_widget(formUser.password.second , {'attr' : {"data-toggle" : "password"}}) }}
+            <span class="input-group-text bg-white"><i class="fa fa-eye"></i></span>
+        </div>
+        {{ form_errors(formUser.password.second) }}
+        
+        {{ form_row(formUser.nom) }}
+        {{ form_row(formUser.prenom) }}
+
+        <input type="submit" value="Sinscrire" class="btn btn-dark col-sm-12  mt-3">
+
+
+    {{ form_end(formUser) }}
+    </div>
+</div>
+
+{% endblock %}
+ {% block javascripts %}
+
+<script  src="{{ asset("js/bootstrap-show-password.min.js") }}"></script>
+
+{% endblock %}
+

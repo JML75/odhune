@@ -56,19 +56,51 @@ body {
 .navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
   color: black;
 }
-.navbar .navbar-nav .nav-link :focus {
-  color: coral;
-  font-size: 16px;
-}
-
 
 .navbar-toggler-icon { 
     width: 1em;
     height: 1em;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     background-color: transparent;
+
+}
+.dropdown-menu {
+    font-size: 30px;
+	font-weight: bold;
+
+}
+
+.nomProduit{
+  font-size: 24px;
+  font-weight: bold;
+  color: #666;
+}
+
+.nomLogo {
+  font-size: 36px;
+  font-weight: bold;
+
+}
+
+
+.badge{
+	font-family: 'Heebo', sans-serif;
+	height: 20px;
+	width : 20px;
+	padding: 5px 2px 5px 2px;
+	font-size: 10px; 
+	color: #fff;
+	line-height: 1.1em;
+	background: coral;
+	border-radius:50%;
+	position:relative;
+	left:-10px;
+	right:-10px;
+	bottom:-12px;
+	top:-12px;
+	opacity:0.9;
 }
 
 

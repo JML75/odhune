@@ -12,40 +12,36 @@
 
  {% if produits %} {# {% if produits is not empty %} #}
  
-        <div class="row d-flex flex-wrap content">
+        <div class="row d-flex flex-wrap content ">
 
             {% for produit in produits %}
 
                 <div class="col-4 carte">
-                
-                   
-
-                    {% if produit.photoProduits %}
-                    <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> </a>
-                    {% else %}
-                        <img class="photo" src="{{ asset('img/ProduitUpload/photoDefault.jpg') }}" alt="">
-                    {% endif %}
             
-                    <p class="nomProduit">{{ produit.nom|capitalize }}</p>
-
-                   
-                
+                    <a class ='lienFicheProduit' href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img class ='photoProduit' src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"><p class="nomProduit">{{ produit.nom|capitalize }}</p></a>
+            
+                    
                 
                 </div>
                 
             {% endfor %}
 
+       
+
+
         </div>
 
-
-
-
     {% else %}{# si le tableau produits est vide #}
-        
+        <div class="col-12 d-flex w-100 mt-5 pt-5 mx-auto" style="width:100%">
 
-        <h4 class="text-center text-danger mt-3 fst-italic">Il n'y a aucun produit pour le moment</h4>
+        <h2 class=" col-6 text-center text-danger mt-3 fst-italic mx-auto pt-5 mt-5 ">Il n'y a aucun produit pour le moment</h2>
+        </div>
+        
+</div>
+        
 
 
     {% endif %}
+  
 
 {% endblock %}

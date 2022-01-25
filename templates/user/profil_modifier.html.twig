@@ -15,15 +15,16 @@
                     </div>
                        
         
-                <div class="col-3 d-flex flex-column justify-content-center mx-auto mb-5">
+                 <div class="col-3 d-flex flex-column justify-content-center mx-auto mb-5">
+                    {{ form_start(formUser) }}
+                            {{ form_row(formUser.email) }}
+                            {{ form_row(formUser.nom) }}
+                            {{ form_row(formUser.prenom) }}
 
-                    <p>  Prénom : {{app.user.prenom}}</p>
-                    <p>  Nom : {{app.user.nom}}</p>
-                    <p>  Email : {{app.user.email}}</p>
-                    <a  class =" btn btn-secondary col-12 my-3" href="{{ path('profil_modifier') }}">Modifier le profil </a>
-                    <a  class =" btn btn-secondary col-12 my-3" href="{{ path('password_modifier') }}">Modifier le mot de passe </a>
+                            <input type="submit" value="Modifier" class="btn btn-secondary col-12  mt-3">
 
-                </div>
+                    {{ form_end(formUser) }}
+             </div>
 
         </div>
     
