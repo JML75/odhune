@@ -1,143 +1,441 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}odhune{% endblock %}</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-        <link rel="preconnect" href="https://fonts.googleapis.com"> 
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
-        <link href="https://fonts.googleapis.com/css2?family=Heebo&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="{{  asset('css/style.css')  }}">
-        <link rel="icon" href="{{ asset('img/icones/favicon_odhune.svg') }}" />
-        <link rel="apple-touch-icon" href="{{ asset('img/icones/favicon_odhune_appletouch.svg') }}" />
-        {% block stylesheets %} {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="ODHUNE Artisan Créateur Lunétier crée et fabrique à ROUEN en France ">
+		<meta name="keywords" content="lunette,lunettes,créateur,artisan,français,fabricant,France">
+		<meta name="mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-title" content="ODHUNE">
+		<meta name="apple-mobile-web-app-title" content="ODHUNE">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-9WDQGQT5LF"></script>
+		<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
 
-    </head>
+		gtag('config', 'G-9WDQGQT5LF');
+		</script>
+		
+		<title>
+			{% block title %}odhune
+			{% endblock %}
+		</title>
+		<script type="text/javascript" src="{{ asset("tarteaucitron.js") }}"></script>
+		<script type="text/javascript">
+			tarteaucitron.init({
+				"privacyUrl": "http://s861930592.onlinehome.fr/odhune", /* Privacy policy url */
 
-    <body>
-        <div class="main">
-            <nav class="navbar navbar-expand-lg fixed-top">
-                <div class="container-fluid">
-                   
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
+				"hashtag": "#tarteaucitron",
+				/* Open the panel with this hashtag */
+				"cookieName": "tarteaucitron",
+				/* Cookie name */
 
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="col-12 navbar-nav mx-auto mb-2 mb-lg-0 d-flex" style="">
+				"orientation": "middle",
+				/* Banner position (top - bottom) */
 
-                            <div class=" col-5 d-flex justify-content-start">
+				"groupServices": false,
+				/* Group services by category */
 
-                                <li >
-                                    <a class="nav-link px-3 groupe" href="{{ path('catalogue') }}">Produits</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link  px-3" href="{{ path('optique') }}">Optiques</a>
-                                </li>       
-                                <li class="nav-item">
-                                    <a class="nav-link px-3"  href="{{ path('solaire') }}">Solaires</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link  px-3"  href="{{ path('capsule') }}" >Capsules</a>
-                                </li>
+				"showAlertSmall": false,
+				/* Show the small banner on bottom right */
+				"cookieslist": false,
+				/* Show the cookie list */
 
-                               {% if app.user %}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <li class="nav-item dropdown ">
-                                    <a class="nav-link dropdown-toggle px-3" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
-                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li class="nav-item"><a class="nav-link" href="{{ path('produit_afficher') }}">liste produits</a></li>
-                                        <li class="nav-item"><a class="nav-link" href="{{ path('produit_ajouter') }}">ajouter produit</a></li>
-                            
-                                    </ul>
-                                </li>
-                                {% endif %}
-                                {% endif %}
-                            </div>
-                            <div class="col-2 d-flex  flex-column justify-content-center align-items-center">
-                                <a href="{{ path("accueil") }}">
-                                    <li class="navbar-brand mx-3 d-md-none  d-sm-none d-lg-block">
-                                        <img class = "mx-auto" src="{{ asset('img/icones/favicon_odhune.svg') }}" style ="width:64px;" alt="logo">
-                                    </li>
-                                </a>
-                                <li class= 'nomLogo'>O D H U N E</li>
-                            </div>                     
-                            <div class=" col-5 d-flex  justify-content-end" style="height:50px">
+				"closePopup": false,
+				/* Show a close X on the banner */
 
-                                <li class="nav-item">
-                                    <a class="nav-link py-3 px-3" href="{{ path('nous') }}">Nous</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-3 px-3" href="{{ path('magasin') }}">Points de vente</a>
-                                </li> 
-                             <li class="nav-item dropdown">
-                                    <a class="nav-link  py-3 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"   aria-expanded="false">
-                                    {% if app.user %}
-                                          {{ app.user.prenom ~" "~ app.user.nom }}</a>
-                                    {% else %}
-                                        <i class="far fa-user"></i> </a>
-                                    {% endif %}
-                                    <ul class="dropdown-menu " aria-labelledby="navbarDropdown">
-                                     
-                                        
-                                      
-                                        {% if is_granted('ROLE_USER') %}
-                                          
-                                            <li class="nav-item"><a class="nav-link" href="{{ path("profil") }}">Profil</a></li>
-                                           
-                                            <li class="nav-item"><a class="nav-link" href="{{ path("deconnexion") }}">Deconnexion</a></li>
-                                         {% else %}
-                                         <li class="nav-item"><a class="nav-link" href="{{ path("connexion") }}">Connexion</a></li>
-                                          <li><hr class="dropdown-divider"></li>
-                                         <li class="nav-item"><a class="nav-link" href = "{{ path('inscription') }}">Inscription</a></li>
-                                         {% endif %}
-                                       
-                                       
-                                        
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link py-3 "  href="{{ path('panier')}}"><i class="fas fa-shopping-cart">
-                                    <i id="cart_items" class="badge"></i>
-                                    </i></a>
-                                </li>
+				"showIcon": true,
+				/* Show cookie icon to manage cookies */
+				//"iconSrc": "", /* Optionnal: URL or base64 encoded image */
+				"iconPosition": "BottomRight",
+				/* BottomRight, BottomLeft, TopRight and TopLeft */
+
+				"adblocker": false,
+				/* Show a Warning if an adblocker is detected */
+
+				"DenyAllCta": true,
+				/* Show the deny all button */
+				"AcceptAllCta": true,
+				/* Show the accept all button when highPrivacy on */
+				"highPrivacy": true,
+				/* HIGHLY RECOMMANDED Disable auto consent */
+
+				"handleBrowserDNTRequest": false,
+				/* If Do Not Track == 1, disallow all */
+
+				"removeCredit": true,
+				/* Remove credit link */
+				"moreInfoLink": true,
+				/* Show more info link */
+
+				"useExternalCss": false,
+				/* If false, the tarteaucitron.css file will be loaded */
+				"useExternalJs": false,
+				/* If false, the tarteaucitron.js file will be loaded */
+
+				//"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
+
+				"showIcon": false,
+				/* Change the default readmore link */
+				"readmoreLink": "",
+				/* Change the default readmore link */
+
+				"mandatory": true,
+				/* Show a message about mandatory cookies */
+			});
+		</script>
+		<script type="text/javascript">
+			tarteaucitron.user.gtagUa = 'G-9WDQGQT5LF';
+			// tarteaucitron.user.gtagCrossdomain = ['example.com', 'example2.com'];
+			tarteaucitron.user.gtagMore = function() { /* add here your optionnal gtag() */ };
+			(tarteaucitron.job = tarteaucitron.job || []).push('gtag');
+			(tarteaucitron.job = tarteaucitron.job || []).push('analytics');
+			(tarteaucitron.job = tarteaucitron.job || []).push('instagram');
+			(tarteaucitron.job = tarteaucitron.job || []).push('facebook');
+			(tarteaucitron.job = tarteaucitron.job || []).push('twitter');
+			(tarteaucitron.job = tarteaucitron.job || []).push('pinterest');
+		</script>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="{{ asset('css/tarteaucitron.css') }}">
+		<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+		
 
 
-                            </div>
-                        </ul>
+		<link rel="icon" href="{{ asset('img/icones/favicon_odhune.svg') }}"/>
+		<link rel="apple-touch-icon" href="{{ asset('img/icones/favicon_odhune_appletouch.svg') }}"/> {% block stylesheets %}{% endblock %}
 
-                    </div>
-                </div>
-            </nav>
-    
+	</head>
 
-            <div class="col-12 mx-auto content">
+	<body>
+		<nav class="navbarLg navbar navbar-expand-lg sticky-top navbar-light d-none d-lg-block">
+			<div class="container-fluid">
 
-                {% block content %}{% endblock %}
-                {% set nb_item = app.session.get('panier_item') %}
-            </div>
-        </div>
-    </body>
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/c6d0a84024.js" crossorigin="anonymous"></script>
-    <script>
-    if (document.querySelector('#cart_items').innerHTML == "") {document.querySelector('#cart_items').setAttribute('visibility',"hidden")}
-    </script>
-    <script>
-    let nbCartItems = {{ nb_item }}
-    if (nbCartItems>0){document.querySelector('#cart_items').innerHTML=nbCartItems}
-    else{
-        document.querySelector('#cart_items').innerHTML=""
-        document.querySelector('#cart_items').setAttribute('visibility',"hidden")
-        }
-    </script>
-    {% block javascripts %}
+						<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+						</button>
+				<div class="collapse navbar-collapse" id="navbarNavDropdown">
+						<ul class="navbar-nav col-12">
+							<div class="col-4 d-flex">
+								<li class=" col-6 nav-item dropdown mx-3">
+									<a class="nav-link" href="#" id="navbarDropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">PRODUITS</a>
+										<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+											<li class="nav-item">
+												<a <a class="dropdown-item" href="{{ path('catalogue') }}">TOUS</a>
+											</li>   
+											<li class="nav-item">
+												<a <a class="dropdown-item" href="{{ path('optique') }}">OPTIQUES</a>
+											</li>       
+											<li class="nav-item">
+												<a <a class="dropdown-item"  href="{{ path('solaire') }}">SOLAIRES</a>
+											</li>
+											<li class="nav-item">
+												<a class="dropdown-item"  href="{{ path('capsule') }}">CAPSULES</a>
+											</li>
+										</ul>
+								</li>
+								<li class=" col-6 nav-item dropdown ">
+									<a class="nav-link " href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">A PROPOS</a>
+									<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+										<li class="nav-item">
+											<a <a class="dropdown-item" href="{{ path('nous') }}">NOUS</a>
+										</li>       
+										<li class="nav-item">
+											<a <a class="dropdown-item" href="{{ path('magasin') }}">POINTS DE VENTE</a>
+										</li>
+									</ul>
+								</li>
+							</div>
+							<div class="col-4 ">
+								<li class="navbar-brand  d-none d-lg-flex  justify-content-center">
+									<a href="{{ path('accueil') }}">
+										<img src="{{ asset('img/icones/ODHUNE-LOGO-NOIR.svg') }}" alt="logo" style='width:150px'>
+									</a>
+								</li>
+							</div>
+							<div class="col-4 d-flex justify-content-end">
+								<li class="nav-item dropdown">
+									<a class="nav-link  px-3" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown"   aria-expanded="false">
+									{% if app.user %}
+										MON COMPTE</a>
+									{% else %}
+										<i class="far fa-user"></i>
+									</a>
+									{% endif %}
+									<ul class="dropdown-menu " aria-labelledby="navbarDropdown">
+									
+										{% if is_granted('ROLE_USER') %}
+										
+											<li><a class="dropdown-item" href="{{ path("profil") }}">PROFIL</a></li>
+											<li><a class="dropdown-item" href="{{ path("deconnexion") }}">DECONNEXION</a></li>
+											<li><hr class="dropdown-divider"></li>
+											<li ><a class="dropdown-item" href="{{ path("live") }}">WATCH LIVE</a></li>
+										
+										{% else %}
+										<li><a class="dropdown-item" href="{{ path("connexion") }}">CONNEXION</a></li>
+										<li ><a class="dropdown-item" href = "{{ path('inscription') }}">INSCRIPTION</a></li>
+										{% endif %}
+										{% if is_granted('ROLE_REV') %}
+										<li><hr class="dropdown-divider"></li>
+										<li ><a class="dropdown-item" href="#"> Espace pro</a></li>
+											{% endif %}
 
-    
-    
-    {% endblock %}
-   
+										{% if is_granted('ROLE_ADMIN') %}
+										<li><hr class="dropdown-divider"></li>
+										<li ><a class="dropdown-item" href="{{ path('presentation_afficher') }}"> 'Nous'</a></li>
+
+										<li ><a class="dropdown-item" href="{{ path('accueil_afficher') }}">Accueil</a></li>
+
+										<li ><a class="dropdown-item" href="{{ path('produit_afficher') }}">Gérer les produits</a></li>
+										<li ><a class="dropdown-item" href="{{ path('produit_ajouter') }}">Ajouter produit</a></li>
+										<li ><a class="dropdown-item" href="{{ path('user_afficher') }}">Gérer les utilisateurs</a></li>
+										<li ><a class="dropdown-item" href="{{ path('back_office') }}">Backoffice</a></li>
+										<li ><a class="dropdown-item" href="{{ path('broadcast') }}">Broadcast</a></li>
+										{% endif %}
+										
+									</ul>
+
+								</li>
+			
+								<a class="panier nav-link mx-3"  href="{{ path('panier')}}"> 
+									<img src="{{ asset('img/icones/shopping-bag.png') }}" alt="logo" style='width:16px'>
+								 <span class="badge cart-items-lg"></span>
+								</a>
+							
+							</div>
+	
+						</ul>
+						
+						
+		
+				</div>
+			</div>
+		</nav>
+		<nav class="navbarMd navbar sticky-top  d-lg-none navbar-light ">
+			<div class="container-fluid">
+				<a class="panier nav-link"  style='margin-top:-20px'  href="{{ path('panier')}}"> 
+					<img src="{{ asset('img/icones/shopping-bag.png') }}" alt="logo" style='width:24px'>
+									 <span class="badge cart-items-md"></span>
+				</a>
+			
+				<a class="navbar-brand" href="{{ path('accueil') }}">
+				<img src="{{ asset('img/icones/ODHUNE-TXT-NOIR.svg') }}" alt="logo" style='width:150px'>
+				</a>
+					
+				<button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+				<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+				<div class="offcanvas-header">
+					<h5 class="offcanvas-title" id="offcanvasNavbarLabel">ODHUNE</h5>
+					<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+				</div>
+				<div class="offcanvas-body">
+					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+									<li class="nav-item">
+										<a class="dropdown-item" href="{{ path('catalogue') }}">PRODUITS</a>
+									</li>   
+									<li class="nav-item">
+										<a <a class="dropdown-item" href="{{ path('optique') }}">OPTIQUES</a>
+									</li>       
+									<li class="nav-item">
+										<a <a class="dropdown-item"  href="{{ path('solaire') }}">SOLAIRES</a>
+									</li>
+									<li class="nav-item">
+										<a class="dropdown-item"  href="{{ path('capsule') }}">CAPSULES</a>
+									</li>
+									<li><hr class="dropdown-divider"></li>
+
+									<li class="nav-item">
+									<a <a class="dropdown-item" href="{{ path('nous') }}">NOUS</a>
+								</li>       
+								<li class="nav-item">
+									<a <a class="dropdown-item" href="{{ path('magasin') }}">POINTS DE VENTE</a>
+								</li>
+								<li><hr class="dropdown-divider"></li>
+									{% if is_granted('ROLE_USER') %}
+										
+											<li><a class="dropdown-item" href="{{ path("profil") }}">PROFIL</a></li>
+											<li><a class="dropdown-item" href="{{ path("deconnexion") }}">DECONNEXION</a></li>
+											<li><hr class="dropdown-divider"></li>
+											<li ><a class="dropdown-item" href="{{ path("live") }}">WATCH LIVE</a></li>
+										
+										{% else %}
+										<li><a class="dropdown-item" href="{{ path("connexion") }}">CONNEXION</a></li>
+										<li ><a class="dropdown-item" href = "{{ path('inscription') }}">INSCRIPTION</a></li>
+										{% endif %}
+										{% if is_granted('ROLE_REV') %}
+										<li><hr class="dropdown-divider"></li>
+										<li ><a class="dropdown-item" href="#"> ESPACE PRO</a></li>
+
+										{% endif %}
+										{% if is_granted('ROLE_ADMIN') %}
+										<li><hr class="dropdown-divider"></li>
+										<li ><a class="dropdown-item" href="{{ path('presentation_afficher') }}"> 'Nous'</a></li>
+
+										<li ><a class="dropdown-item" href="{{ path('accueil_afficher') }}">Accueil</a></li>
+
+										<li ><a class="dropdown-item" href="{{ path('produit_afficher') }}">Gérer les produits</a></li>
+										<li ><a class="dropdown-item" href="{{ path('produit_ajouter') }}">Ajouter produit</a></li>
+										<li ><a class="dropdown-item" href="{{ path('user_afficher') }}">Gérer les utilisateurs</a></li>
+										<li ><a class="dropdown-item" href="{{ path('back_office') }}">Backoffice</a></li>
+										<li ><a class="dropdown-item" href="{{ path('broadcast') }}">Broadcast</a></li>
+										{% endif %}
+										<li><hr class="dropdown-divider"></li>
+										<li><a class="dropdown-item" href="mailto:contact@odhune.com">contact@odhune.com</a></li>
+										
+					</ul>
+				</div>
+				</div>
+			</div>
+		</nav>
+		
+	
+				{% block content %}{% endblock %}
+				</div>
+			<footer class="footer_container col-12 d-flex flex-lg-row  flex-column">
+				
+							<div class="contact col-lg-5  col-12 d-flex flex-lg-row flex-column ">
+								<div class="mail col-lg-6 col-12  d-flex flex-md-column  flex-lg-column flex-row justify-content-center mb-2">
+										<p class="d-none d-lg-block">Une question? un mot doux?</p>
+										<br>
+										<a href="mailto:contact@odhune.com">contact@odhune.com</a>
+										<br>
+								</div>
+									<div class="reseaux col-lg-6 col-12 d-flex  flex-lg-column flex-row justify-content-center mb-2"> 
+									<p class="d-none d-lg-block  mb-2">NOUS SUIVRE</p>
+									
+										<a class="mx-2 mx-lg-auto" href="https://www.facebook.com/Odhunelunettes"  target="_blank">Facebook</i>
+										</a>
+										<a class="mx-2  mx-lg-auto"  href="https://www.instagram.com/odhune/?hl=fr" target="_blank">Instagram</i>
+										</a>
+										<a  class="mx-2  mx-lg-auto " href="https://twitter.com/ODHUNE_"  target="_blank">Twitter</i>
+										</a>
+										<a  class="mx-2 mx-lg-auto" href="https://www.pinterest.fr/Odhune_/"  target="_blank">Pinterest</i>
+										</a>
+						
+								</div>
+							</div>
+
+							<div class="rigp col-lg-2  col-md-6 col-12 mx-auto  " >
+								<a  href="{{ path('accueil') }}">
+								<img class="logo-footer d-block mx-auto" src="{{ asset('img/icones/ODHUNE-LOGO-NOIR.svg') }}" alt=""></a>
+								<a href="{{ path('pdc') }}">mentions légales + CGV</a>
+								<p>&#169 Odhune</p> 
+							</div>
+
+							<div class="liens col-lg-5 md-5 col-12 d-none d-lg-flex  flex-lg-row flex-md-row flex-column">
+								<div class="produits col-6">
+									<p class="mb-2" >PRODUITS</p>
+								
+										<a href="{{ path('optique') }}">Optiques</a>
+										<a  href="{{ path('solaire') }}">Solaires</a>
+										<a  href="{{ path('capsule') }}">Capsules</a>
+									
+								</div>
+								<div class="apropos col-6">
+									<p class="mb-2">A PROPOS</p>
+									
+										<a  href="{{ path('nous') }}">Nous</a>
+										<a  href="{{ path('magasin') }}">Point de vente</a>
+									
+						
+								</div>
+							
+						
+
+				
+
+			</footer>
+			
+				{% set nb_item = app.session.get('panier_item') %}
+			</div>
+		</body>
+	</html>
+</div>
+
+</body>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/c6d0a84024.js" crossorigin="anonymous"></script>
+
+
+<script>
+
+ window.onscroll = 
+  function (evt) {
+	  element =document.querySelector('.bg-transparent')
+	  element.style.backgroundColor ='#FFFB'
+  
+  };
+
+</script>
+<script>// display  CartItems
+if (document.querySelector('.cart-items-lg').innerHTML == "") {
+document.querySelector('.cart-items-md').setAttribute('visibility', "hidden")
+}
+if (document.querySelector('.cart-items-md').innerHTML == "") {
+document.querySelector('.cart-items-md').setAttribute('visibility', "hidden")
+}
+</script>
+
+<script>
+if (({{ nb_item }})) {
+	let nbCartItems = {{ nb_item }}
+	if (nbCartItems > 0) {
+document.querySelector('.cart-items-lg').innerHTML = nbCartItems
+document.querySelector('.cart-items-md').innerHTML = nbCartItems
+} else {
+document.querySelector('.cart-items-lg').innerHTML = ""
+document.querySelector('.cart-items-md').innerHTML = ""
+document.querySelector('.cart-items-lg').setAttribute('visibility', "hidden")
+document.querySelector('.cart-items-md').setAttribute('visibility', "hidden")
+}
+}
+</script>
+<script>
+
+ window.onscroll = function()
+   {
+	   	elementLg = document.querySelector('.navbarLg')
+		elementMd = document.querySelector('.navbarMd')
+	   	let position =window.scrollY
+	   	if (position > 107) {
+		   elementLg.style.backgroundColor = '#FFFA'	 
+	   }
+	   else {
+		    elementLg.style.backgroundColor = 'transparent'		
+	   }
+	   	if (position > 71) {
+		   elementMd.style.backgroundColor = '#FFFA'	 
+	   }
+	   else {
+		    elementMd.style.backgroundColor = 'transparent'		
+	   }
+   }
+
+
+
+
+</script>
+
+
+
+{% block javascripts %}
+
+
+
+{% endblock %}
+
 </html>

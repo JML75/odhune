@@ -1,0 +1,22 @@
+h1 {
+    position: absolute;
+     top: -1000px; 
+     left: -1000px;
+ }
+
+
+p {
+   color: #000;
+    font-weight: normal;
+}
+
+.magasin-nom {
+    color: #000;
+     margin-top :20px;
+     margin-bottom :20px;
+     font-weight: bold;
+ }
+
+
+
+

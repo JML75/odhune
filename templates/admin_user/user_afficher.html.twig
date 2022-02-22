@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Gestion {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/user_afficher.css') }}">
+{% endblock %}
+{% block content %}
+
+<div class="wrapper">
+
+      <a class="btn btn-dark" href="{{ path("produit_ajouter") }}">Ajouter un utilisateur</a>
+
+
+     {% if users %}
+
+
+        <table class="table table-hover table-striped text-center">
+            <thead class="bg-dark text-white">
+
+                <tr>
+                
+                    <th>ID</th>
+                    <th>Prenom</th>
+                    <th>Nom</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Modifier</th>
+                    <th>Supprimer</th>
+                
+                </tr>    
+            </thead>
+
+            <tbody>            
+                {% for user in users %}
+                    
+                    <tr class="align-middle">
+             
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.prenom }}</td>
+                        <td>{{ user.nom }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.roles[0]}}</td>
+                        <td class="align-middle">
+                            <a href="{{ path('user_modifier', {'id' : user.id } ) }}">
+                                <img src="{{ asset('img/icones/update.png') }}" alt="icone editer"  style="width:36px">
+                            </a>
+                        </td>
+
+                        <td class="align-middle">
+                            <a href="{{ path('user_supprimer', {'id' : user.id } ) }}" onclick="return confirm('Confirmez-vous la suppression de cet utilisateur ?')">
+                                <img src="{{ asset('img/icones/delete.png') }}" alt="icone effacer" style="width:24px">
+                        </td>  
+                    </tr>
+                {% endfor %}          
+            </tbody>              
+        </table>
+
+
+    {% else %}
+        
+        <h4 class="text-center text-danger mt-3 fst-italic">Il n'y a aucun utilisateur pour le moment</h4>
+
+    {% endif %}
+     
+
+
+
+</div>
+
+{% endblock %}
+{% block javascripts %}
+<script> 
+// mise  des prix au format currency
+    let list = document.querySelectorAll(".monnaie")
+    list.forEach(
+        function(currentValue){
+            let prix = currentValue.innerHTML
+            prix=  new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR' }).format(prix);
+            currentValue.innerHTML = prix
+        })
+
+</script>
+{% endblock %}

@@ -1,4 +1,15 @@
 user = JSON.parse(document.querySelector('#user2js').value)
+const colors = ['#888'];
+const $window = $(window);
+//attibution d'une couleur aléatoire
+user.color = colors [Math.trunc(Math.random() * (colors.length))]
+//récupération de l'élément input 
+const $inputMessage = document.querySelector('.inputMessage');
+
+ // nettoyage d'un input 
+ const cleanInput = (input) => {
+  input.value="";
+}
 
 const peerConnections = {};
 const config = {
@@ -85,17 +96,64 @@ document.querySelector('#startrec').addEventListener('click' , function(e){
         delete peerConnections[id];
       });
 
-      socket.on ("message", text => {
-        const el =document.createElement('li')
-        el.innerHTML = text
-        document.querySelector('.chat_ul').prepend(el)
+      socket.on ("message", message => {
+        const elt_contain =document.createElement('div')
+        const elt_text =document.createElement('div')
+        const elt_user =document.createElement('div')
+  
+        elt_contain.setAttribute ('class', 'gauche')
+        elt_text.setAttribute ('class', 'text')
+        elt_user.setAttribute ('class', 'nom')
+        if (message.user.user_id  !== user.user_id){
+          elt_contain.removeAttribute ('class', 'gauche')
+          elt_contain.setAttribute ('class', 'droite')
+        }
+        elt_text.style.color= message.user.color
+        elt_user.style.color= message.user.color
+        elt_text.style.backgroundColor= message.user.color+'33'
+        elt_text.innerHTML = message.text
+        elt_user.innerHTML = message.user.prenom
+        elt_contain.prepend(elt_text)
+        elt_contain.prepend(elt_user)
+        document.querySelector('.messages').prepend (elt_contain)
+        
     });
     
-      document.querySelector ('#envoi').onclick = ()=>{
-        const text = user.prenom + "  ->  " + document.querySelector('#input_message').value
-        console.log(document.querySelector('#input_message').value)
-        socket.emit ('message', text)
-    };
+     
+  // si on click sur envoi
+    document.querySelector ('#envoi').onclick = ()=>{     
+      let input = document.querySelector('.inputMessage')
+      let text= input.value
+      if (text !==""){
+        let message = {
+          text : text,
+          user: user
+       }
+         cleanInput(input)
+          socket.emit ('message', message)
+      }
+   };
+   // Keyboard events 
+
+ $window.keydown(event => {
+  // Auto-focus the current input when a key is typed
+  if (!(event.ctrlKey || event.metaKey || event.altKey)) {
+    $inputMessage.focus();
+  }
+  // When the client hits ENTER on their keyboard
+  if (event.which === 13) {
+    let input = document.querySelector('.inputMessage')
+    let text= input.value
+    if (text !==""){
+      let message = {
+        text : text,
+        user: user
+      }
+       cleanInput(input)
+        socket.emit ('message', message)
+      }
+    }
+});
 
       window.onunload = window.onbeforeunload = () => {
         socket.close();

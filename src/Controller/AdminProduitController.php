@@ -53,31 +53,35 @@ class AdminProduitController extends AbstractController
      */
     public function produit_ajouter(Request $request, EntityManagerInterface $manager): Response
     {
-        $produit = new Produit;
-        
+  
+        $produit= new Produit;
 
-        // gestion du retour de la DropZone photo
-        $dropZone_dir = $this->getParameter("photos_dropzone");
+
+        // gestion du retour de la DropZone photo on initilise les varibles
+        $dropZone_dir = $this->getParameter("photos_dropzone");// répertoire temporaire défini  dans service.yaml
         $remove = false;
+
+        //on traite la une eventuelle requête AJAX de suppression
+
         if(isset($_POST['remove'])){
             $remove = $_POST['remove'];
         }
        
-
+        // si la requête n'est pas un requête de suppression
         if ($remove == false) {
             if (isset($_FILES['file'])) {
 
             $photoFile = $_FILES ['file'];
             
-
             for ($i=0 ; $i<count($photoFile['name']); $i++){
                
                 $path  = $photoFile ['tmp_name'][$i];
                 $mimetype = $photoFile ['type'][$i];
                 $nomPhoto = $photoFile['name'][$i];
                 $photo = new UploadedFile($path,$nomPhoto,$mimetype);
+                // on crée un objet de type uploadedFile pour utiliser la méthode move
             
-                $photo->move($dropZone_dir, $nomPhoto);                                    
+                $photo->move($dropZone_dir, $nomPhoto); //on transfère le fichier dans le répertoire temporaire                                   
                 }
             }
         }
@@ -107,7 +111,6 @@ class AdminProduitController extends AbstractController
                
                 for ($i=2 ; $i<count($photoFile); $i++){
                     //les 2 premiers éléments du scandir ne sont pas les fichiers
-                    // $upload_dir = $this->getParameter("photos_dropzone");
                     $photo= new PhotoProduit;
                    
                    
@@ -134,7 +137,6 @@ class AdminProduitController extends AbstractController
                     $manager->flush();
                 }
             }
-            $this->addFlash("success" , "Le produit N° ".$produit->getId(). " a bien été ajouté");
             
           return $this->redirectToRoute('produit_afficher');
 
@@ -169,7 +171,6 @@ class AdminProduitController extends AbstractController
     $produitId = $produit->getId();
     $manager->remove($produit);
     $manager->flush() ;
-    $this->addFlash ("success", "Le  produit N° $produitId a bien été supprimé");
 
         return $this->redirectToRoute('produit_afficher');
     }
@@ -187,6 +188,7 @@ class AdminProduitController extends AbstractController
        $nbPhoto = count($photoProduit);
        $upload_dir=$this->getParameter("photos_produit");
        $dropZone_dir = $this->getParameter("photos_dropzone");
+       $result=[];
 
        foreach ($photoProduit as $photo) {
         $nomPhoto = $photo->getNom();
@@ -194,8 +196,8 @@ class AdminProduitController extends AbstractController
         $photoDropzone ['name']=$nomPhoto;
         $photoDropzone ['size']= $photosize;
         $result[]= $photoDropzone ;
-        $reloadPhoto = json_encode($result);
        };
+       $reloadPhoto = json_encode($result);
 
 
        $remove = false; 
@@ -203,7 +205,7 @@ class AdminProduitController extends AbstractController
        if(isset($_POST['remove'])){ // si la photo a été supprimée dans la dropZone
            $remove = $_POST['remove'];
        }
-      
+
 
        if ($remove == false) {
            if (isset($_FILES['file'])) {
@@ -240,7 +242,6 @@ class AdminProduitController extends AbstractController
         if($photoNew == true){ // si c'est une photo nouvelle dans la dropzone
             $filename = $dropZone_dir."/".$_POST['name'];
             unlink($filename);
-            var_dump($filename);
            
         }else {exit;}
             
@@ -287,8 +288,6 @@ class AdminProduitController extends AbstractController
                     $manager->flush();
                 }
             }
-            $this->addFlash("success" , "Le produit N° ".$produit->getNom(). " a bien été modifié");
-            
           return $this->redirectToRoute('produit_afficher');
 
        }
@@ -301,6 +300,26 @@ class AdminProduitController extends AbstractController
 
         ]);
     }
+    // Toggle showcase 
+
+     /**
+     * @Route("/admin/produit_showcase/{id}", name="produit_showcase")
+     */
+
+    public function produit_showcase(Produit $produit, EntityManagerInterface $manager, ProduitRepository $repoProduit): Response
+
+    { 
+          
+                    if ($produit->getShowcase()) {$produit->setShowcase(false);}
+
+                    else {$produit->setShowcase(true);}  
+
+                    $manager->persist($produit);
+                    $manager->flush() ;
+                   
+                   
+                return $this->redirectToRoute('produit_afficher');
+            }
 
 
 

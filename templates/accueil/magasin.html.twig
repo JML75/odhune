@@ -1,50 +1,52 @@
 {% extends "base.html.twig" %}
 {% block title %}{{ parent() }} | Profil{% endblock %}
-{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/profil.css') }}">{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/magasin.css') }}">{% endblock %}
 {% block h1 %}Profil{% endblock %}
 {% block content %}
 
 
 
-    <div class="wrapper">
-        <div class="col-12 d-flex main justify-content-start ">
-                    <div class="col-8">
-       
-                        <img id ="slideShow" class="d-block w-100" src="{{ asset('img/magasins/olga.png') }}"  alt="">
-                    
+        <div class="wrapper col-12 d-flex flex-lg-row flex-column ">
+                    <div class="col-lg-7 col-12">
+                            <img class="image d-block w-100" src="{{ asset('img/photoMagasin/marmotte.png') }}"  alt="">
                     </div>
                        
         
-                <div class="col-3 d-flex flex-column justify-content-center mx-auto mb-5">
 
-                <h2> BOIS GUILLAUME (FR</h2>
+                <div class="magasin-adresse col-lg-3 col-6 d-flex flex-column justify-content-center mx-auto mb-5 presentation">
 
-                   <p>Olga Opticiens</p>
-                   <p>17 Rte Darnétal 76230 Bois-Guillaume</p>
+                    
+                        <p class='magasin-nom'>Olga Opticiens</p>
+                        <p>17 Rte Darnétal</p>
+                        <p>76230 Bois-Guillaume</p>
+                    
 
                 </div>
 
         </div>
     
-    </div>
     <textarea name="" hidden id="photos" cols="30" rows="10">{{photos}}</textarea>
 {% endblock %}
 
 {% block javascripts %}
-<script>
+{# <script>
 
 var photos = JSON.parse(document.querySelector('#photos').innerHTML)
+let cheminPhoto =  "{{ asset('img/photoProduitUpload/') }}"
 
+document.querySelector('.image').setAttribute('src', cheminPhoto + photos[0])
 nbphotos = photos.length
-setInterval("photoShow()", 5000);
+if (nbphotos >1){
+    setInterval("photoShow()", 5000);
+}
+
 
 function photoShow(){
    
     let position = Math.trunc(Math.random()* (nbphotos))
     let nomPhoto = photos[position]
-    let cheminPhoto =  "{{ asset('img/photoProduitUpload/') }}"
-
-     document.getElementById('slideShow').setAttribute('src', cheminPhoto + nomPhoto)
+  
+     document.querySelector('.image').setAttribute('src', cheminPhoto + nomPhoto)
 
 
 
@@ -53,6 +55,6 @@ function photoShow(){
 
 
 
-</script>
+</script> #}
 
 {% endblock %}

@@ -1,0 +1,25 @@
+
+
+.wrapper {
+    background-color: #DDD;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        min-height: 1080px;
+        margin-top: -107px;
+       
+}
+
+table {
+    margin-top: 10px;
+}
+
+.btn {
+    margin-top: 200px;
+   ;
+}
+
+
+
+

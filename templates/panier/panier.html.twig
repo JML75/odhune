@@ -10,10 +10,12 @@
 {% endblock %}
 
 {% block content %}
-	<main class='col-8 mx-auto d-flex justify-content-between'>
+<div class="wrapper">
+	<main class='col-lg-8  col-12 mx-auto d-flex flex-lg-row flex-column justify-content-between'>
+			{% set sstotal = 0 %}
 
-		<div class="panier col-8 d-flex flex-column">
-			<div class="basket-module">
+		<div class="col-lg-8 col-12 d-flex flex-column">
+			<div class="module-promo">
 				<label for="promo-code">Saisir un code reduction</label>
 					<input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
 				<button class="btn ">Appliquer</button>
@@ -22,43 +24,43 @@
 			<div class="col-12 ">
 				<ul class="col-12 entete">
 					<li class="col-4">Description</li>
-					<li class="col-2 ">Prix</li>
-					<li class="col-2 ">Quantité</li>
-					<li class="col-2 ">Sous-total</li>
-					<li class="col-2 "></li>
+					<li class="col-2">Prix</li>
+					<li class="col-2">Qté</li>
+					<li class="col-2">Ss-total</li>
+					<li class="col-2"></li>
 				</ul>
 			</div>
 
 			<div class="col-12">
-				{% set sstotal = 0 %}
+			
 				{% for produit in panier %}
 					<div id ="{{ produit.id_produit }}" class="col-12 ligne_produit">
 						<a class="col-2 mx-0" href="{{ path('fiche_produit', {'id' : produit.produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~ produit.nomPhoto) }}" alt="" style="width:100%"></a>
 						<a class="col-2 description" href="{{ path('fiche_produit', {'id' : produit.produit.id}) }}">
-							<h6>
-								<strong>{{ produit.produit.getNom()}}</strong>
-							</h6>
+							<div class="nom-produit">{{ produit.produit.nom}}</div>
 							<div class="col-12">
-							<p>{{ produit.couleur }}</p>
-								{% if produit.couleur == "Noir" %}<div id="noir" class ="echantillon"></div>{% endif %}
-								{% if produit.couleur == "Cristal" %}<div id="cristal" class ="echantillon"></div>{% endif %}
-								{% if produit.couleur == "Ecaille" %}<div id="ecaille" class ="echantillon"></div>{% endif %}
+							<div class="nom-couleur">{{ produit.produit.couleur }}</div>
+								{% if produit.produit.couleur == "Noir" %}<div id="noir" class ="echantillon"></div>{% endif %}
+								{% if produit.produit.couleur == "Cristal" %}<div id="cristal" class ="echantillon"></div>{% endif %}
+								{% if produit.produit.couleur == "Ecaille" %}<div id="ecaille" class ="echantillon"></div>{% endif %}
 							</div>
-							<p>{{ produit.produit.getRef() }}</p>
+							<div  class="reference">{{ produit.produit.ref }}</div>
 						</a>
-						<div id = {{ "prix" ~ produit.id_produit }} class=" col-2 price text-align-center"> {{ produit.prix }}</div>
-						<div class=" col-2"><input type="number" value="{{ produit.quantite }}" min="1" class="quantity-field" onchange = "changeQuantity('{{ produit.id_produit }}', this.value )"></div>
+						<div id = {{ "prix" ~ produit.id_produit }} class="col-2 price text-align-center"> {{ produit.prix }}</div>
+
+						<div class="col-2"><input type="number" value="{{ produit.quantite }}" min="1" class="quantity-field" onchange = "changeQuantity('{{ produit.id_produit }}', this.value )"></div>
+
 						<div id = {{ "sstt" ~ produit.id_produit }} class=" col-2 subtotal"></div>
 						{% set sstotal = sstotal + produit.quantite  * produit.prix %}
 						<div class="col-2">
-							<button  class='supprimer' onclick = "suppProduit('{{ produit.id_produit }}')">supprimer</button>
+							<button  class='supprimer' onclick = "suppProduit('{{ produit.id_produit }}')">X</button>
 						</div>
 					</div>
 				{% endfor %}
 			</div>
 		</div>
 
-		<aside class="col-3">
+		<aside class="col-lg-3 col-12">
 			<div class="summary">
 				<div class="summary-total-items">
 					<span id = "nbItems" class="total-items"></span>dans votre panier</div>
@@ -86,22 +88,23 @@
 				</div >
 				<div class="summary-checkout d-flex flex-column">
                  	<a class="col-12 mx-auto btn mb-2" href = "{{ path('catalogue') }}">continuer vos achats</a>
-					<a class="col-12 mx-auto btn mb-2" href = "#">valider votre panier</a>
+					<a class="col-12 mx-auto btn mb-2" href ="{{ path('panier_valider') }}">valider votre panier</a>
 				</div>
 
                 
                 
 			</div>
             
-            <div>
-            </div>
            
 		</aside>
+
+	
 	</main>
+	</div>	
 
     <textarea name="" hidden  id="panier2js" cols="30" rows="10">{{ panierstr }}</textarea>
 
-	<div class="example-wrapper"></div>
+
 {% endblock %}
 
 {% block javascripts %}
@@ -197,10 +200,16 @@ function suppProduit(id_produit){
         nbItems()
         calculPanier()
 		let nbCartItems = panier.length
-    	if (nbCartItems>0){document.querySelector('#cart_items').innerHTML=nbCartItems}
+    	if (nbCartItems>0){
+			document.querySelector('.cart-items-lg').innerHTML=nbCartItems
+			document.querySelector('.cart-items-md').innerHTML=nbCartItems
+			}
     	else{
-        document.querySelector('#cart_items').innerHTML=""
-        document.querySelector('#cart_items').setAttribute('visibility',"hidden")
+		// cart-items-lg est le badge panier en mode lg , cart-items-md en mode responsive 
+        document.querySelector('.cart-items-lg').innerHTML=""
+        document.querySelector('.cart-items-lg').setAttribute('visibility',"hidden")
+		document.querySelector('.cart-items-md').innerHTML=""
+        document.querySelector('.cart-items-md').setAttribute('visibility',"hidden")
         }
 	
 

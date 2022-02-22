@@ -5,23 +5,50 @@ h1 {
  }
 
 
- .main {
-    background-color: white;
-    background-size: 100%;
-      height: 100%;
-      }
-
 .wrapper {
-    width:fit-content;
-    min-height: 690px;
-   
+    margin-top: -107.75px;
        
 } 
 
+
 p {
     color: #777;
-    margin-top :20px;
-    margin-bottom :20px;
+    margin :5px 0;
+    font-size: 14px;
+    font-weight: normal;
+}
+.adresse {
+    font-size: 10px;
+    text-align: left;
+}
+.table thead{
+    font-size:10px;
+    vertical-align: middle;
+}
+
+.btn {
+    font-size: 20px;
+    background-color: #F2E4DC;
+    border: none;
+    color: #777;
+
+}.btn:hover {
+    color: white;
+    background-color: #ceae9c;
+
+}
+.ajouter-adresse-btn {
+ 
+    font-size: 10px;
+    padding: 1px 10px;
+    background-color: #F2E4DC;
+    border: 1px solid #888;
+    color: #777;
+
+}
+.ajouter-adresse{
+    text-align:left;
+
 }
 
 

@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ parent() }} | Catalogue {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/catalogue.css') }}">
+{% endblock %}
+{% block h1 %}Catalogue produit{% endblock %}
+{% block content %}
+
+<div class="wrapper">
+
+
+    {% if produits %} 
+ 
+        <div class="row d-flex flex-wrap content ">
+
+            {% for produit in produits %}
+
+            {% if loop.index is odd %}
+
+                <div class="col-12 carte d-flex">
+                    <div class="col-6">
+                        <a class ='btn lienFicheProduit' href="{{ path('fiche_produit', {'id' : produit.id}) }}">
+                            <div class="mainImage">
+                                <img class ='photoProduit' src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> 
+                                <p class="nomProduitOdd mx-auto">{{ produit.nom|capitalize }}</p>
+                            </div>
+                            
+                        </a>
+                    </div>
+                    <div class="col-6 d-flex flex-column justify-content-around align-items-center">
+                        <div class="col-6">
+                            <a class ='col btn lienFicheProduit' href="{{ path('fiche_produit', {'id' : produit.id}) }}">
+                                    <img class ='photoProduit' src="{{ asset("img/photoProduitUpload/" ~  produit.photoProduits[3] ) }}" alt="image du produit" style="width:100%">
+
+            
+                                </a>
+                                </div>
+                                <div class="col-6">
+                                <a class ='btn lienFicheProduit' href="{{ path('fiche_produit', {'id' : produit.id}) }}">
+                                    <img class ='photoProduit' src="{{ asset("img/photoProduitUpload/" ~  produit.photoProduits[4]) }}" alt="image du produit" style="width:100%">
+
+                                </a>
+                        </div>
+                    </div>
+                
+                </div>
+
+            {% endif %}
+
+                {% if loop.index is even %}
+                <div class="col-12 carte d-flex">
+                    <div class="col-6 d-flex flex-column justify-content-around align-items-center">
+                        <div class="col-6">
+                            <a class ='col btn lienFicheProduit' href="{{ path('fiche_produit', {'id' : produit.id}) }}">
+                                    <img class ='photoProduit' src="{{ asset("img/photoProduitUpload/" ~  produit.photoProduits[3] ) }}" alt="image du produit" style="width:100%">
+                                    
+                                </a>
+                                </div>
+                                <div class="col-6">
+                                <a class ='btn lienFicheProduit' href="{{ path('fiche_produit', {'id' : produit.id}) }}">
+                                    <img class ='photoProduit' src="{{ asset("img/photoProduitUpload/" ~  produit.photoProduits[4]) }}" alt="image du produit" style="width:100%">
+                                    
+                                </a>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <a class ='btn lienFicheProduit' href="{{ path('fiche_produit', {'id' : produit.id}) }}">
+                            <div class="mainImage">
+                                <img class ='photoProduit' src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> 
+                                <p class="nomProduitEven mx-auto">{{ produit.nom|capitalize }}</p>
+                            </div>
+                
+
+                            
+                        </a>
+                    </div>
+                    
+                
+                </div>
+
+                    {% endif %}
+                
+            {% endfor %}
+
+        
+
+
+        </div>
+
+    {% else %} {# si le tableau produits est vide #}
+        <div class="col-12 d-flex w-100 mt-5 pt-5 mx-auto" style="width:100%">
+            <h2 class=" col-6 text-center text-danger mt-3 fst-italic mx-auto pt-5 mt-5 ">Il n'y a aucun produit pour le moment</h2>
+            </div>        
+        </div>
+    {% endif %}
+  
+
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin accueil{% endblock %}
+{% block stylesheets %} <link rel="stylesheet" href="{{  asset('css/admin_accueil.css')  }}">{% endblock %}
+
+{% block content %}
+
+<div class="wrapper">
+  
+        <a class="btn btn-dark mx-auto"  href="{{ path("accueil_ajouter") }}">Ajouter une photo/video d'accueil</a>
+
+        {% if accueils %}
+
+            <table class="table table-hover table-striped text-center my-2">
+                <thead class="bg-dark text-white">
+                    <tr>       
+                        <th>titre</th>
+                        <th>Photo</th>
+                        <th>active</th>
+                        <th>Modifier</th>
+                        <th>Supprimer</th>
+                    
+                    </tr>    
+                </thead>
+
+                <tbody>            
+                    {% for accueil in accueils %}
+                        
+                        <tr class="align-middle">
+                            <td class="align-middle">{{ accueil.titre }}</td>
+                            <td>
+                            {% if accueil.video %}
+
+                            <video src="{{ asset("img/accueil/" ~ accueil.getNomPhotoVideo() ) }}" autoplay muted loop  type="video/mp4" alt="video accueil" style="width:100px">
+
+                                
+                            {% else %}
+                            <img src="{{ asset("img/accueil/" ~  accueil.getNomPhotoVideo() ) }}" alt="image accueil" style="width:100px"> 
+                                
+                            {% endif %}
+                        
+                            
+                            </td>
+                            {% if accueil.active == 1 %}
+                                <td>
+
+                                <a href=" {{path('accueil_active' , {'id': accueil.id} ) }}">
+                                    <img src="{{ asset('img/icones/button-green.png') }}" alt="icone positif"  style="width:24px"alt="image du produit" >
+                                </a>
+                                </td>
+                                
+                            {% else %}
+                                <td>
+                                <a href=" {{path('accueil_active' , {'id': accueil.id} ) }}">
+                                    <img src="{{ asset('img/icones/button-red.png') }}" alt="icone negatif"  style="width:24px"alt="image du produit" > 
+                                    </a>
+                                </td>
+                                
+                            {% endif %}
+                            <td class="align-middle">
+                                <a href="">
+                                    <img src="{{ asset('img/icones/update.png') }}" alt="icone editer"  style="width:36px">
+                                </a>
+                            </td>
+
+                            <td class="align-middle">
+                                <a href=" {{path('accueil_supprimer' , {'id': accueil.id} ) }} , " onclick="return confirm('Confirmez-vous la suppression de cette accueil ?')">
+                                    <img src="{{ asset('img/icones/delete.png') }}" alt="icone effacer" style="width:24px">
+                            </td>  
+                        </tr>
+                    {% endfor %}          
+                </tbody>              
+            </table>
+
+
+        {% else %}
+            
+            <h4 class="text-center text-danger mt-3 fst-italic">Il n'y a aucune presentation pour le moment</h4>
+
+        {% endif %}
+        
+</div>
+
+{% endblock %}
+{% block javascripts %}{% endblock %}

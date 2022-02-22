@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Repository\AccueilRepository;
 use App\Repository\ProduitRepository;
+use App\Repository\PhotoLifeRepository;
 use App\Repository\PhotoProduitRepository;
+use App\Repository\PresentationRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,7 +16,7 @@ class AccueilController extends AbstractController
     /**
      * @Route("/odhune", name="accueil")
      */
-    public function accueil(ProduitRepository $repoProduit) :Response
+    public function accueil(ProduitRepository $repoProduit, AccueilRepository $repoAccueil) :Response
     {
 
         $produitsArray = $repoProduit->findAll();
@@ -25,9 +28,32 @@ class AccueilController extends AbstractController
             }
         }
 
-        return $this->render('accueil/accueil.html.twig', [
+        $filesAccueil= $repoAccueil->findAll();
+        $activeFile = [];
+        foreach ( $filesAccueil as $file){
+            $active =$file->getActive();
+            if ($active) {
+               $activeFile[] = $file;
+            }
+        }
+        if (count( $activeFile) !== 0 ) {
 
-            "produitsShowcase" => $produitShowcase
+            $file = $activeFile[0];
+        
+            $nomFile= $file->getNomPhotoVideo();
+            $typeFile= $file->getVideo();
+
+        }else { 
+            $file = $filesAccueil[0];
+            $nomFile= $file->getNomPhotoVideo();
+            $typeFile= $file->getVideo();
+        }
+
+
+        return $this->render('accueil/accueil.html.twig', [
+            "produitsShowcase" => $produitShowcase,
+            "file"=>$nomFile,
+            "type"=>$typeFile
 
         ]);
     }
@@ -36,20 +62,26 @@ class AccueilController extends AbstractController
      /**
      * @Route("/nous", name="nous")
      */
-    public function nous (PhotoProduitRepository $repophoto) :Response
+    public function nous (PhotoLifeRepository $repophoto, PresentationRepository $repopresentation) :Response
     {
+        $presentationActives =$repopresentation->findBy(array('active'=> true));
 
-        // on créé un tableau avec les photos pour animer la page
-        $photos=$repophoto->findAll();
-        $nomphotos = [];
-        foreach ( $photos as $photo) {
-            $nomPhotos []=$photo->getNom();
+
+        // si aucune présentation n'est active on prend la première
+        if (count($presentationActives) == 0) {
+            $presentationArray= $repopresentation->findAll();
+            $presentationActives=$presentationArray [0];
         }
-        $nomPhotos_str = json_encode($nomPhotos) ;
+
+        // $photos =  $presentationActive->getPhotoLives();
+        // $nomphotos = [];
+        // foreach ( $photos as $photo) {
+        //     $nomPhotos []=$photo->getNom();
+        // }
+        // $nomPhotos_str = json_encode($nomPhotos) ;
 
         return $this->render('accueil/nous.html.twig', [
-
-            'photos'=>$nomPhotos_str
+            'presentationActives'=>$presentationActives,
 
         ]);
     }

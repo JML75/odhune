@@ -10,7 +10,7 @@
 
 	<div class="wrapper">
 
-		<div class="col-md-12 d-flex flex-sm-column flex-md-column flex-lg-row flex-sm-wrap justify-content-around align-items-center my-5 pt-5">
+		<div class=" content col-md-12 d-flex flex-sm-column flex-md-column flex-lg-row flex-sm-wrap justify-content-around align-items-center my-5 pt-5">
               {# ----------  section dropzone #}
                     <div id="listPhoto" class="col-md-12 col-lg-6 mx-auto my-auto">
                         <form action="{{ path('produit_ajouter') }}" class="dropzone" id="dropzonewidget" type = "file" multiple ="multiple">
@@ -26,26 +26,32 @@
 			<div class="col-lg-5 col-md-10 col-sm-10 mx-auto">
 				{{ form_start(formProduit) }}
                     <div class="row">
-                        <div class="col-12 text-white">{{ form_row(formProduit.nom) }}</div>
-                        <div class="text-white align-item-center">{{ form_row(formProduit.showcase) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.nom) }}</div>
+                        <div class="col-md-6 text-white align-item-center my-auto">
+                        
+                        {{ form_label(formProduit.showcase) }}  {{ form_widget(formProduit.showcase) }}</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6 text-white ">{{ form_row(formProduit.ref) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.ref) }}</div>
                         <div class="col-md-6 text-white">{{ form_row(formProduit.categorie) }}</div>
-                        <div class="col-md-6 text-white">{{ form_row(formProduit.forme) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.matiere) }}</div>
                         <div class="col-md-6 text-white">{{ form_row(formProduit.couleur) }}</div>
                         <div class="col-md-6 text-white">{{ form_row(formProduit.taille) }}</div>
                         <div class="col-md-6 text-white">{{ form_row(formProduit.motif) }}</div>
                         <div class="col-md-6 text-white  text-nowrap" >{{ form_row(formProduit.prix_rev_ht) }}</div>
                         <div class="col-md-6 text-white text-nowrap">{{ form_row(formProduit.prix_pub_ttc) }}</div>
 					</div>
-                     <div class="col-md-12 text-white">{{ form_row(formProduit.description) }}</div>
+                     <div class="col-md-12 text-white text-area-group">{{ form_row(formProduit.description) }}</div>
+
+                      <div class="col-md-12 text-white text-area-group">{{ form_row(formProduit.entretien) }}</div>
+                       <div class="col-lg-12 col-md-12  col-sm-12 mx-auto px-2">
+                        <input type="submit" value="Modifier" class="col-lg-12 col-md-12  col-sm-12 mx-auto btn btn-sm my-2">
+                    </div>
+
                     
                     
 			</div>
-            <div class="col-lg-10 col-md-10  col-sm-10 mx-auto">
-                        <input type="submit" value="Modifier" class="col-lg-12 col-md-12  col-sm-12 mx-auto btn my-5">
-                    </div>
+            
                   {{ form_end(formProduit) }}
 				 
 				
@@ -79,13 +85,11 @@ Dropzone.options.dropzonewidget = {
             var thisDropzone = this;
            
             $.each(reloadPhoto, function(key,value){ 
-
+                // on créé un un ’
                 var mockFile = { name: value.name, size: value.size };  
 
                 thisDropzone.options.addedfile.call(thisDropzone, mockFile);
-
                 thisDropzone.options.thumbnail.call(thisDropzone, mockFile, assetDir+value.name);
-
                 thisDropzone.emit("complete", mockFile);
             });
         };          

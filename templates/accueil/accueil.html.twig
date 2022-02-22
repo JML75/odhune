@@ -4,26 +4,20 @@
 {% block stylesheets %} <link rel="stylesheet" href="{{  asset('css/accueil.css')  }}">{% endblock %}
 
 {% block content %}
-{# <img id="background_image">
-
-<source src="{{ asset ('img/background/Paul-Jeanne-NB.jpeg') }}">
-
-</img> #}
 
 
 <h1>créateur lunette original artisan France </h1>
-    <div class="wrapper">
-        <div class="titre pt-5">O D H U N E</div>
-        <div class="separator"></div>
-        <h3> CRÉATEUR ARTISAN LUNETIER </h3>
-        <div class="icon-wrapper">
-                <a class="networks_icon lienInstagram" href="https://www.instagram.com/odhune/?hl=fr" target="_blank">
-                <i class="fab fa-instagram fa-3x text-white"></i>
-                </a>
-            </div>
+    <div class="wrapper col-12">
+    <video class="background d-none video"  src ="" autoplay loop muted type="video/mp4"></video>
+
+    <img class ='background image d-none ' src="" alt="">
+
+
     </div>
+<div class="groupe">
+
     <div class="box_slogan col-12 d-flex">
-        <p class="slogan mx-auto">DES LUNETTES FABRIQUEES PAR DES PASSIONNÉS POUR DES PASSIONNÉS</p>
+        <div class="slogan mx-auto">DES LUNETTES OPTIQUES ET SOLAIRES FABRIQUÉES PAR DES PASSIONNÉS POUR DES PASSIONNÉS - CRÉATION ARTISANALE À LA MAIN EN NORMANDIE</div>
     </div>
 
     <div class="focusProduit">
@@ -36,17 +30,17 @@
 
                     {% if nbShowcase % 2 %}
 
-                        <div class="col-12 d-flex showcaseImpair">
+                        <div class="col-12 d-flex flex-md-row flex-column showcaseImpair mx-auto mt-md-0 mt-3">
 
-                                    <div class="col-6 photo"> <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> </a></div>
-                                   <div class="nomProduit">
-                                          <div class="focus">Optique</div>
-                                        <br>
-                                        <p>{{ produit.nom|upper }}</p>
-                                        <br>
-                                        <p>{{ produit.description}}</p>
-                                        <br>
-                                        <a class =" btn btn-light "href="{{ path('optique') }}">Collection complète</a>
+                                    <div class="col-md-4 col-12 photo mx-auto mt-md-3 mt-0"> <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> </a></div>
+
+                                   <div class="Produit col-md-6 col-12 d-flex flex-column justify-content-center align-items-center mx-auto px-2">
+                                        {# <p class= "nomProduit mb-1">{{ produit.nom|upper }}</p> #}
+                                        <p class= "description">{{ produit.description}}</p>
+                                        <div class="col-12 my-3  mx-3 d-flex align-items-center">
+                                       <div class="trait col-sm-8 col-6"></div>
+                                            <a class =" col-sm-4 col-6 btn text-end " href="{{ path(produit.categorie|lower) }}">COLLECTION {{produit.categorie|upper}}</a>
+                                        </div>
                                    </div>
                                    
                         </div>
@@ -54,20 +48,23 @@
                      {% else %}
                       
 
-                        <div class=" col-12  align-items-center showcasePair">
-                                 <div class="nomProduit">
-                                    <div class="focus">Solaire</div>
-                                    <br>
-                                    <p>{{ produit.nom|upper }}</p>
-                                    <br>
-                                    <p>{{ produit.description}}</p>
-                                    <br>
-                                    <a class =" btn btn-light "href="{{ path('solaire') }}">Collection complète</a>
+                        <div class=" col-12  d-flex flex-md-row flex-column showcasePair mx-auto  mt-md-0 mt-3">
+
+
+                                <div class="Produit col-md-6 col-12 d-flex flex-column justify-content-center align-items-center  order-md-1 order-2 mx-auto px-2 mt-md-0 mt-3">
+                                    <p class= "description">{{ produit.description}}</p>
+                                    <div class="col-12 my-3 d-flex flex-row  justify-content-between align-items-center">
+                                             <a class =" col-sm-4  col-6 btn text-start " href="{{ path(produit.categorie|lower) }}">COLLECTION {{produit.categorie|upper}}</a>
+                                             <div class="trait col-sm-8 col-6"></div>
+                                    </div>
+
+                                    
+                                   
 
                                  </div>
                                    
 
-                                 <div class="photo"> <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> </a></div>
+                                  <div class="col-md-4 col-12 photo order-md-2 order-1 mx-auto"> <a href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"> </a></div>
                             
                         </div>
                     {% endif %}
@@ -76,7 +73,61 @@
 
         {% endif %}
     
-    </div>
+        </div>
+ </div>
 
 
 {% endblock %}
+
+{% block javascripts %}
+
+<script>
+
+
+let homeBackground = function(){
+    let type = "{{type}}"
+    let file ="{{file}}"
+    let chemin = "{{asset('img/accueil/')}}"
+    elementVideo = document.querySelector('.video')
+    elementImage = document.querySelector('.image')
+
+    if (window.matchMedia("(min-width:992px)").matches) {
+    
+            if (type) { //si  c'est une video 
+            elementVideo.src = chemin+file
+            elementImage.classList.add('d-none')
+            elementVideo.classList.remove('d-none')
+
+            } 
+            else { //si c'est une image
+            elementVideo.classList.add('d-none')
+            elementImage.classList.remove('d-none')
+            elementImage.src = chemin+file
+            }
+    
+    } else { // si c'est une tablette ou un smartphone on chisi une ç
+
+     let file ="Jeanne-Paul.jpg"
+    elementVideo.classList.add('d-none')
+    elementImage.classList.remove('d-none')
+    elementImage.src = chemin+file
+}
+
+}
+
+homeBackground()
+window.onresize =function() {
+    return  homeBackground()
+
+}
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}
+

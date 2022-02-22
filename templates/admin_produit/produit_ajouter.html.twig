@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 {% block title %}{{ parent() }}| Ajouter {% endblock %}
 {% block stylesheets %}
-<link rel="stylesheet" href="{{ asset('css/produit_ajouter.css') }}">
 <link rel="stylesheet" href="{{ asset('css/dropzone.css') }}"/> 
+<link rel="stylesheet" href="{{ asset('css/produit_ajouter.css') }}">
 
 {% endblock %}
 {% block content %}
 
-	
-	<div class="wrapper">
 
-		<div class="col-md-12 d-flex flex-sm-column flex-md-column flex-lg-row flex-sm-wrap justify-content-around align-items-center pt-5 my-5">
+	
+		<div class="wrapper">
+
+		<div class="content col-12 d-flex flex-column flex-lg-row flex-sm-wrap justify-content-around align-items-center">
               {# ----------  section dropzone #}
                     <div id="listPhoto" class="col-md-12 col-lg-6 mx-auto my-auto">
-                        <form action="{{ path('produit_ajouter') }}" class="dropzone col-md-12" id="dropzonewidget" type = "file" multiple ="multiple">
+                        <form action="{{ path('produit_ajouter') }}" class="dropzone" id="dropzonewidget" type = "file" multiple ="multiple">
                             <div class="dz-message needsclick"> glisser les photos ici ou  cliquer pour télécharger.<br>
                             <span class="note needsclick">( la première servira de vignette)</span>
                             </div>
@@ -25,34 +26,33 @@
 
 			<div class="col-lg-5 col-md-10 col-sm-10 mx-auto">
 				{{ form_start(formProduit) }}
-                  <div class="row">
-                    <div class="col-12 text-white">{{ form_row(formProduit.nom) }}</div>
-                    <div class="text-white align-item-center">{{ form_row(formProduit.showcase) }}</div>
-                  </div>
                     <div class="row">
-                        <div class="col-md-6 text-white ">{{ form_row(formProduit.ref) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.nom) }}</div>
+                        <div class="col-md-6 text-white align-item-center my-auto">
+                        
+                        {{ form_label(formProduit.showcase) }}  {{ form_widget(formProduit.showcase) }}</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.ref) }}</div>
                         <div class="col-md-6 text-white">{{ form_row(formProduit.categorie) }}</div>
-                        <div class="col-md-6 text-white">{{ form_row(formProduit.forme) }}</div>
+                        <div class="col-md-6 text-white">{{ form_row(formProduit.matiere) }}</div>
                         <div class="col-md-6 text-white">{{ form_row(formProduit.couleur) }}</div>
                         <div class="col-md-6 text-white">{{ form_row(formProduit.taille) }}</div>
                         <div class="col-md-6 text-white">{{ form_row(formProduit.motif) }}</div>
                         <div class="col-md-6 text-white  text-nowrap" >{{ form_row(formProduit.prix_rev_ht) }}</div>
-                    <div class="col-md-6 text-white text-nowrap">{{ form_row(formProduit.prix_pub_ttc) }}</div>
-                    <div class="col-md-12 text-white">{{ form_row(formProduit.description) }}</div>
+                        <div class="col-md-6 text-white text-nowrap">{{ form_row(formProduit.prix_pub_ttc) }}</div>
 					</div>
-                    
-                    
-			</div>
-            <div class="col-lg-10 col-md-10  col-sm-10 mx-auto">
-                        <input type="submit" value="Ajouter" class="col-lg-12 col-md-12  col-sm-12 mx-auto btn my-5">
-                    </div>
-                  {{ form_end(formProduit) }}
-				 
-				
+                     <div class="col-md-12 text-white text-area-group">{{ form_row(formProduit.description) }}</div>
 
-              
-				
-    
+                      <div class="col-md-12 text-white text-area-group">{{ form_row(formProduit.entretien) }}</div>
+                       <div class="col-lg-12 col-md-12  col-sm-12 mx-auto px-2">
+                        <input type="submit" value="Enregistrer" class="col-lg-12 col-md-12  col-sm-12 mx-auto btn btn-sm my-2">
+                    </div>
+                  
+			</div>
+            
+                  {{ form_end(formProduit) }}
+   
 		</div>
 	</div>
 
@@ -66,7 +66,6 @@
 <script src="{{ asset('js/dropzone.js') }}"></script>
 <script>
 var pos = 1 // variable qui sera utilisée pour classer les photo
-
 Dropzone.options.dropzonewidget = {
     maxFilesize: 2, // MB
     addRemoveLinks: true,
@@ -84,7 +83,6 @@ Dropzone.options.dropzonewidget = {
     return newName;
     },  
     removedfile:function(file){ // fonction si supprimer
-    console.log (file.name)
       let  name = file.name
         $.ajax({
           method:'post',
@@ -93,16 +91,11 @@ Dropzone.options.dropzonewidget = {
           success: function (response){
             console.log ('removed success');
           }
-       
         });
         let previewzone;
         return (previewzone = file.previewElement) != null ? previewzone.parentNode.removeChild(file.previewElement): void 0;
-
-    }
-   
+    }  
   };
-  
-
 </script>
 
 {% endblock %}

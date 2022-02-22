@@ -26,7 +26,7 @@ class ProduitType extends AbstractType
                 "empty_data" => '',
                  "attr" => [
                     "placeholder" => "saisir le nom du produit",
-                    "class" => "bg-light"
+                    "class" => "bg-light input-form"
                 ]
             ])
             ->add('ref', TextType::class, [
@@ -34,49 +34,56 @@ class ProduitType extends AbstractType
                 "required" => false,
                 "empty_data" => '',
                  "attr" => [
-                    "placeholder" => "FOCOMOTCAAMM",
-                    "class" => "bg-light"
+                    "placeholder" => "ref",
+                    "class" => "bg-light input-form"
                 ]
             ])
-            ->add('categorie', ChoiceType::class, [
+            ->add('categorie', ChoiceType::class, [           
                 'choices' => [
                     'Optique' => "Optique",
                     'Solaire' => "Solaire",
                     'Capsule' => "Capsule",
+                    'Accessoire' => "Accessoire",
                 ],
                 "label" => "Catégorie",
                 "required" => false,
                 "empty_data" => '',
                  "attr" => [
                     "placeholder" => "vue ou solaire",
-                    "class" => "bg-light "
+                    "class" => "bg-light input-form"
                 ]
             ])
-            ->add('forme', TextType::class, [
-                "label" => "Forme",
+            ->add('matiere', TextType::class, [
+                "label" => "Matières",
                 "required" => false,
                 "empty_data" => '',
                  "attr" => [
-                    "placeholder" => "nom de la forme",
-                    "class" => "bg-light "
+                    "placeholder" => "nom des matières",
+                    "class" => "bg-light input-form "
                 ]
             ])
-            ->add('couleur', TextType::class, [
-                "label" => "Couleur",
+            ->add('couleur', ChoiceType::class, [           
+                'choices' => [
+                    'Ecaille' => "Ecaille",
+                    'Noir' => "Noir",
+                    'Cristal' => "Cristal",
+                ],
+                "label" => "couleur",
                 "required" => false,
                 "empty_data" => '',
                  "attr" => [
-                    "placeholder" => "nom de la couleur",
-                    "class" => "bg-light "
+                    "placeholder" => "vue ou solaire",
+                    "class" => "bg-light input-form"
                 ]
             ])
+
             ->add('taille', TextType::class, [
                 "label" => "Taille",
                 "required" => false,
                 "empty_data" => '',
                  "attr" => [
                     "placeholder" => "taille",
-                    "class" => "bg-light "
+                    "class" => "bg-light input-form"
                 ]
             ])
             ->add('motif', TextType::class, [
@@ -85,21 +92,21 @@ class ProduitType extends AbstractType
                 "empty_data" => '',
                  "attr" => [
                     "placeholder" => "motif",
-                    "class" => "bg-light"
+                    "class" => "bg-light input-form"
                 ]
             ])
             ->add('prix_pub_ttc', MoneyType::class,[
                 "label"=> "Prix public conseillé TTC",
                 "required" => false,
                 "attr" => [
-                    "class" => "bg-light"
+                    "class" => "bg-light input-form"
                 ]
             ])
             ->add('prix_rev_ht', MoneyType::class, [
                 "label"=> "Prix revendeur HT",
                 "required" => false,
                 "attr" => [
-                    "class" => "bg-light"
+                    "class" => "bg-light input-form"
                 ]
             ])
             ->add('description', TextareaType::class, [
@@ -107,7 +114,15 @@ class ProduitType extends AbstractType
                 "required" => false,
                  "attr" => [
                     "placeholder" => "description",
-                    "class" => "bg-light"
+                    "class" => "bg-light text-area"
+                ]
+            ])
+            ->add('entretien', TextareaType::class, [
+                "label" => "Entretien ",
+                "required" => false,
+                 "attr" => [
+                    "placeholder" => "entretien",
+                    "class" => "bg-light text-area"
                 ]
             ])
 

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -64,7 +66,28 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = ['ROLE_USER'];  // ROLE_USER est défini dans security.yaml, il peut y avoir plusieurs Roles avec des hierarchies c'est donc un objet qui sera un tableau en BDD SQL , par defaut il est au niveau hierarchique le plus bas
+    private $roles = ['ROLE_USER'];
+
+    /**
+     * @ORM\OneToMany(targetEntity=Adresse::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $adresses;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date_inscription;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Commande::class, mappedBy="user")
+     */
+    private $commandes;
+
+    public function __construct()
+    {
+        $this->adresses = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
+    }  // ROLE_USER est défini dans security.yaml, il peut y avoir plusieurs Roles avec des hierarchies c'est donc un objet qui sera un tableau en BDD SQL , par defaut il est au niveau hierarchique le plus bas
 
     public function getId(): ?int
     {
@@ -153,6 +176,79 @@ class User implements UserInterface
 
    
    public function eraseCredentials(){} // nettoie le mdp
+
+   /**
+    * @return Collection|Adresse[]
+    */
+   public function getAdresses(): Collection
+   {
+       return $this->adresses;
+   }
+
+   public function addAdress(Adresse $adress): self
+   {
+       if (!$this->adresses->contains($adress)) {
+           $this->adresses[] = $adress;
+           $adress->setUser($this);
+       }
+
+       return $this;
+   }
+
+   public function removeAdress(Adresse $adress): self
+   {
+       if ($this->adresses->removeElement($adress)) {
+           // set the owning side to null (unless already changed)
+           if ($adress->getUser() === $this) {
+               $adress->setUser(null);
+           }
+       }
+
+       return $this;
+   }
+
+   public function getDateInscription(): ?\DateTimeInterface
+   {
+       return $this->date_inscription;
+   }
+
+   public function setDateInscription(\DateTimeInterface $date_inscription): self
+   {
+       $this->date_inscription = $date_inscription;
+
+       return $this;
+   }
+
+   /**
+    * @return Collection|Commande[]
+    */
+   public function getCommandes(): Collection
+   {
+       return $this->commandes;
+   }
+
+   public function addCommande(Commande $commande): self
+   {
+       if (!$this->commandes->contains($commande)) {
+           $this->commandes[] = $commande;
+           $commande->setUser($this);
+       }
+
+       return $this;
+   }
+
+   public function removeCommande(Commande $commande): self
+   {
+       if ($this->commandes->removeElement($commande)) {
+           // set the owning side to null (unless already changed)
+           if ($commande->getUser() === $this) {
+               $commande->setUser(null);
+           }
+       }
+
+       return $this;
+   }
+
 
 
 

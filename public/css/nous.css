@@ -1,0 +1,76 @@
+h1 {
+    position: absolute;
+     top: -1000px; 
+     left: -1000px;
+ }
+
+
+
+.titre {
+    color: #000;
+    font-size: 15px;
+    font-weight: bold;
+    margin:20px 0;
+
+}
+
+.sstitre {
+    color: #000;
+    font-size: 15px;
+    margin:20px 0;
+
+}
+
+.text {
+    color: #000;
+    text-align: left;
+    font-size: 15px;
+    font-weight: normal;
+    white-space: pre-wrap;
+
+}
+
+
+.image_presentation{
+    width:100%;
+
+}
+.box_contact {
+    height: 10vh;
+    width: 100vW;
+    background-color:#F2E4DC;
+    }
+
+  
+.mail_contact{
+    margin: auto auto;
+    font-size: 15px;
+    font-weight: bold;
+    text-decoration: none;
+    color: black;
+  
+    }
+
+
+
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait)  {
+
+    .wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        min-height:  400px;
+    }
+
+    .image_container {
+        margin-bottom: 40px;
+        height:100vw;
+        display: flex;
+        align-items: center;
+    }
+  }

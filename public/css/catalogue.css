@@ -4,24 +4,50 @@ h1 {
      left: -1000px;
  }
 
-.main {
-    background-color: #FFF;
-    background-position: center;
-    background-size: 100%;
-    height: 100%;
-    width:100%;
-    padding:0px;
-    }
 
-.wrapper {
-        margin-top: 200px;
-        min-height: 690px; 
-        width:fit-content;
-} 
-.content {
 
-    margin-bottom: 30px;
+/* fil d'ariane */
+.breadcrumb{
+    margin-top: 150px;
+    position: relative;
+    left:35%;
 }
+.breadcrumb ul {
+    width :30%;
+    display: flex;
+    justify-content: space-between;
+}
+.breadcrumb ul a{
+    margin: 10px 20px;
+    text-decoration: none;
+    color:#000
+}
+
+.breadcrumb ul a:hover{
+    font-weight: bold;
+}
+.bouton {
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: #000;
+}
+      
+    
+/* .breadcrumb li::before {
+    content: " → ";
+}
+    
+.breadcrumb li:first-child::before {
+    content: "";
+  } */
+  
+.categorie {
+    font-weight: bold;
+}
+
+/* fin fil d'ariane */
+
 .carte {
     position: relative;
     margin:0px;
@@ -32,30 +58,30 @@ h1 {
     overflow: hidden;
 
 }
+.nomProduit {
+    display: none;
+    font-size: 24px;
+    transition: all .3s ease-in-out;
+    position:absolute;
+    bottom: 5%;
+    left:45%;
+}
 
-.photoProduit {
+
+.photoProduit{
     transition: all .3s ease-in-out;
 
 }
-
 .photoProduit:hover  {
-    transform: scale(1.1); 
+    transform: scale(1.02); 
+   
 }
 
 .photoProduit:hover + .nomProduit {
-    transform: scale(2); 
+    display: block; 
 }
-.nomProduit {
-    transition: all .3s ease-in-out;
-    position:absolute;
-    bottom: 5%;
-    left:20%;
-}
-.pbttc {
-    position:absolute;
-    right:10%;
-    bottom: 5%;
-}
+
+
 .photo {
     width: 100%;
     height:100%;
@@ -70,5 +96,52 @@ h1 {
 
 p {
     color: #888;
+
+}
+
+
+/* iphone */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait)  {
+    .nomProduit {
+        display: block;
+        left:10%;
+    }
+   
+
+
+
+  }
+
+
+/* ipad */
+  @media only screen 
+  and (min-device-width: 768px) 
+  and (max-device-width: 1024px) 
+  and (-webkit-min-device-pixel-ratio: 2) {
+
+    .nomProduit {
+        display: block;
+        left:10%;
+    }
+ 
+ 
+
+}
+
+/* Galaxy from S6 */
+
+@media screen 
+  and (min-device-width: 360px) 
+  and (max-device-width: 740px) 
+  and (-webkit-device-pixel-ratio: 4) 
+  and (orientation: portrait) {
+    .nomProduit {
+        display: block;
+        left:10%;
+    }
 
 }

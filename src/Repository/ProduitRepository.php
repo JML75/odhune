@@ -13,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Produit[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 
- /* les methodes ci dessus font dejà partire de la classe repository*/
+ /* les methodes ci dessus font dejà partie de la classe repository*/
 
 class ProduitRepository extends ServiceEntityRepository
 {

@@ -18,14 +18,11 @@ class PanierController extends AbstractController
     public function panier(SessionInterface $session): Response     
     {
 
-     
         //on récupére le panier ligne de produit 
         $panier = $session->get('panier_ligne');
-    
-        
          // on le convertit  to string pour le récupérer et l'exploiter en javascript 
          $panier_str = json_encode($panier);
-
+    
         return $this->render('panier/panier.html.twig', [
             'panier' => $panier,
             'panierstr'=> $panier_str
@@ -42,8 +39,10 @@ class PanierController extends AbstractController
 
         $id = $request->request->get("id");
         $produit= $repoProduit->find($id);
+        $reduction = 0;
+        $prix = $produit->getPrixPubTtc();
+        $couleur=$produit->getCouleur();
         $nomProduit=$produit->getNom();
-        $couleur= $request->request->get("color");
         $photo=$produit->getPhotoProduits()->first();
         $nomPhoto= $photo->getNom();//par defaut
 
@@ -52,25 +51,18 @@ class PanierController extends AbstractController
         $photos = $produit->getPhotoProduits();
         foreach($photos as $photo ) {
             $nom_Photo = $photo->getNom();
-            var_dump($nom_Photo);
             $lettre_photo = substr($nom_Photo,-5,1);
-            var_dump($lettre_photo);
             if ($lettre_photo == $lettre_coul){
                 $nomPhoto =  $nom_Photo;
            }
         }
 
         $quantite = $request->request->get("qty");
-        $couleur= $request->request->get("color");
-        $id_produit = $id.substr($couleur,0,1);
         $reduction = 0;
         $prix = $produit->getPrixPubTtc();
 
 
-
-
-
-        $panier->add($id_produit,$produit, $nomPhoto, $couleur, $quantite, $reduction, $prix);
+        $panier->add($id,$produit, $nomPhoto, $quantite, $reduction, $prix);
 
 
         return $this->redirectToRoute('fiche_produit', [
@@ -106,6 +98,20 @@ class PanierController extends AbstractController
         $panier->remove($id_produit);
 
         return $this->redirectToRoute('panier', []);
+    }
+
+    /**
+     * @Route("panier/valider", name="panier_valider")
+     */
+    public function panier_valider(Panier $panier, SessionInterface $session): Response
+    {
+        $panierSession = $session->get('panier_ligne');
+    
+
+        return $this->render('panier/panier_valider.html.twig', [
+            'panier' => $panierSession
+
+        ]);
     }
 
 

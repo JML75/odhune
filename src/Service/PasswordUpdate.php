@@ -12,7 +12,7 @@ class PasswordUpdate
 /**
  * @Assert\NotBlank(message="Veuillez saisir votre ancien mot de passe")
  * @Assert\Regex(
-     *  pattern ="//",
+     *  pattern ="/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[-+!*$€@%_])([-+!*$€@%_\w]{8,15})$/",
      *  message="8-15 caractères, au moins: 1 majuscule 1 minuscule  1 car. parmi - + ! * $ € @ % _"
      * )
  */

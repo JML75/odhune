@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -78,8 +79,37 @@ class UserType extends AbstractType
                         ]
                     ])
                 ;
-            } 
-                
+            } elseif ($options['userAdmin']){
+                $builder
+                    ->add('email', TextType::class,[
+                        "required" =>false,
+                        "attr" => [
+                            "class" => "bg-light"
+                        ]
+                    ])
+                    ->add('nom',TextType::class,[
+                        "required" =>false,
+                        "attr" => [
+                            "class" => "bg-light"
+                        ]
+                    ])
+                    ->add('prenom',TextType::class,[
+                        "required" =>false,
+                        "attr" => [
+                            "class" => "bg-light"
+                        ]
+                    ])
+
+                    ->add('roles', ChoiceType::class, [
+                            "required" =>false,
+                            'choices' => ['ROLE_ADMIN' => 'ROLE_ADMIN', 'ROLE_USER' => 'ROLE_USER' , 'ROLE_REVENDEUR' => 'ROLE_REVENDEUR'],
+                            'expanded' => true,
+                            'multiple' => true,
+                        ]
+                    )
+                ;
+
+            }
             
 
     }
@@ -88,6 +118,7 @@ class UserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+            'userAdmin' => false, 
             'inscription' => false, 
             'profil' => false // on met à false les options créées pour différencier les builders car en cas de modicication on ne veut pas toucher au mot de passe
         ]);

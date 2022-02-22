@@ -1,0 +1,28 @@
+
+
+.wrapper {
+    background-color: #DDD;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        min-height: 1080px;
+
+       
+}
+
+.table {
+    margin-top: 10px;
+}
+
+
+.btn {
+    margin-top: 200px;
+   ;
+}
+
+
+
+
+
+

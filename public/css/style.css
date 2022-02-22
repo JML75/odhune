@@ -44,66 +44,287 @@ table {
 }
 /*--------------------------fin du reset --------------*/
 
+/*-------------------------- reset --------------*/
+
+
 body {
-	font-family: 'Heebo', sans-serif;
-   
+	font-family: 'Heebo', sans-serif;	
+	width: 100%;
+	overflow-x: hidden;
+	
 }
-.navbar .navbar-nav .nav-link {
-  color: #888;
-  font-size: 16px;
+html{
+}
+	
+/*    navigation  */
+.navbar  {
+	background-color: transparent;
 }
 
-.navbar-nav .nav-link:focus, .navbar-nav .nav-link:hover {
-  color: black;
-}
-
-.navbar-toggler-icon { 
-    width: 1em;
-    height: 1em;
-}
 
 .dropdown-menu {
-    background-color: transparent;
-
+    background-color: #FFFA;
+	border:none;
+	display: none;
 }
-.dropdown-menu {
-    font-size: 30px;
+
+
+.nav-link, .navbar-brand{
+	white-space: nowrap;
+	font-size: 15px;
+	color: black;
 	font-weight: bold;
+	letter-spacing: 10px;	
 
 }
 
-.nomProduit{
-  font-size: 24px;
-  font-weight: bold;
-  color: #666;
+.navbar-light .navbar-nav .nav-link {
+    color:#000;
 }
-
-.nomLogo {
-  font-size: 36px;
-  font-weight: bold;
-
+.navbar-light .navbar-nav .nav-link .dropdown-item { 
+    color:#000;
 }
 
 
-.badge{
-	font-family: 'Heebo', sans-serif;
+.nav-link:hover {
+	font-weight: bold;
+	color: black	
+}
+
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0; 
+ }
+
+ .navbar-light .navbar-toggler {
+	 border:none;
+ }
+
+ .dropdown-item {
+	 color: #000;
+ }
+ .dropdown-item:active {
+	width: auto;
+	background-color:transparent;
+	}
+.dropdown-item:hover{
+	font-weight: bold ;
+	}
+
+
+.logo {
+	height: 200px;
+	position: absolute;
+	top: 0px;
+	left: 45%;
+	margin-top: -40px;
+	z-index: +1000;
+}
+
+
+.offcanvas-end {
+	top: 0;
+	right: 0;
+	width: 240px;
+  }
+
+  .offcanvas {
+	  background-color: #fff8;
+  }
+
+.navbar-toggler:focus,
+.navbar-toggler:active,
+.navbar-toggler-icon:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+  .wrapper {
+	margin-top: -107.75px;
+
+  }
+
+.navbar-light .navbar-toggler{
+	border-color: red;
+}
+
+/* panier  */
+
+.panier {
+	width: 40px;
 	height: 20px;
-	width : 20px;
-	padding: 5px 2px 5px 2px;
-	font-size: 10px; 
-	color: #fff;
-	line-height: 1.1em;
-	background: coral;
-	border-radius:50%;
-	position:relative;
-	left:-10px;
-	right:-10px;
-	bottom:-12px;
-	top:-12px;
+
+}
+
+.badge {
+	letter-spacing: 1px;
+	height:2em;
+	width:2em;
+	padding: .4em;
+	font-size: .8em;
+	background-color: coral;
 	opacity:0.9;
+	color: #fff;
+	border-radius: 1rem;
+	position: relative;
+	left:-20px;
+	top:-8px;
 }
 
 
-/* --------------------- footer -----------------------------------------------*/
 
 /* --------------------- footer -----------------------------------------------*/
+
+
+.footer_container {
+	width: 100vw;
+	position: relative;
+	bottom:0;
+	background-color:#F2E4DC;
+	
+
+}
+
+.contact {
+	max-height:400px;
+	margin-top: 20px;
+	display: flex;
+	align-items: start;
+}
+.rigp {
+	max-height:400px;
+	margin-top: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.liens {
+	max-height:400px;
+	margin-top: 20px;
+	display: flex;
+	align-items: start;
+
+}
+.mail {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.reseaux {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+}
+.produits {
+	display: flex;
+	flex-direction: column;
+
+	align-items: center;
+
+}
+.apropos{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+}
+
+.rigp {
+	max-height:400px;
+	margin-top: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.logo-footer {
+	width: 50%;
+}
+
+ .reseaux p, .liens p{
+	font-size: 15px;
+	color: black;
+	text-align: center;
+
+	
+}
+.mail a{
+	font-size: 15px;
+	color: black;
+}
+
+.contact a,  .rigp a,  .liens a {
+	text-decoration: none;
+	font-size: 15px;
+	color: #000;
+	margin-bottom: 5px;
+
+}
+.mail p , .rigp p{
+	font-size: 15px;
+	color: #000;
+	margin-bottom: 10px;
+
+}
+
+
+.contact .rigp .liens,  a:hover{
+	color:#333;
+
+}
+.reseaux a{
+	font-size: 15px;
+
+}
+
+/* --------------------- footer -----------------------------------------------*/
+
+/* iphone */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 812px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait)  {
+
+	.wapper {
+		margin-top:-54px
+	}
+	
+
+
+	.logo_footer{
+		width: 20%;
+	}
+
+	
+	}
+
+
+/* ipad */
+	@media only screen 
+	and (min-device-width: 768px) 
+	and (max-device-width: 1024px) 
+	and (-webkit-min-device-pixel-ratio: 2) {
+	.wrapper {
+		margin-top:-54px;
+	}
+
+	}
+/* Galaxy from S6 */
+	@media screen 
+  and (min-device-width: 360px) 
+  and (max-device-width: 740px) 
+  and (-webkit-device-pixel-ratio: 4) 
+  and (orientation: portrait) {
+	.wrapper {
+		margin-top:-54px;
+	}
+    
+
+  }
+
+
+

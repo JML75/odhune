@@ -6,29 +6,27 @@
 
 
 
-    <div class="wrapper">
-        <div class="col-12 d-flex main justify-content-start ">
-                    <div class="col-8">
+       <div class="wrapper col-12 d-flex flex-lg-row flex-column ">
+               <div class="col-lg-7 col-12">
        
                         <img id ="slideShow" class="d-block w-100" src="{{ asset('img/photoProduitUpload/61dd68be28846-20220111112342-Monture-Bouture-E-Modele-2.png') }}"  alt="">
                     
                     </div>
                        
         
-                 <div class="col-3 d-flex flex-column justify-content-center mx-auto mb-5">
+                 <div class=" col-lg-3 col-sm-6 mb-5 mx-auto d-flex flex-column justify-content-center">
                     {{ form_start(formUser) }}
                             {{ form_row(formUser.email) }}
-                            {{ form_row(formUser.nom) }}
                             {{ form_row(formUser.prenom) }}
+                            {{ form_row(formUser.nom) }}
 
-                            <input type="submit" value="Modifier" class="btn btn-secondary col-12  mt-3">
+                            <input type="submit" value="Modifier" class="btn col-12  mt-3">
 
                     {{ form_end(formUser) }}
              </div>
 
         </div>
-    
-    </div>
+
     <textarea name="" hidden id="photos" cols="30" rows="10">{{photos}}</textarea>
 {% endblock %}
 

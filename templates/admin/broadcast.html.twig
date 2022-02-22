@@ -1,42 +1,43 @@
 {% extends "base.html.twig" %}
 {% block title %}{{parent()}}| broadcast {% endblock %}
 {% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/broadcast.css') }}">{% endblock %}
-{% block h1 %}Back office {% endblock %}
+{% block h1 %}Braodcast {% endblock %}
 
 {% block content %}
 
+
 <div class="wrapper">
 
-<div class="col-12 my-5 d-flex flex-row justify-content-around">
-    <div  class="col-5 mx-auto" style =" border: solid 1px black;">
-        <div class="input-group" placeholder="message">
-        <input id ="input_message" class="form-control" placeholder="message">
-        <button id ="envoi" class = "btn btn-primary">envoi</button>
-        </div>
-        <ul class="chat_ul col-md-5 flew-column mt-2 mx-2" >
-        </ul>
-    </div>
-
-    <div class = "col-5 mx-auto">
-        <video  class="col-12" playsinline autoplay muted></video>
-        <div class="col-12 d-flex justify-content-between">
-            <button id ="startrec" class="btn btn-primary my-2 col-md-5">start broadcast</button>
-            <button id ="stoprec" class="btn btn-primary  my-2 col-md-5">stop broadcast</button>
-        </div>
-            <div class="progress col-md-12 d-flex">
-                <div class="progress-bar"></div>
+     <div class="broadcast col-12 d-flex flex-lg-row flex-column justify-content-start"  >
+            <div  class="chatArea col-lg-3  col-12 mx-auto">
+                <div class="input-group">
+                    <input class=" inputMessage form-control" placeholder="message...  taper sur ENTER ou click sur ENVOI.">
+                    <button id ="envoi" class = "btn btn-secondary">ENVOI</button>
+                </div>
+                <div class="messages" ></div>
             </div>
-             <div class="uploadStatus"></div>
+
+        <div class = "video col-lg-7 col-11 mx-auto">
+                <video  class="col-12" playsinline autoplay controls></video>
+                    <div class="col-12 d-flex justify-content-between">
+                        <button id ="startrec" class="btn btn-secondary my-2 col-md-5">start broadcast</button>
+                        <button id ="stoprec" class="btn btn-secondary  my-2 col-md-5">stop broadcast</button>
+                    </div>
+                    
+                    <div id ="manage_file" class ="col-md-12 d-flex justify-content-between d-none" >
+                        <button id="save-to-disk" class="btn btn-secondary col-md-5 my-2">save to disk</button>
+                        <button id="upload-to-server" class="btn btn-secondary col-md-5 my-2" >Upload to Server</button>      
+                    </div>
+                </div>
             
-        <div id ="manage_file" class ="col-md-12 d-flex justify-content-between d-none" >
-            <button id="save-to-disk" class="btn btn-primary col-md-5 my-2">save to disk</button>
-            <button id="upload-to-server" class="btn btn-primary col-md-5 my-2" >Upload to Server</button>      
         </div>
+
     </div>
 
 </div>
 
-</div>
+
+
 
 <textarea  hidden  name="" id="user2js" cols="30" rows="10"></textarea>
 {% endblock %}
@@ -44,13 +45,20 @@
 {% block javascripts %}
 
 <script>
-let user ={ 
+let user ={
+    user_id : '{{ app.user.id }}',
     prenom : '{{ app.user.prenom }}',
     nom : '{{ app.user.nom }}',
+    email : '{{ app.user.email }}'
 }
-console.log (user)
  let userstr =  JSON.stringify(user);
   document.querySelector('#user2js').value = userstr
+
+
+let videoHeight = document.getElementsByTagName(video).clientHeight
+console.log (videoHeight)
+document.querySelector('.messages').height = videoHeight
+
   
 </script> 
 <script src="https://inspiring-nash.185-13-64-120.plesk.page/node_modules/socket.io/client-dist/socket.io.js"></script> 

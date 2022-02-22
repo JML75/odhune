@@ -47,7 +47,7 @@ class Produit
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $forme;
+    private $matiere;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -93,6 +93,11 @@ class Produit
      * @ORM\Column(type="boolean")
      */
     private $showcase;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $entretien;
 
     public function __construct()
     {
@@ -141,14 +146,14 @@ class Produit
         return $this;
     }
 
-    public function getForme(): ?string
+    public function getMatiere(): ?string
     {
-        return $this->forme;
+        return $this->matiere;
     }
 
-    public function setForme(string $forme): self
+    public function setMatiere(string $matiere): self
     {
-        $this->forme = $forme;
+        $this->matiere = $matiere;
 
         return $this;
     }
@@ -263,6 +268,18 @@ class Produit
     public function setShowcase(bool $showcase): self
     {
         $this->showcase = $showcase;
+
+        return $this;
+    }
+
+    public function getEntretien(): ?string
+    {
+        return $this->entretien;
+    }
+
+    public function setEntretien(string $entretien): self
+    {
+        $this->entretien = $entretien;
 
         return $this;
     }

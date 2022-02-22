@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Produit;
 use App\Repository\ProduitRepository;
 use App\Repository\PhotoProduitRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,61 +19,127 @@ class ProduitController extends AbstractController
      * @Route("/catalogue", name="catalogue")
      */
     public function catalogue(ProduitRepository $repoProduit): Response
-    // syntaxe avec les dépendences    remplace le  constructeur () $repoProduit = new  ProduitRepository) car les constructions sont variables 
-   
-
-
     {
         $produitsArray = $repoProduit->findAll();
-        
         return $this->render('produit/catalogue.html.twig', [
-            "produits" => $produitsArray
+            "produits" => $produitsArray,
+            "categorie" => 'Tous'
         ]);
-  
     }
 
     /**
      * @Route("/optique", name="optique")
      */
     public function optique(ProduitRepository $repoProduit): Response
-    // syntaxe avec les dépendences    remplace le  constructeur () $repoProduit = new  ProduitRepository) car les constructions sont variables 
-   
     {
         $produitsOptique = $repoProduit->findBy(array('categorie'=>'Optique'));
-        
         return $this->render('produit/catalogue.html.twig', [
-            "produits" => $produitsOptique
+            "produits" => $produitsOptique,
+            "categorie" => 'Optique'
         ]);
-  
     }
 
     /**
      * @Route("/solaire", name="solaire")
      */
-    public function solaire(ProduitRepository $repoProduit): Response
-    // syntaxe avec les dépendences    remplace le  constructeur () $repoProduit = new  ProduitRepository) car les constructions sont variables 
-   
+    public function solaire(ProduitRepository $repoProduit): Response  
     {
-        $produitsSolaire = $repoProduit->findBy(array('categorie'=>'Solaire'));
-
-        
+        $produitsSolaire = $repoProduit->findBy(array('categorie'=>'Solaire'));  
         return $this->render('produit/catalogue.html.twig', [
-            "produits" => $produitsSolaire
+            "produits" => $produitsSolaire,
+            "categorie" => 'Solaire'
         ]);
-  
     }
 
     /**
      * @Route("/capsule", name="capsule")
      */
-    public function capsule(ProduitRepository $repoProduit): Response
-    // syntaxe avec les dépendences    remplace le  constructeur () $repoProduit = new  ProduitRepository) car les constructions sont variables 
+    public function capsule(ProduitRepository $repoProduit): Response  
+    {
+        $produitsCapsule = $repoProduit->findBy(array('categorie'=>'Capsule'));       
+        return $this->render('produit/catalogue.html.twig', [
+            "produits" => $produitsCapsule,
+            "categorie" => 'Capsule'
+        ]);
+    }
+
+
+    /**
+     * @Route("/couleur_ecaille/{id}", name="couleur_ecaille")
+     */
+
+    public function couleur_ecaille ($id, ProduitRepository $repoProduit): Response
+   
+
+    {$produitArray = $repoProduit->findBy(array('id'=>$id)); 
+        $produit = $produitArray[0];
+        $nomProduit=$produit->getNom();
+        $produitCouleur =  $repoProduit->findBy(array('couleur'=>'Ecaille' ,'nom'=>$nomProduit ) );
+        $produit =$produitCouleur [0];
+        $photos =  $produit->getPhotoProduits();
+
+        $nomPhotos =[];
+        foreach ( $photos as $photo) {
+            $nomPhotos []=$photo->getNom();
+        }
+        $nomPhotos_str = json_encode($nomPhotos) ;
+        return $this->render('produit/fiche_produit.html.twig', [
+            'produit'=>$produit,
+            'photos'=>$nomPhotos_str
+        ]);
+  
+    }
+
+    /**
+     * @Route("/couleur_noir/{id}", name="couleur_noir")
+     */
+
+    public function couleur_noir ($id, ProduitRepository $repoProduit): Response
    
     {
-        $produitsCapsule = $repoProduit->findBy(array('categorie'=>'Capsule'));
-        
-        return $this->render('produit/catalogue.html.twig', [
-            "produits" => $produitsCapsule
+        $produitArray = $repoProduit->findBy(array('id'=>$id)); 
+        $produit = $produitArray[0];
+        $nomProduit=$produit->getNom();
+        $produitCouleur =  $repoProduit->findBy(array('couleur'=>'Noir' ,'nom'=>$nomProduit ) );
+        $produit =$produitCouleur [0];
+        $photos =  $produit->getPhotoProduits();
+
+        $nomPhotos =[];
+        foreach ( $photos as $photo) {
+            $nomPhotos []=$photo->getNom();
+        }
+        $nomPhotos_str = json_encode($nomPhotos) ;
+        return $this->render('produit/fiche_produit.html.twig', [
+            'produit'=>$produit,
+            'photos'=>$nomPhotos_str
+        ]);
+
+  
+    }
+
+    /**
+     * @Route("/couleur_cristal/{id}", name="couleur_cristal")
+     */
+
+    public function couleur_cristal ($id, ProduitRepository $repoProduit): Response
+   
+
+    {
+        $produitArray = $repoProduit->findBy(array('id'=>$id)); 
+        $produit = $produitArray[0];
+        $nomProduit=$produit->getNom();
+        $produitCouleur =  $repoProduit->findBy(array('couleur'=>'Cristal' ,'nom'=>$nomProduit ) );
+        $produit =$produitCouleur [0];
+        $photos =  $produit->getPhotoProduits();
+
+        $nomPhotos =[];
+        foreach ( $photos as $photo) {
+            $nomPhotos []=$photo->getNom();
+        }
+        $nomPhotos_str = json_encode($nomPhotos) ;
+        return $this->render('produit/fiche_produit.html.twig', [
+            'produit'=>$produit,
+            'photos'=>$nomPhotos_str
         ]);
   
     }
@@ -107,11 +174,40 @@ class ProduitController extends AbstractController
      * <\d+> est pour limité le paramètre aux entiers
      */
 
-    public function fiche_produit($id, ProduitRepository $repoProduit): Response
+    public function fiche_produit($id, ProduitRepository $repoProduit,Request $request): Response
     {
+        // si la requête vient du catalogue 
+       
         $produit = $repoProduit->find($id);
+        $nomProduit=$produit->getNom();
+      
+        // si la requête vient de la fiche produit pour une autre couleur
+        $couleurChange= $request->get('couleurChange');
+        if($couleurChange) {
+            $produit = $repoProduit->findBy(array('nom' => $nomProduit, 'couleur' => $couleurChange));
+            $produit=$produit[0]; // findBy retourne un tableau
+        }
+        
+
+         // on cherche toutes les couleurs disponibles pour les retourner à la fiche produit
+         $couleursProduit =  $repoProduit->findBy(array('nom'=>$nomProduit ));
+         $couleursDispo =[];
+ 
+         foreach( $couleursProduit as $couleurProduit){
+             $couleursDispo []=$couleurProduit->getCouleur();
+         }
+
+         // on recupère les photos du produit concerné pour alimenter les vignettes du caroussel
+         $photos = $produit->getPhotoProduits();
+         $nomPhotos =[];
+         foreach ( $photos as $photo) {
+             $nomPhotos []=$photo->getNom();
+         }
+        $nomPhotos_str = json_encode($nomPhotos) ;
         return $this->render('produit/fiche_produit.html.twig', [
-            'produit'=>$produit
+            'produit'=>$produit,
+            'photos'=>$nomPhotos_str,
+            'couleurs'=>$couleursDispo
         ]);
   
     }

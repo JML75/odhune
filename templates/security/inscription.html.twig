@@ -3,23 +3,21 @@
 	{{ parent() }}
 	| Profil
 {% endblock %}
-{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/profil.css') }}">
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/inscription.css') }}">
 {% endblock %}
 {% block h1 %}Profil
 {% endblock %}
 {% block content %}
 
-
-	<div class="wrapper">
-		<div class="col-12 d-flex main justify-content-start ">
-			<div class="col-8">
+		<div class="wrapper col-12 d-flex flex-lg-row flex-column ">
+			<div class="col-lg-7 col-12">
 
 				<img id="slideShow" class="d-block w-100" src="{{ asset('img/photoProduitUpload/61dd68be28846-20220111112342-Monture-Bouture-E-Modele-2.png') }}" alt="">
 
 			</div>
 
 
-			<div class="col-3 d-flex flex-column justify-content-center mx-auto mb-5">
+			<div class=" col-lg-3 col-sm-8 mx-auto my-5 d-flex flex-column justify-content-center">
 				{{ form_start(formUser) }}
 				{{ form_row(formUser.email) }}
 
@@ -39,11 +37,11 @@
 					</span>
 				</div>
 				{{ form_errors(formUser.password.second) }}
-
-				{{ form_row(formUser.nom) }}
 				{{ form_row(formUser.prenom) }}
+				{{ form_row(formUser.nom) }}
+				
 
-				<input type="submit" value="S'inscrire" class="btn btn-dark col-sm-12  mt-3">
+				<input type="submit" value="S'inscrire" class="btn col-12  mt-3">
 
 
 				{{ form_end(formUser) }}
@@ -61,6 +59,7 @@
 		var photos = JSON.parse(document.querySelector('#photos').innerHTML)
 
 nbphotos = photos.length
+photoShow()
 setInterval("photoShow()", 5000);
 
 function photoShow() {

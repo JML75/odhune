@@ -1,53 +1,58 @@
 {% extends "base.html.twig" %}
 {% block title %}{{ parent() }} | Profil{% endblock %}
-{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/profil.css') }}">{% endblock %}
-{% block h1 %}Profil{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/nous.css') }}">{% endblock %}
+{% block h1 %}Notre histoire{% endblock %}
 {% block content %}
 
 
-
-    <div class="wrapper">
-        <div class="col-12 d-flex main justify-content-start ">
-                    <div class="col-8">
        
-                        <img id ="slideShow" class="d-block w-100" src="{{ asset('img/photoLifeUpload/Jeanne-Paul.jpg') }}"  alt="">
-                    
+		<div class="wrapper col-12 d-flex flex-column ">
+
+        {% for presentationActive  in  presentationActives %}
+             {% if loop.index is odd %}
+                <div class="col-12 d-flex flex-lg-row flex-column">
+                    <div class="col-lg-6 col-12">
+                            <img class ="image_presentation"  src="{{ asset('img/photoLifeUpload/' ~ presentationActive.getPhotoLives.first())}}" alt="phto de presentation">
                     </div>
-                       
-        
-                <div class="col-3 d-flex flex-column justify-content-center mx-auto mb-5">
-
-                   <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam facilis repellat error neque dolorem rerum dolor vero cum, ipsam officiis! Sed fugiat molestiae quia. Aperiam dolores asperiores molestiae quas laborum temporibus, tempora sequi natus assumenda commodi, modi quidem veniam. Voluptatibus sint blanditiis ad quibusdam tenetur vero a, iure eius laudantium deleniti, modi quae. Commodi, saepe reiciendis. Natus omnis, ea libero reprehenderit a veniam non quis praesentium dignissimos beatae vitae voluptates necessitatibus amet vero in. Fugit corporis tenetur quas et aspernatur? Tenetur adipisci molestias mollitia vero, sapiente ipsum consequuntur eos architecto! Illum cum eaque sit harum consectetur accusantium laborum adipisci quas!</p>
-
+                    <div class="col-lg-4 col-10 d-flex flex-column justify-content-center align-items-center mx-auto mb-5 presentation">
+                        <p class="titre">{{ presentationActive.titre }}</p>
+                        <p class="sstitre">{{ presentationActive.sstitre }}</p>
+                        <p class = "text">{{ presentationActive.presentation }}</p>    
+                    </div>
+                </div>
+                    {% if loop.index == 1 %}
+                            <div class="box_contact d-flex justify-content-center align-items-centers">
+                                    <a href="mailto:contact@odhune.com" class="mail_contact">CONTACT@ODHUNE.COM</a>
+                            </div>
+                    {% endif %}
+             {% else %}
+                <div class="col-12 d-flex flex-lg-row flex-column">
+                    <div class="col-lg-4 col-10 d-flex flex-column justify-content-center align-items-center mx-auto mb-5 presentation">
+                        <p class="titre">{{ presentationActive.titre }}</p>
+                        <p class="sstitre">{{ presentationActive.sstitre }}</p>
+                        <p class = "text">{{ presentationActive.presentation }}</p>
+                    </div>
+                    <div class="col-lg-6 col-12">
+                        <img class ="image_presentation"  src="{{ asset('img/photoLifeUpload/' ~ presentationActive.getPhotoLives.first())}}" alt="phto de presentation">
+                    </div>           
                 </div>
 
-        </div>
-    
+            {% endif %}
+        {% endfor %}
+ 
     </div>
-    <textarea name="" hidden id="photos" cols="30" rows="10">{{photos}}</textarea>
+
+    {# <textarea name="" hidden id="photos" cols="30" rows="10">{{photos}}</textarea> #}
 {% endblock %}
 
 {% block javascripts %}
 <script>
 
-var photos = JSON.parse(document.querySelector('#photos').innerHTML)
+{# var photos = JSON.parse(document.querySelector('#photos').innerHTML)
+let cheminPhoto =  "{{ asset('img/photoLifeUpload/') }}"
 
-nbphotos = photos.length
-setInterval("photoShow()", 5000);
-
-function photoShow(){
-   
-    let position = Math.trunc(Math.random()* (nbphotos))
-    let nomPhoto = photos[position]
-    let cheminPhoto =  "{{ asset('img/photoProduitUpload/') }}"
-
-     document.getElementById('slideShow').setAttribute('src', cheminPhoto + nomPhoto)
-
-
-
-
-}
-
+document.querySelector('.image_histoire').setAttribute('src', cheminPhoto + photos[0])
+document.querySelector('.image_atelier').setAttribute('src', cheminPhoto + photos[1]) #}
 
 
 </script>

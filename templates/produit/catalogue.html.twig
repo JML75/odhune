@@ -8,6 +8,47 @@
 {% block content %}
 
 <div class="wrapper">
+     {# <nav aria-label="Breadcrumb" class="breadcrumb">
+        <div>
+            <ul>
+                <li><a href="{{ path('accueil') }}">Accueil</a></li>
+                <li><a  href="{{ path ('catalogue') }}">Produits</a></li>
+                {% if categorie == 'Tous' %}
+                <li><span aria-current="page"><a class="categorie" href="{{ path ('catalogue') }}">{{ categorie }}</a></span></li>
+                    
+                {% else %}
+                <li><span aria-current="page"><a class="categorie" href="{{ path (categorie|lower) }}">{{ categorie }}</a></span></li>
+                {% endif %}
+            
+            </ul>
+    </div>
+    </nav> #}
+    <div class="d-none d-lg-block">
+        <nav  aria-label="Breadcrumb" class="breadcrumb">
+        
+                <ul>
+                    <li class="d-flex flex-column align-items-center"><a  href="{{ path ('optique') }}">Optiques</a>
+                    {% if categorie == 'Optique' %}
+                        <div class="bouton my-2"></div>
+                    {% endif %}
+                    </li>
+                        
+                    <li class="d-flex flex-column align-items-center"><a  href="{{ path ('solaire') }}">Solaires</a>
+                    {% if categorie == 'Solaire' %}
+                        <div class="bouton my-2"></div>
+                    </li>
+                    {% endif %}
+                    <li class="d-flex flex-column align-items-center"><a  href="{{ path ('capsule') }}">Edition limitée</a>
+                    {% if categorie == 'Capsule' %}
+                        <div class="bouton my-2"></div>
+                        </li>
+                    {% endif %}
+                </ul>
+        </nav>
+    </div>
+
+
+
 
 
  {% if produits %} {# {% if produits is not empty %} #}
@@ -16,18 +57,14 @@
 
             {% for produit in produits %}
 
-                <div class="col-4 carte">
-            
-                    <a class ='lienFicheProduit' href="{{ path('fiche_produit', {'id' : produit.id}) }}"><img class ='photoProduit' src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%"><p class="nomProduit">{{ produit.nom|capitalize }}</p></a>
-            
-                    
-                
-                </div>
-                
+                <div class="col-lg-4 col-sm-6 col-12 carte">        
+                    <a class ='lienFicheProduit' href="{{ path('fiche_produit', {'id' : produit.id}) }}">
+                        <img class ='photoProduit' src="{{ asset("img/photoProduitUpload/" ~  produit.getPhotoProduits.first() ) }}" alt="image du produit" style="width:100%">
+                        <p class="nomProduit">{{ produit.nom|upper }}</p>
+                  </a>         
+                </div>   
+                            
             {% endfor %}
-
-       
-
 
         </div>
 

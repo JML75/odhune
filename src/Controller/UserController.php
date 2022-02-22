@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Service\PasswordUpdate;
 use App\Form\PasswordUpdateType;
+use App\Repository\AdresseRepository;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PhotoProduitRepository;
@@ -20,10 +21,12 @@ class UserController extends AbstractController
     /**
      * @Route("profil", name="profil")
      */
-    public function profil(PhotoProduitRepository $repophoto)
+    public function profil(PhotoProduitRepository $repophoto, AdresseRepository $repoadresse)
     {
         /* la methode getUser de Abstract controller (permet de récupérer l'objet User provenant de la table user de l'utilisateur connecté
-        */ 
+        */
+        $user = $this->getUser();
+        $adresse = $repoadresse->findBy(array('user'=>$user));
 
         // on créé un tableau avec les photos pour animer la page
         $photos=$repophoto->findAll();
@@ -32,9 +35,9 @@ class UserController extends AbstractController
             $nomPhotos []=$photo->getNom();
         }
         $nomPhotos_str = json_encode($nomPhotos) ;
-        $user = $this->getUser(); 
         return $this->render('user/profil.html.twig',[
             'user' => $user,
+            'adresses'=>$adresse,
             'photos'=>$nomPhotos_str
         ]);
     }
@@ -49,7 +52,7 @@ class UserController extends AbstractController
         $form =$this->createForm(UserType::class, $user, ['profil' => true]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if($form->isSubmitted() && $form->isValid()) {
 
             
             $manager->persist($user);
@@ -139,5 +142,25 @@ class UserController extends AbstractController
     {
         return $this->render('user/watchLive.html.twig', []);
     }
+
+        /**
+     * @Route("pdc", name="pdc")
+     */
+    public function pdc(PhotoProduitRepository $repophoto): Response
+    {
+
+         // on créé un tableau avec les photos pour animer la page
+         $photos=$repophoto->findAll();
+         $nomphotos = [];
+         foreach ( $photos as $photo) {
+             $nomPhotos []=$photo->getNom();
+         }
+         $nomPhotos_str = json_encode($nomPhotos) ;
+        return $this->render('user/pdc.html.twig', [
+            'photos'=> $nomPhotos_str
+
+        ]);
+    }
+
 
 }//fin de class

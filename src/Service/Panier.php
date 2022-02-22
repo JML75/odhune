@@ -30,23 +30,19 @@ class Panier
                 'id_produit' => [],
                 'Produit' => [],
                 'nomPhoto' => [],
-                "couleur" => [],
                 "quantité" => [],
                 "prix" => [],
                 "reduction" => []
-              
-              
-            ];
-     
+            ];  
             return $panier;
         }
 
 
 
-        public function add($id_produit,$produit, $nomPhoto, $couleur, $quantite, $reduction,$prix)
+    public function add($id_produit,$produit, $nomPhoto, $quantite, $reduction,$prix)
         {
     
-            $panierSession = $this->session->get('panier'); // equivalent = $_SESSION ['panier]
+            $panierSession = $this->session->get('panier'); // equivalent = $_SESSION ['panier
     
             if(empty($panierSession)) // si $_SESSION ['panier] n'existe pas on le crée
             {
@@ -78,7 +74,6 @@ class Panier
                 $panierSession["id_produit"][] = $id_produit;
                 $panierSession["produit"][] = $produit;
                 $panierSession["nomPhoto"][] = $nomPhoto;
-                $panierSession["couleur"][] = $couleur;
                 $panierSession["quantite"][] = $quantite;
                 $panierSession["reduction"][] = $reduction;
                 $panierSession["prix"][] = $prix;
@@ -86,13 +81,12 @@ class Panier
                 $this->session->set('panier', $panierSession);
             }
 
-             //on met le panier sous forme de ligne produit et on le stock danssession
+             //on met le panier sous forme de ligne produit et on le stock dans $_SESSION
              $panier= [];
              for ($i=0 ;$i < count($panierSession ['id_produit']) ; $i++){
                  $panier[$i]['id_produit'] = $panierSession ['id_produit'][$i];
                  $panier[$i]['produit'] = $panierSession ['produit'][$i];
                  $panier[$i]['nomPhoto'] = $panierSession ['nomPhoto'][$i];
-                 $panier[$i]['couleur'] = $panierSession ['couleur'][$i];
                  $panier[$i]['quantite'] = $panierSession ['quantite'][$i];
                  $panier[$i]['reduction'] = $panierSession ['reduction'][$i];
                  $panier[$i]['prix'] = $panierSession ['prix'][$i];
@@ -123,7 +117,6 @@ class Panier
             array_splice($panierSession['id_produit'], $position_produit, 1);
             array_splice($panierSession['produit'], $position_produit, 1);
             array_splice($panierSession['nomPhoto'], $position_produit, 1);
-            array_splice($panierSession['couleur'], $position_produit, 1);
             array_splice($panierSession['quantite'], $position_produit, 1);
             array_splice($panierSession['reduction'], $position_produit, 1);
             array_splice($panierSession['prix'], $position_produit, 1);
@@ -137,14 +130,12 @@ class Panier
              $panier[$i]['id_produit'] = $panierSession ['id_produit'][$i];
              $panier[$i]['produit'] = $panierSession ['produit'][$i];
              $panier[$i]['nomPhoto'] = $panierSession ['nomPhoto'][$i];
-             $panier[$i]['couleur'] = $panierSession ['couleur'][$i];
              $panier[$i]['quantite'] = $panierSession ['quantite'][$i];
              $panier[$i]['reduction'] = $panierSession ['reduction'][$i];
              $panier[$i]['prix'] = $panierSession ['prix'][$i];
          }
 
          $this->session->set('panier_ligne',$panier);
-       
          // on met à jour la variable du badge shopping cart 
          $nbItems = count($panier);
         $this->session->set('panier_item', $nbItems);
@@ -170,4 +161,4 @@ class Panier
 
 
 
-}// fin de class
+}// fin de classe

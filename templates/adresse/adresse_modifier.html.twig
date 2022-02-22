@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent() }}
+	| Adresses
+{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/adresse.css') }}">
+{% endblock %}
+{% block h1 %}Ajouter une adresse
+{% endblock %}
+{% block content %}
+
+		<div class="wrapper col-12 d-flex flex-lg-row flex-column ">
+			<div class="col-lg-7 col-12">
+
+				<img id="slideShow" class="d-block w-100" src="" alt="">
+
+			</div>
+
+
+			<div class=" col-lg-3 col-sm-8 mx-auto my-5 d-flex flex-column justify-content-center">
+
+				{{ form_start(formAdress) }}
+                {{ form_row(formAdress.adresse) }}
+                <div class= "col-12 d-flex justify-content-between">
+                <div class="col-3"> {{ form_row(formAdress.cp) }}</div>
+                <div class="col-7">  {{ form_row(formAdress.ville) }}</div>
+                </div>
+				
+                {{ form_row(formAdress.pays) }}
+                  <div class= "col-12 d-flex justify-content-around">
+                {{ form_row(formAdress.facturation) }}
+                 {{ form_row(formAdress.livraison) }}
+                 </div>
+
+				<input type="submit" value="Enregistrer" class="btn col-12  mt-3">
+
+
+				{{ form_end(formAdress) }}
+			</div>
+
+		</div>
+
+	</div>
+	<textarea name="" hidden id="photos" cols="30" rows="10">{{photos}}</textarea>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+var photos = JSON.parse(document.querySelector('#photos').innerHTML)
+
+nbphotos = photos.length
+let position = Math.trunc(Math.random() * (nbphotos))
+let nomPhoto = photos[position]
+let cheminPhoto = "{{ asset('img/photoProduitUpload/') }}"
+document.getElementById('slideShow').setAttribute('src', cheminPhoto + nomPhoto)
+setInterval("photoShow()", 5000);
+
+function photoShow() {
+let position = Math.trunc(Math.random() * (nbphotos))
+let nomPhoto = photos[position]
+let cheminPhoto = "{{ asset('img/photoProduitUpload/') }}"
+document.getElementById('slideShow').setAttribute('src', cheminPhoto + nomPhoto)
+}
+</script>
+{% endblock %}
+

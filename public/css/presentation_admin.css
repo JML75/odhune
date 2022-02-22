@@ -1,0 +1,72 @@
+
+h1 {
+    position: absolute;
+     top: -1000px; 
+     left: -1000px;
+ }
+
+
+    .wrapper {
+        background-color: #777;
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+        min-height: 1080px;
+        margin-top: -52.5px;   
+    } 
+
+.presentation {
+    margin-top: 150px;
+}
+
+
+.dropzone {
+    background: white;
+    border-radius: 5px;
+    border: 2px dashed rgb(0, 135, 247);
+    border-image: none;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.btn {
+    background-color:#F2E4DC;
+    color: #888;
+    border: solid  1px #F2E4DC;
+}
+
+img {
+    width:150px;
+    margin: 10px;
+    object-fit: contain;
+}
+input {
+    color: #333;
+    font-size:1vw;
+}
+
+
+label{
+    font-size:1vw;
+    }
+  @media (max-width: 991.98px) {
+    label{
+    font-size:1.7vw;
+    }
+    .invalid-feedback {
+        font-size:1.7vw;
+    }
+  }
+
+   @media (max-width: 767.98px) {
+    label{
+    font-size:2.5vw;
+    }
+    .invalid-feedback {
+        font-size:2.5vw;
+    }
+}
+.invalid-feedback {
+    color: #333;
+}

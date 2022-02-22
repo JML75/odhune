@@ -10,9 +10,9 @@
 
 
 {% block content %}
-	<div class="col-12 d-flex main justify-content-start ">
+	<div class="wrapper col-12 d-flex flex-lg-row flex-column ">
 
-		<div class="col-8">
+		<div class="col-lg-6 col-12">
 
 			<div id="carouselExampleIndicators" class="carousel carousel-dark slide" data-bs-ride="carousel">
 				<div class="carousel-indicators">
@@ -31,7 +31,6 @@
 				<div class="carousel-inner">
 
 					{% for photo in produit.photoProduits %}
-					 %}
 						{% if photo.position == 1 %}
 
 						<div class="carousel-item active">
@@ -59,70 +58,225 @@
 		</div>
 		
 
-		<div class=" col-3 d-flex justify-content-center align-items-center mx-auto">
-			<div  class=" mt-5 mx-auto">
+		<div class=" col-lg-4 col-10 mx-auto d-flex flex-column justify-centent-start">
+			<div  class="data_content">
 
-				<div id="data">
-					<p class='nomProduit'>{{ produit.nom }}</h3>
-					<p>{{ produit.ref }}</p>
-					<p>{{ produit.categorie }}</p>
-					<p>{{ produit.prixPubTtc }} €</p>
+				<div class="data d-flex flex-column align-items-center">
+				
+					   <nav aria-label="Breadcrumb" class="breadcrumb">
+					<ul>
+						<li><a href="{{ path('accueil') }}">ACCUEIL</a></li>
+						<li><a href="{{ path('catalogue') }}"> PRODUITS</a></li>
+						<li><a href="{{ path(produit.categorie|lower) }}"> {{ produit.categorie|upper }} </a></li>
+						<li><span aria-current="page"> {{ produit.nom|upper}} </span></li>
+					</ul>
+				</nav>
+					<p class='nom-produit'>{{  produit.nom|upper}}</p>
 					<br>
-					<p id="description">{{ produit.description}}</p>
+		
+					{% if is_granted('ROLE_REV') %}
+					<p class="prix">{{ produit.prixRevHT}} € HT.   ( prix public conseillé :  {{ produit.prixPubTtc }} € TTC ) </p>
+					{% else %}
+					<p class="prix">{{ produit.prixPubTtc }} EUR</p>
+						
+					{% endif %}
+
+					
+				
+					<br>
+					<p class="description">{{ produit.description}}</p>
 				
 				</div>
 					<br>
 				<form action="{{ path('panier_ajouter') }}" method="post">
-						<div class="row">
-							<div class="col-12 d-flex flex-row my-2 mx-2 color_select align-items-center">			
-								<input id="noire" checked type="radio" name="color" value="Noir">
-								<label id="label_noire" for="noire"></label>
-								
-								<input id="ecaille" type="radio" name="color" value="Ecaille">
-								<label id="label_ecaille" for="ecaille"></label>
-								
-								<input id="cristal"  type="radio" name="color" value="Cristal">
-								<label id="label_cristal"  for="cristal"></label>
 
-								<label  id="label_qty" class ='mx-2' for="qty">Quantité</label>
-								<input id= "qty" type="number" name="qty" id="qty" min="1" max="10" step="1" value="1">
+							
+							<div class="col-12 d-flex  justify-content-start align-items-center">
+									<div class='col-6 d-flex justify-content-start'>
+
+										{% for couleur in couleurs %}										
+											{% if produit.couleur == couleur %}
+
+													<div class="outside d-flex justify-content-center align-items-center selected">
+														<a  class='color' id ="{{ couleur|lower}}" href="#" ></a>
+													</div>		
+											{% else %}
+													<div class="outside d-flex justify-content-center align-items-center ">	
+													<a  class='color' id ="{{ couleur|lower}}" href="{{ path('fiche_produit',{'id': produit.id, 'couleurChange':couleur})}}" ></a>
+													</div>
+											{% endif %}
+											
+										{% endfor %}			
+
+{# 
+							
+										 {% if produit.couleur =='Noir' %}
+										 		<div class="outside d-flex justify-content-center align-items-center selected">
+													<a  class='color' id="noir" href="{{ path('fiche_produit',{'id': produit.id, 'couleurChange':'Noir'})}}" ></a>
+												</div>		
+										{% else %}
+												<div class="outside d-flex justify-content-center align-items-center">	
+												<a  class='color' id="noir" href="{{ path('fiche_produit',{'id': produit.id, 'couleurChange':'Noir'})}}" ></a>
+												</div>
+										{% endif %}
+										{% if produit.couleur =='Ecaille' %}
+											<div class="outside d-flex justify-content-center align-items-center selected">
+												<a class='color ' id="ecaille" href="{{ path('fiche_produit',{'id': produit.id, 'couleurChange':'Ecaille'})}}"></a>
+												</div>
+										{% else %}
+												<div class="outside d-flex justify-content-center align-items-center">
+												<a class='color' id="ecaille" href="{{ path('fiche_produit',{'id': produit.id, 'couleurChange':'Ecaille'})}}"></a>	
+												</div>
+										{% endif %}
+										{% if produit.couleur =='Cristal' %}
+											<div class="outside d-flex justify-content-center align-items-center selected">
+												<a class='color ' id="cristal"  href="{{ path('fiche_produit',{'id': produit.id, 'couleurChange':'Cristal'})}}"></a>
+												</div>		
+										{% else %}
+												<div class="outside d-flex justify-content-center align-items-center">
+												<a class='color' id="cristal"href="{{ path('fiche_produit',{'id': produit.id, 'couleurChange':'Cristal'})}}"></a>	
+												</div>		
+										{% endif %}	  #}
+									</div>
+									<div class='col-6 d-flex justify-content-end align-items-center'>
+										<label id="label_qty" class ='ml-2' for="qty">Quantité</label>
+									
+										<input id= "qty" type="number" name="qty" id="qty" min="1" max="10" step="1" value="1">
+									</div>
 							</div>
-	
-						</div>
-						  <input type="hidden" name="id" value ="{{ produit.id }}">
-				<button type="submit" onclick ="updateCartItem()" class="col-12 btn mt-5 ">Ajouter au panier</button>
+						<input type="hidden" name="id" value ="{{ produit.id }}">
+						<button type="submit" class="col-12 btn my-2 ">AJOUTER AU PANIER</button>
 				</form>
-			</div>
+				<p class='details'>Détails</p>
+				<div>
+				</div>
+					<div class='col-12 mt-2 mb-3 '>
+						<div  class="col-12 d-flex justify-content-between detail"><p >Tailles</p><button class ="expand" onclick="expandTaille(this)" expand="+"><i class="far fa-caret-square-down"></i></button></div>
 
+						<p id='tailles' class="d-none mx-auto detail">{{ produit.taille}}</p>
+						<div class="separator"></div>
+					</div>
+					
+			   <div class='col-12 mb-3'>
+					<div  class="col-12 d-flex justify-content-between detail"><p>Matières</p><button class ="expand " onclick="expandMatiere(this)" expand="+"><i class="far fa-caret-square-down"></i></button></div>
+
+					<p id='matieres' class="d-none mx-auto detail">{{ produit.matiere}}</p>
+					<div class="separator"></div>
+			   </div>
+			   <div class='col-12 mb-3'>
+					<div  class="col-12 d-flex justify-content-between detail"><p>Entretien</p><button class ="expand" onclick="expandEntretien(this)" expand="+"><i class="far fa-caret-square-down"></i></button></div>
+
+					<p id='entretien' class="d-none mx-auto detail">{{ produit.entretien}}</p>
+					<div class="separator"></div>
+			   </div>
+			</div>
 		</div>
 
 
 	</div>
+	<textarea hidden class='photo2js' name="" id="" cols="30" rows="10">{{ photos }}</textarea>
 {% endblock %}
 
 
 {% block javascripts %}
 
-	<script>
+	<script>// expension des div Taille, matière et entretien( code à réduire)
+		function expandTaille(element){
+			let expander = element.getAttribute('expand')
+			let elt = document.querySelector('#tailles')
+
+			if (expander == '+') {
+				elt.setAttribute('class','d-block')
+				element.setAttribute('expand','-')
+				element.innerHTML = '<i class="far fa-caret-square-up"></i>'
+			}else {
+				elt.setAttribute('class','d-none')
+				element.setAttribute('expand','+')
+				element.innerHTML = '<i class="far fa-caret-square-down">'
+			}
+		}
+
+		function expandMatiere(element){
+			let expander = element.getAttribute('expand')
+			let elt = document.querySelector('#matieres')
+
+			if (expander == '+') {
+				elt.setAttribute('class','d-block')
+				element.setAttribute('expand','-')
+				element.innerHTML = '<i class="far fa-caret-square-up"></i>'
+			}else {
+				elt.setAttribute('class','d-none')
+				element.setAttribute('expand','+')
+				element.innerHTML = '<i class="far fa-caret-square-down">'
+			}
+		}
+
+		function expandEntretien(element){	
+			let expander = element.getAttribute('expand')
+			let elt = document.querySelector('#entretien')
+
+			if (expander == '+') {
+				elt.setAttribute('class','d-block')
+				element.setAttribute('expand','-')
+				element.innerHTML = '<i class="far fa-caret-square-up"></i>'
+			}else {
+				elt.setAttribute('class','d-none')
+				element.setAttribute('expand','+')
+				element.innerHTML = '<i class="far fa-caret-square-down">'
+			}
+		}
+	</script>  
+	<script>// bootstap caroussel
 		$(document).ready(function () {
 		$('.carousel').carousel({
+		 interval: false,
 		keyboad: true,
 		touch:true
-	
-	})
-});
+		})
+		});
 	</script>
-	<script>
-	{# function updateCartItem (){
-		let nbCartItems = {{ nb_item }}
-		nbCartItems = nbCartItems + 1
 
-    if (nbCartItems>0){document.querySelector('#cart_items').innerHTML=nbCartItems}
-    else{
-        document.querySelector('#cart_items').innerHTML=""
-        document.querySelector('#cart_items').setAttribute('visibility',"hidden")
-        }
+	<script>// vignettes photos dans les indicateurs du caroussel
+		let indicator =document. querySelector('.carousel-indicators')
+		let indicators = indicator.childNodes
+		let photos = JSON.parse(document.querySelector('.photo2js').value)
+		let indicatorsArray= Array.from(indicators)
+		let cheminPhoto = "{{ asset('img/photoProduitUpload/') }}"
+		indicatorsArray.pop()
 
-	}
-	</script> #}
+		for(i=0; i < indicatorsArray.length; i++ ){
+			if(i%2 !== 0){
+				var n=(i+1)/2
+					if (2* n< (indicatorsArray.length+1)){	
+							elt =indicatorsArray [i]
+							elt.style.backgroundImage = 'url('+cheminPhoto+photos[n-1]+')'
+					}
+			}        
+		}
+	</script>
+
+	<script>// récupére le produit de la couleur sélectionnée
+		let ecaille = document.querySelector('#ecaille').parentNode
+		let cristal = document.querySelector('#cristal').parentNode
+		let noir = document.querySelector('#noir').parentNode
+
+		ecaille.onclick = function(){
+			ecaille.classList.add('selected')
+			cristal.classList.remove('selected')
+			noir.classList.remove('selected')
+		}
+		noir.onclick = function(){
+			noir.classList.add('selected')
+			ecaille.classList.remove('selected')
+			cristal.classList.remove('selected')
+		}
+		cristal.onclick = function(){
+			cristal.classList.add('selected')
+			ecaille.classList.remove('selected')
+			noir.classList.remove('selected')
+		}
+		</script>
+
+
+
 {% endblock %}

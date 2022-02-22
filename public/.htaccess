@@ -4,6 +4,7 @@
 # start page (path "/") because otherwise Apache will apply the rewriting rules
 # to each configured DirectoryIndex file (e.g. index.php, index.html, index.pl).
 DirectoryIndex index.php
+LoadModule rewrite_module modules/mod_rewrite.so
 
 # By default, Apache does not evaluate symbolic links if you did not enable this
 # feature in your server configuration. Uncomment the following line if you
@@ -18,8 +19,11 @@ DirectoryIndex index.php
 </IfModule>
 
 <IfModule mod_rewrite.c>
+  
     RewriteEngine On
 
+    php_value post_max_size 100M
+    php_value upload_max_filesize 100M
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper
@@ -53,6 +57,7 @@ DirectoryIndex index.php
     # Rewrite all other queries to the front controller.
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ %{ENV:BASE}/index.php [L]
+
 </IfModule>
 
 <IfModule !mod_rewrite.c>
@@ -64,3 +69,4 @@ DirectoryIndex index.php
         # RedirectTemp cannot be used instead
     </IfModule>
 </IfModule>
+

@@ -5,7 +5,9 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters: 
     photos_produit: '%kernel.project_dir%/public/img/photoProduitUpload'
+    photos_life: '%kernel.project_dir%/public/img/photoLifeUpload'
     photos_dropzone: '%kernel.project_dir%/public/img/uploadDropzone'
+    photo_video_accueil: '%kernel.project_dir%/public/img/accueil'
 
 services:
     # default configuration for services in *this* file

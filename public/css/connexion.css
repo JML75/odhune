@@ -4,28 +4,36 @@ h1 {
      left: -1000px;
  }
 
-.main {
-    background-image: url("../img/background/ODHUNE-monture-scaled.jpeg");
-    background-position: center;
-    background-size: 100%;
-    height: 100%;
-    }
-
-.wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: start;
-        align-items: center;
-        min-height: 690px;
+ .wrapper {
+    margin-top: -107px;
        
 } 
 
-img {
-    width:150px;
-    margin: 10px;
-    object-fit: contain;
+
+.reset-password-link {
+    text-decoration: none;
+    color: #777;
+    font-size: 13px;
+  
+    font-weight: normal;
 }
-input {
-    color: #333;
+
+
+.reset-password-link:hover {
+    color:coral
 }
+
+.btn {
+    font-size: 20px;
+    background-color: #F2E4DC;
+    border: none;
+    color: #777;
+
+}.btn:hover {
+    color: white;
+    background-color: #ceae9c;
+
+}
+
+
 

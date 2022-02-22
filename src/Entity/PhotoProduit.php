@@ -18,7 +18,7 @@ class PhotoProduit
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity=produit::class, inversedBy="photoProduits")
+     * @ORM\ManyToOne(targetEntity=Produit::class, inversedBy="photoProduits")
      * @ORM\JoinColumn(nullable=false)
      */
     private $produit;

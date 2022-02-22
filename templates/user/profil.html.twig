@@ -4,24 +4,82 @@
 {% block h1 %}Profil{% endblock %}
 {% block content %}
 
-
-
-    <div class="wrapper">
-        <div class="col-12 d-flex main justify-content-start ">
-                    <div class="col-8">
+ 
+       <div class="wrapper col-12 d-flex flex-lg-row flex-column ">
+                 <div class="col-lg-7 col-12">
        
                         <img id ="slideShow" class="d-block w-100" src="{{ asset('img/photoProduitUpload/61dd68be28846-20220111112342-Monture-Bouture-E-Modele-2.png') }}"  alt="">
                     
                     </div>
                        
         
-                <div class="col-3 d-flex flex-column justify-content-center mx-auto mb-5">
+               <div class=" col-lg-3 col-sm-6 mb-5 mx-auto d-flex flex-column justify-content-center">
 
-                    <p>  Prénom : {{app.user.prenom}}</p>
-                    <p>  Nom : {{app.user.nom}}</p>
-                    <p>  Email : {{app.user.email}}</p>
-                    <a  class =" btn btn-secondary col-12 my-3" href="{{ path('profil_modifier') }}">Modifier le profil </a>
-                    <a  class =" btn btn-secondary col-12 my-3" href="{{ path('password_modifier') }}">Modifier le mot de passe </a>
+                    <p> {{app.user.prenom}} {{app.user.nom}}</p>
+            
+                    <p> {{app.user.email}}</p>
+
+                    {% if adresses %}
+                           <table class="table text-center">
+                           <thead>
+                                <tr>       
+                                    <th class='ajouter-adresse'><a class ="btn btn-sm ajouter-adresse-btn" href="{{ path('adresse_ajouter', {'route':app.request.pathinfo })}}">Ajouter une adresse </a></th>
+                                    <th>facturation</th>
+                                    <th>livraison</th>
+                                    <th></th>
+                                    <th></th>                 
+                                </tr>    
+                            </thead>
+
+                        <tbody>
+                       
+                        {% for adresse in adresses %}
+                        <tr class="align-midle">
+                            <td class='adresse text-align-left'>{{ adresse.adresse }} {{ adresse.cp }} {{ adresse.ville }}</td>
+                        {% if adresse.facturation == 1 %}
+                            <td>
+                                <img src="{{ asset('img/icones/button-green.png') }}" alt="icone positif"  style="width:12px"alt="image du produit" > 
+							</td>                
+                        {% else %}
+                            <td>
+                                <img src="{{ asset('img/icones/button-red.png') }}" alt="icone negatif"  style="width:12px"alt="image du produit" > 
+							</td>    
+                        {% endif %}
+                         {% if adresse.livraison == 1 %}
+                            <td>
+                                <img src="{{ asset('img/icones/button-green.png') }}" alt="icone positif"  style="width:12px"alt="image du produit" > 
+							</td>                
+                        {% else %}
+                            <td>
+                                <img src="{{ asset('img/icones/button-red.png') }}" alt="icone negatif"  style="width:12px"alt="image du produit" > 
+							</td>    
+                        {% endif %}
+                            <td class="">
+                            <a href="{{ path('adresse_modifier', {'id' : adresse.id , 'route': app.request.pathinfo } ) }}">
+                                <img src="{{ asset('img/icones/update.png') }}" alt="icone editer"  style="width:16px">
+                            </a>
+                            </td>
+                            
+                            <td class="">
+                            <a href="{{ path('adresse_supprimer', {'id' : adresse.id } ) }}" onclick="return confirm('Confirmez-vous la suppression cette adresse ?')">
+                                <img src="{{ asset('img/icones/delete.png') }}" alt="icone effacer" style="width:12px">
+                       
+                            </td>
+                        </tr>
+
+                        {% endfor %}
+                        </tbody>
+
+                        </table>
+                     {% else %}
+                     <div class="col-12 d-flex justify-content-between align-items-center">
+                     <p>Aucune adresse enregistrée   </p><a class ="ajouter-adresse-btn btn " href="{{ path('adresse_ajouter', {'route':app.request.pathinfo })}}">Ajouter une adresse </a>
+                     </div>
+                    {% endif %}
+                   
+                        
+                    <a  class =" btn col-12 mt-3 btn-sm " href="{{ path('profil_modifier') }}">Modifier le profil </a>
+                    <a  class =" btn col-12 mt-3 btn-sm " href="{{ path('password_modifier') }}">Modifier le mot de passe </a>
 
                 </div>
 

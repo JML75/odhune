@@ -5212,16 +5212,16 @@
           dictFallbackText:
             "Please use the fallback form below to upload your files like in the olden days.",
           dictFileTooBig:
-            "File is too big ({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
+            "Fichier trop gros({{filesize}}MiB). Max filesize: {{maxFilesize}}MiB.",
           dictInvalidFileType: "seules les photos ou images sont autorisées",
           dictResponseError: "Server responded with {{statusCode}} code.",
-          dictCancelUpload: "Cancel upload",
-          dictUploadCanceled: "Upload canceled.",
+          dictCancelUpload: "annuler l'upload",
+          dictUploadCanceled: "Upload annulé.",
           dictCancelUploadConfirmation:
-            "Are you sure you want to cancel this upload?",
+            "Êtes vous sûr(e) d'annuler",
           dictRemoveFile: "supprimer",
           dictRemoveFileConfirmation: null,
-          dictMaxFilesExceeded: "le nombre de photos est limité à 5.",
+          dictMaxFilesExceeded: "le nombre d'élément est limité.",
           dictFileSizeUnits: { tb: "TB", gb: "GB", mb: "MB", kb: "KB", b: "b" },
           init: function () {},
           params: function (e, t, n) {
