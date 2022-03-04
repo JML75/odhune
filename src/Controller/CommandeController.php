@@ -60,12 +60,13 @@ class CommandeController extends AbstractController
         
 
 
+        
         $form = $this->createForm(CommandeType::class, $commande);
 
         $panier = $session->get('panier_ligne');
         $panierStr = json_encode($panier);
     
-        dd ($panier);
+  
         return $this->render('commande/commande_preparer.html.twig', [
             'panier' => $panier,
             'panierStr' => $panierStr,
