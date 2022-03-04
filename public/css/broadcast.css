@@ -1,9 +1,6 @@
 
 .wrapper {
-    background-image: url('../img/background/fabrication.jpg');
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size:cover;
+    background-color: #ddd;
      margin-top: -107.75px;     
      margin-bottom: 0px;
      width: 100vw;
@@ -14,58 +11,85 @@
     height: auto;
     
 }
-.chatArea, .video {
-    margin-top: 100px;
-    min-height: 600px;
-    max-height: 90vh;‡
+.chatArea {
+   
+   
 }
+.video {
 
+    position: absolute;
+    bottom: 71px;
+    padding-right: 20px;
+
+}
+footer {
+    display:none;
+}
+.message {
+    position: absolute;
+    bottom: 38px;
+    margin:0 auto;
+}
 .messages {
-    background-color: #EEE;
-    height: 600px;
+    position: absolute;
+    bottom: 71px;
+    margin:0 auto;
+    background-color: transparent;
+    max-height: 50vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     word-wrap: break-word;
     overflow-y: scroll;
     padding: 10px 20px 10px 20px;
 
 }
 
-
 .droite{
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    background-color: #FFF8;
+    padding: 5px;
+    margin-bottom: 5px;
+    margin-left: auto;
+    height: auto;
+    width: auto;
+    max-width:max-content;
+    border-radius: 10px 0px 10px 10px;
 }
 
 .gauche {
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    background-color: #FFF5;
+    padding: 5px;
+    margin-bottom: 5px;
+    height: auto;
+    width: auto;
+    max-width:max-content;
+    border-radius: 0 10px 10px 10px;
 }
 .nom, .text {
-    max-width: 70%;
-    font-size: 12px;
+   
+    font-size: 16px;
     margin-bottom: 2px;
 
 }
 .nom {
     text-transform: lowercase;
+    font-weight: bold;
 }
 .text {
-    padding: 5px;
-    height: auto;
-    border: 1px solid black;
+  
 
 }
 .gauche .text {
-    border-radius: 0 10px 10px 10px;
+   
 }
 
 .droite .text {
-    border-radius: 10px 0px 10px 10px;
+   
 }
 
 

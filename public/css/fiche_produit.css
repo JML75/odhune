@@ -1,28 +1,24 @@
 .wrapper {
   margin-top:  -107px;
-  
 } 
 
 .carousel-control-next-icon {
   display: none;
-
 }
+
 .carousel-control-prev-icon {
   display: none;
-
 }
 
 .carousel-indicators .carousselIndicator{
   width: 60px;
   height:60px;
   opacity: 1;
-
  }
  .carousel-indicators .carousselIndiator{
   width: 60px;
   height:60px;
   opacity: 1;
-
  }
 
  .carousel-indicators {
@@ -45,7 +41,7 @@
 
 
 .data_content {
-  margin-top: 110px ;
+margin-top: 110px ;
 }
 
 .breadcrumb ul {
@@ -250,7 +246,5 @@ and (orientation: portrait) {
   .data_content {
     margin-top:10px ;
   }
-
-  
   }
 

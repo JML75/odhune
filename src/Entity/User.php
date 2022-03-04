@@ -9,6 +9,8 @@ use App\Repository\UserRepository;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+
 
 
 /**
@@ -18,7 +20,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * message = "Cet email et déjà associé à un compte")
  */
 
-class User implements UserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 {
     /**
@@ -106,10 +108,14 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return string the hashed password for this user
+     */
     public function getPassword(): ?string
     {
         return $this->password;
     }
+
 
     public function setPassword(string $password): self
     {
@@ -152,16 +158,16 @@ class User implements UserInterface
     // identification, dire qu'elle propriété sert à l'identification
     // on doit l'implementer (demnandée par la classe implementée) mais elle n'est plus utilisée depuis la version  5.3 on utilise la getUserIdentifier , il faut nénamoins l'implémenter pendant la transition
 
-    public function getUsername() {
+    public function getUsername(): ?string {
         return $this->email;
     }
     // identification, dire qu'elle propriété sert à l'identification
-    public function getUserIdentifier() {
+    public function getUserIdentifier(): ?string {
        return $this->email;
    }
 
    //Roles 
-   public function getRoles() {
+   public function getRoles(): ?array {
        $roles = $this->roles;
        return array_unique($roles); 
    }
@@ -176,6 +182,8 @@ class User implements UserInterface
 
    
    public function eraseCredentials(){} // nettoie le mdp
+
+   
 
    /**
     * @return Collection|Adresse[]

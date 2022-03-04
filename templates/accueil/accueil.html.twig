@@ -1,23 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ODHUNE{% endblock %}
+{% block title %}Lunettes optiques et solaires fabrication artisanale française{% endblock %}
 {% block stylesheets %} <link rel="stylesheet" href="{{  asset('css/accueil.css')  }}">{% endblock %}
 
 {% block content %}
 
 
-<h1>créateur lunette original artisan France </h1>
     <div class="wrapper col-12">
     <video class="background d-none video"  src ="" autoplay loop muted type="video/mp4"></video>
 
-    <img class ='background image d-none ' src="" alt="">
+    <img class ='background image d-none ' src="" alt="image accueil">
 
 
     </div>
 <div class="groupe">
 
     <div class="box_slogan col-12 d-flex">
-        <div class="slogan mx-auto">DES LUNETTES OPTIQUES ET SOLAIRES FABRIQUÉES PAR DES PASSIONNÉS POUR DES PASSIONNÉS - CRÉATION ARTISANALE À LA MAIN EN NORMANDIE</div>
+        <h1 class="slogan mx-auto">DES LUNETTES OPTIQUES ET SOLAIRES FABRIQUÉES PAR DES PASSIONNÉS POUR DES PASSIONNÉS - CRÉATION ARTISANALE À LA MAIN EN NORMANDIE</h1>
     </div>
 
     <div class="focusProduit">
@@ -36,7 +35,7 @@
 
                                    <div class="Produit col-md-6 col-12 d-flex flex-column justify-content-center align-items-center mx-auto px-2">
                                         {# <p class= "nomProduit mb-1">{{ produit.nom|upper }}</p> #}
-                                        <p class= "description">{{ produit.description}}</p>
+                                        <h3 class= "description">{{ produit.description}}</h3>
                                         <div class="col-12 my-3  mx-3 d-flex align-items-center">
                                        <div class="trait col-sm-8 col-6"></div>
                                             <a class =" col-sm-4 col-6 btn text-end " href="{{ path(produit.categorie|lower) }}">COLLECTION {{produit.categorie|upper}}</a>
@@ -52,7 +51,7 @@
 
 
                                 <div class="Produit col-md-6 col-12 d-flex flex-column justify-content-center align-items-center  order-md-1 order-2 mx-auto px-2 mt-md-0 mt-3">
-                                    <p class= "description">{{ produit.description}}</p>
+                                    <h3 class= "description">{{ produit.description}}</h3>
                                     <div class="col-12 my-3 d-flex flex-row  justify-content-between align-items-center">
                                              <a class =" col-sm-4  col-6 btn text-start " href="{{ path(produit.categorie|lower) }}">COLLECTION {{produit.categorie|upper}}</a>
                                              <div class="trait col-sm-8 col-6"></div>
@@ -85,45 +84,45 @@
 
 
 let homeBackground = function(){
-    let type = "{{type}}"
-    let file ="{{file}}"
+    let typeLg = "{{typeLg}}"
+    let fileLg ="{{fileLg}}"
+    let typeMd = "{{typeMd}}"
+    let fileMd ="{{fileMd}}"
     let chemin = "{{asset('img/accueil/')}}"
     elementVideo = document.querySelector('.video')
     elementImage = document.querySelector('.image')
 
-    if (window.matchMedia("(min-width:992px)").matches) {
-    
-            if (type) { //si  c'est une video 
-            elementVideo.src = chemin+file
+    if (window.matchMedia("(min-width:992px)").matches) { // superieur au  mode md
+            if (typeLg) { //si  c'est une video 
+            elementVideo.src = chemin+fileLg
             elementImage.classList.add('d-none')
             elementVideo.classList.remove('d-none')
-
             } 
             else { //si c'est une image
             elementVideo.classList.add('d-none')
             elementImage.classList.remove('d-none')
-            elementImage.src = chemin+file
+            elementImage.src = chemin+fileLg
             }
     
-    } else { // si c'est une tablette ou un smartphone on chisi une ç
-
-     let file ="Jeanne-Paul.jpg"
-    elementVideo.classList.add('d-none')
-    elementImage.classList.remove('d-none')
-    elementImage.src = chemin+file
-}
+    } else { // si c'est une tablette ou un smartphone  
+            if (typeMd) { //si  c'est une video 
+            elementVideo.src = chemin+fileMd
+            elementImage.classList.add('d-none')
+            elementVideo.classList.remove('d-none')
+            } 
+            else { //si c'est une image
+            elementVideo.classList.add('d-none')
+            elementImage.classList.remove('d-none')
+            elementImage.src = chemin+fileMd
+            }
+    }
 
 }
 
 homeBackground()
 window.onresize =function() {
     return  homeBackground()
-
 }
-
-
-
-
 
 
 </script>

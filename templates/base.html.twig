@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="ODHUNE Artisan Créateur Lunétier crée et fabrique à ROUEN en France ">
-		<meta name="keywords" content="lunette,lunettes,créateur,artisan,français,fabricant,France">
+		<meta name="description" content="Artisans Créateurd de Lunettes optiques et solaires fabriquées en France à Rouen par des passionnés pour des passionnés">
+		<meta name="keywords" content="lunette lunettes créateur artisan français fabricant France">
 		<meta name="mobile-web-app-capable" content="yes">
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="mobile-web-app-title" content="ODHUNE">
@@ -22,13 +22,13 @@
 		</script>
 		
 		<title>
-			{% block title %}odhune
+			{% block title %}
 			{% endblock %}
 		</title>
 		<script type="text/javascript" src="{{ asset("tarteaucitron.js") }}"></script>
 		<script type="text/javascript">
 			tarteaucitron.init({
-				"privacyUrl": "http://s861930592.onlinehome.fr/odhune", /* Privacy policy url */
+				"privacyUrl": "http://www.odhune.com/mentionLegales", /* Privacy policy url */
 
 				"hashtag": "#tarteaucitron",
 				/* Open the panel with this hashtag */
@@ -70,7 +70,7 @@
 
 				"removeCredit": true,
 				/* Remove credit link */
-				"moreInfoLink": true,
+				"moreInfoLink": false,
 				/* Show more info link */
 
 				"useExternalCss": false,
@@ -189,12 +189,12 @@
 
 										{% if is_granted('ROLE_ADMIN') %}
 										<li><hr class="dropdown-divider"></li>
-										<li ><a class="dropdown-item" href="{{ path('presentation_afficher') }}"> 'Nous'</a></li>
+										<li ><a class="dropdown-item" href="{{ path('presentation_afficher') }}">Gérer 'NOUS'</a></li>
 
-										<li ><a class="dropdown-item" href="{{ path('accueil_afficher') }}">Accueil</a></li>
+										<li ><a class="dropdown-item" href="{{ path('accueil_afficher') }}">Gérer l'accueil</a></li>
 
 										<li ><a class="dropdown-item" href="{{ path('produit_afficher') }}">Gérer les produits</a></li>
-										<li ><a class="dropdown-item" href="{{ path('produit_ajouter') }}">Ajouter produit</a></li>
+										<li ><a class="dropdown-item" href="{{ path('produit_ajouter') }}">Ajouter un produit</a></li>
 										<li ><a class="dropdown-item" href="{{ path('user_afficher') }}">Gérer les utilisateurs</a></li>
 										<li ><a class="dropdown-item" href="{{ path('back_office') }}">Backoffice</a></li>
 										<li ><a class="dropdown-item" href="{{ path('broadcast') }}">Broadcast</a></li>
@@ -240,202 +240,167 @@
 				</div>
 				<div class="offcanvas-body">
 					<ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-									<li class="nav-item">
-										<a class="dropdown-item" href="{{ path('catalogue') }}">PRODUITS</a>
-									</li>   
-									<li class="nav-item">
-										<a <a class="dropdown-item" href="{{ path('optique') }}">OPTIQUES</a>
-									</li>       
-									<li class="nav-item">
-										<a <a class="dropdown-item"  href="{{ path('solaire') }}">SOLAIRES</a>
-									</li>
-									<li class="nav-item">
-										<a class="dropdown-item"  href="{{ path('capsule') }}">CAPSULES</a>
-									</li>
-									<li><hr class="dropdown-divider"></li>
+						<li class="nav-item">
+							<a class="dropdown-item" href="{{ path('catalogue') }}">PRODUITS</a>
+						</li>   
+						<li class="nav-item">
+							<a <a class="dropdown-item" href="{{ path('optique') }}">OPTIQUES</a>
+						</li>       
+						<li class="nav-item">
+							<a <a class="dropdown-item"  href="{{ path('solaire') }}">SOLAIRES</a>
+						</li>
+						<li class="nav-item">
+							<a class="dropdown-item"  href="{{ path('capsule') }}">CAPSULES</a>
+						</li>
+						<li><hr class="dropdown-divider"></li>
 
-									<li class="nav-item">
-									<a <a class="dropdown-item" href="{{ path('nous') }}">NOUS</a>
-								</li>       
-								<li class="nav-item">
-									<a <a class="dropdown-item" href="{{ path('magasin') }}">POINTS DE VENTE</a>
-								</li>
-								<li><hr class="dropdown-divider"></li>
-									{% if is_granted('ROLE_USER') %}
-										
-											<li><a class="dropdown-item" href="{{ path("profil") }}">PROFIL</a></li>
-											<li><a class="dropdown-item" href="{{ path("deconnexion") }}">DECONNEXION</a></li>
-											<li><hr class="dropdown-divider"></li>
-											<li ><a class="dropdown-item" href="{{ path("live") }}">WATCH LIVE</a></li>
-										
-										{% else %}
-										<li><a class="dropdown-item" href="{{ path("connexion") }}">CONNEXION</a></li>
-										<li ><a class="dropdown-item" href = "{{ path('inscription') }}">INSCRIPTION</a></li>
-										{% endif %}
-										{% if is_granted('ROLE_REV') %}
-										<li><hr class="dropdown-divider"></li>
-										<li ><a class="dropdown-item" href="#"> ESPACE PRO</a></li>
+						<li class="nav-item">
+							<a class="dropdown-item" href="{{ path('nous') }}">NOUS</a>
+						</li>       
+						<li class="nav-item">
+							<a class="dropdown-item" href="{{ path('magasin') }}">POINTS DE VENTE</a>
+						</li>
+						<li><hr class="dropdown-divider"></li>
 
-										{% endif %}
-										{% if is_granted('ROLE_ADMIN') %}
-										<li><hr class="dropdown-divider"></li>
-										<li ><a class="dropdown-item" href="{{ path('presentation_afficher') }}"> 'Nous'</a></li>
+						{% if is_granted('ROLE_USER') %}				
+							<li><a class="dropdown-item" href="{{ path("profil") }}">PROFIL</a></li>
+							<li><a class="dropdown-item" href="{{ path("deconnexion") }}">DECONNEXION</a></li>
+							<li><hr class="dropdown-divider"></li>
+							<li ><a class="dropdown-item" href="{{ path("live") }}">WATCH LIVE</a></li>
+						{% else %}
+							<li><a class="dropdown-item" href="{{ path("connexion") }}">CONNEXION</a></li>
+							<li ><a class="dropdown-item" href = "{{ path('inscription') }}">INSCRIPTION</a></li>
+						{% endif %}
 
-										<li ><a class="dropdown-item" href="{{ path('accueil_afficher') }}">Accueil</a></li>
+						{% if is_granted('ROLE_REV') %}
+							<li><hr class="dropdown-divider"></li>
+							<li ><a class="dropdown-item" href="#"> ESPACE PRO</a></li>
+						{% endif %}
 
-										<li ><a class="dropdown-item" href="{{ path('produit_afficher') }}">Gérer les produits</a></li>
-										<li ><a class="dropdown-item" href="{{ path('produit_ajouter') }}">Ajouter produit</a></li>
-										<li ><a class="dropdown-item" href="{{ path('user_afficher') }}">Gérer les utilisateurs</a></li>
-										<li ><a class="dropdown-item" href="{{ path('back_office') }}">Backoffice</a></li>
-										<li ><a class="dropdown-item" href="{{ path('broadcast') }}">Broadcast</a></li>
-										{% endif %}
-										<li><hr class="dropdown-divider"></li>
-										<li><a class="dropdown-item" href="mailto:contact@odhune.com">contact@odhune.com</a></li>
-										
-					</ul>
+						{% if is_granted('ROLE_ADMIN') %}
+							<li><hr class="dropdown-divider"></li>
+							<li ><a class="dropdown-item" href="{{ path('presentation_afficher') }}">Gérer 'NOUS'</a></li>
+							<li ><a class="dropdown-item" href="{{ path('accueil_afficher') }}">Gérer l'accueil</a></li>
+							<li ><a class="dropdown-item" href="{{ path('produit_afficher') }}">Gérer les produits</a></li>
+							<li ><a class="dropdown-item" href="{{ path('produit_ajouter') }}">Ajouter produit</a></li>
+							<li ><a class="dropdown-item" href="{{ path('user_afficher') }}">Gérer les utilisateurs</a></li>
+							<li ><a class="dropdown-item" href="{{ path('back_office') }}">Backoffice</a></li>
+							<li ><a class="dropdown-item" href="{{ path('broadcast') }}">Broadcast</a></li>
+						{% endif %}
+
+						<li><hr class="dropdown-divider"></li>
+						<li><a class="dropdown-item" href="mailto:contact@odhune.com">contact@odhune.com</a></li>			</ul>
 				</div>
 				</div>
 			</div>
 		</nav>
 		
 	
-				{% block content %}{% endblock %}
+	{% block content %}{% endblock %}
+		<footer class="footer_container col-12 d-flex flex-lg-row  flex-column">
+
+			<div class="contact col-lg-5  col-12 d-flex flex-lg-row flex-column ">
+				<div class="mail col-lg-6 col-12  d-flex flex-md-column  flex-lg-column flex-row justify-content-center mb-2">
+						<p class="d-none d-lg-block">Une question? un mot doux?</p>
+						<br>
+						<a href="mailto:contact@odhune.com">contact@odhune.com</a>
+						<br>
 				</div>
-			<footer class="footer_container col-12 d-flex flex-lg-row  flex-column">
-				
-							<div class="contact col-lg-5  col-12 d-flex flex-lg-row flex-column ">
-								<div class="mail col-lg-6 col-12  d-flex flex-md-column  flex-lg-column flex-row justify-content-center mb-2">
-										<p class="d-none d-lg-block">Une question? un mot doux?</p>
-										<br>
-										<a href="mailto:contact@odhune.com">contact@odhune.com</a>
-										<br>
-								</div>
-									<div class="reseaux col-lg-6 col-12 d-flex  flex-lg-column flex-row justify-content-center mb-2"> 
-									<p class="d-none d-lg-block  mb-2">NOUS SUIVRE</p>
-									
-										<a class="mx-2 mx-lg-auto" href="https://www.facebook.com/Odhunelunettes"  target="_blank">Facebook</i>
-										</a>
-										<a class="mx-2  mx-lg-auto"  href="https://www.instagram.com/odhune/?hl=fr" target="_blank">Instagram</i>
-										</a>
-										<a  class="mx-2  mx-lg-auto " href="https://twitter.com/ODHUNE_"  target="_blank">Twitter</i>
-										</a>
-										<a  class="mx-2 mx-lg-auto" href="https://www.pinterest.fr/Odhune_/"  target="_blank">Pinterest</i>
-										</a>
-						
-								</div>
-							</div>
-
-							<div class="rigp col-lg-2  col-md-6 col-12 mx-auto  " >
-								<a  href="{{ path('accueil') }}">
-								<img class="logo-footer d-block mx-auto" src="{{ asset('img/icones/ODHUNE-LOGO-NOIR.svg') }}" alt=""></a>
-								<a href="{{ path('pdc') }}">mentions légales + CGV</a>
-								<p>&#169 Odhune</p> 
-							</div>
-
-							<div class="liens col-lg-5 md-5 col-12 d-none d-lg-flex  flex-lg-row flex-md-row flex-column">
-								<div class="produits col-6">
-									<p class="mb-2" >PRODUITS</p>
-								
-										<a href="{{ path('optique') }}">Optiques</a>
-										<a  href="{{ path('solaire') }}">Solaires</a>
-										<a  href="{{ path('capsule') }}">Capsules</a>
-									
-								</div>
-								<div class="apropos col-6">
-									<p class="mb-2">A PROPOS</p>
-									
-										<a  href="{{ path('nous') }}">Nous</a>
-										<a  href="{{ path('magasin') }}">Point de vente</a>
-									
-						
-								</div>
-							
-						
-
-				
-
-			</footer>
-			
-				{% set nb_item = app.session.get('panier_item') %}
+					<div class="reseaux col-lg-6 col-12 d-flex  flex-lg-column flex-row justify-content-center mb-2"> 
+					<p class="d-none d-lg-block  mb-2">NOUS SUIVRE</p>
+					
+						<a class="mx-2 mx-lg-auto" href="https://www.facebook.com/Odhunelunettes"  target="_blank">Facebook</i>
+						</a>
+						<a class="mx-2  mx-lg-auto"  href="https://www.instagram.com/odhune/?hl=fr" target="_blank">Instagram</i>
+						</a>
+						<a  class="mx-2  mx-lg-auto " href="https://twitter.com/ODHUNE_"  target="_blank">Twitter</i>
+						</a>
+						<a  class="mx-2 mx-lg-auto" href="https://www.pinterest.fr/Odhune_/"  target="_blank">Pinterest</i>
+						</a>
+		
+				</div>
 			</div>
-		</body>
-	</html>
-</div>
 
-</body>
+			<div class="rigp col-lg-2  col-md-6 col-12 mx-auto  " >
+				<a  href="{{ path('accueil') }}">
+				<img class="logo-footer d-block mx-auto" src="{{ asset('img/icones/ODHUNE-LOGO-NOIR.svg') }}" alt=""></a>
+				<a href="{{ path('mentionsLegales') }}">Mentions légales + </a><a href="{{ path('cgv') }}">CGV</a>
+				<p>&#169 Odhune</p> 
+			</div>
 
+			<div class="liens col-lg-5 md-5 col-12 d-none d-lg-flex  flex-lg-row flex-md-row flex-column">
+									<div class="produits col-6">
+										<p class="mb-2" >PRODUITS</p>
+									
+											<a href="{{ path('optique') }}">Optiques</a>
+											<a  href="{{ path('solaire') }}">Solaires</a>
+											<a  href="{{ path('capsule') }}">Capsules</a>
+										
+									</div>
+									<div class="apropos col-6">
+										<p class="mb-2">A PROPOS</p>
+										
+											<a  href="{{ path('nous') }}">Nous</a>
+											<a  href="{{ path('magasin') }}">Points de vente</a>					
+									</div>		
 
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<script src="https://kit.fontawesome.com/c6d0a84024.js" crossorigin="anonymous"></script>
-
-
-<script>
-
- window.onscroll = 
-  function (evt) {
-	  element =document.querySelector('.bg-transparent')
-	  element.style.backgroundColor ='#FFFB'
-  
-  };
-
-</script>
-<script>// display  CartItems
-if (document.querySelector('.cart-items-lg').innerHTML == "") {
-document.querySelector('.cart-items-md').setAttribute('visibility', "hidden")
-}
-if (document.querySelector('.cart-items-md').innerHTML == "") {
-document.querySelector('.cart-items-md').setAttribute('visibility', "hidden")
-}
-</script>
-
-<script>
-if (({{ nb_item }})) {
-	let nbCartItems = {{ nb_item }}
-	if (nbCartItems > 0) {
-document.querySelector('.cart-items-lg').innerHTML = nbCartItems
-document.querySelector('.cart-items-md').innerHTML = nbCartItems
-} else {
-document.querySelector('.cart-items-lg').innerHTML = ""
-document.querySelector('.cart-items-md').innerHTML = ""
-document.querySelector('.cart-items-lg').setAttribute('visibility', "hidden")
-document.querySelector('.cart-items-md').setAttribute('visibility', "hidden")
-}
-}
-</script>
-<script>
-
- window.onscroll = function()
-   {
-	   	elementLg = document.querySelector('.navbarLg')
-		elementMd = document.querySelector('.navbarMd')
-	   	let position =window.scrollY
-	   	if (position > 107) {
-		   elementLg.style.backgroundColor = '#FFFA'	 
-	   }
-	   else {
-		    elementLg.style.backgroundColor = 'transparent'		
-	   }
-	   	if (position > 71) {
-		   elementMd.style.backgroundColor = '#FFFA'	 
-	   }
-	   else {
-		    elementMd.style.backgroundColor = 'transparent'		
-	   }
-   }
+		</footer>
+				{% if app.session.get('panier_item') %}
+				{% set nb_item = app.session.get('panier_item') %}
+				{% else %}
+				{% set nb_item = 0 %}
+				{% endif %}
+			</div>
+	</body>
 
 
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/c6d0a84024.js" crossorigin="anonymous"></script>
 
+	<script>// display  CartItems ??? not needed anymore 
+		if (document.querySelector('.cart-items-lg').innerHTML == "") {
+		document.querySelector('.cart-items-md').setAttribute('visibility', "hidden")
+		}
+		if (document.querySelector('.cart-items-md').innerHTML == "") {
+		document.querySelector('.cart-items-md').setAttribute('visibility', "hidden")
+		}
+	</script>
 
-</script>
+	<script>//check how many item in the cart and display the badge or not
+		let nbCartItems = {{ nb_item }}
+		if (nbCartItems > 0) {
+		document.querySelector('.cart-items-lg').innerHTML = nbCartItems
+		document.querySelector('.cart-items-md').innerHTML = nbCartItems
+		} else {
+		document.querySelector('.cart-items-lg').innerHTML = ""
+		document.querySelector('.cart-items-md').innerHTML = ""
+		document.querySelector('.cart-items-lg').setAttribute('visibility', "hidden")
+		document.querySelector('.cart-items-md').setAttribute('visibility', "hidden")
+		}
+	</script>
+	<script>// light  navigation backrground  if scroll
+		window.onscroll = function()
+		{
+				elementLg = document.querySelector('.navbarLg')
+				elementMd = document.querySelector('.navbarMd')
+				let position =window.scrollY
+				if (position > 107) {
+				elementLg.style.backgroundColor = '#FFFA'	 
+			}
+			else {
+					elementLg.style.backgroundColor = 'transparent'		
+			}
+				if (position > 71) {
+				elementMd.style.backgroundColor = '#FFFA'	 
+			}
+			else {
+					elementMd.style.backgroundColor = 'transparent'		
+			}
+		}
 
-
-
-{% block javascripts %}
-
-
-
-{% endblock %}
-
+	</script>
+	{% block javascripts %}{% endblock %}
 </html>
+

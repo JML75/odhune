@@ -2,13 +2,22 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Entity\Commande;
+use App\Form\CommandeType;
+use App\Form\UserType;
 use App\Service\Panier;
 use App\Repository\ProduitRepository;
+use App\Security\SecurityAuthenticator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class PanierController extends AbstractController
 {
@@ -58,7 +67,6 @@ class PanierController extends AbstractController
         }
 
         $quantite = $request->request->get("qty");
-        $reduction = 0;
         $prix = $produit->getPrixPubTtc();
 
 
@@ -100,19 +108,6 @@ class PanierController extends AbstractController
         return $this->redirectToRoute('panier', []);
     }
 
-    /**
-     * @Route("panier/valider", name="panier_valider")
-     */
-    public function panier_valider(Panier $panier, SessionInterface $session): Response
-    {
-        $panierSession = $session->get('panier_ligne');
-    
-
-        return $this->render('panier/panier_valider.html.twig', [
-            'panier' => $panierSession
-
-        ]);
-    }
-
+   
 
 }//fin de classe

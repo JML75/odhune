@@ -1,0 +1,75 @@
+{% extends "base.html.twig" %}
+{% block title %}
+	{{ parent() }}
+	| commande
+{% endblock %}
+{% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/inscription_connexion.css') }}">
+{% endblock %}
+{% block h1 %}Profil
+{% endblock %}
+{% block content %}
+
+		<div class="wrapper col-12 d-flex flex-lg-row flex-column ">
+	
+			<div class="col-lg-4 col-8 mx-auto my-auto">
+			<form action="{{ path('connexion')}}" method="post" class='col-12 mx-auto text-center mt-5'>
+					<h2>Connectez vous ou inscrivez-vous </h2>
+
+					<div class="col-12 form-group mx-auto mt-2">
+						<input type="text" id="inputEmail" class="form-control " name="_username" placeholder="Email">
+					</div>
+					<div class="col-12 form-group mx-auto my-3">
+						<div class='input-group'>
+							<input type="password" id="inputPassword" class="form-control" name="_password" data-toggle="password" placeholder="Mot de passe">
+							<span class="input-group-text bg-white">
+								<i class="fa fa-eye"></i>
+							</span>
+						</div>
+					</div>
+					 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+					<a class='reset-password-link' href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
+					<input type="submit" value="Connexion" class="col-12 btn btn-dark my-3">
+
+
+				</form>
+
+			</div>
+
+			<div class=" col-lg-4 col-8 mx-auto my-5 d-flex flex-column justify-content-center">
+				{{ form_start(formUser) }}
+				{{ form_row(formUser.email) }}
+
+				{{ form_label(formUser.password.first) }}
+				<div class='col-12 input-group mb-3'>
+					{{ form_widget(formUser.password.first, {'attr' : {"data-toggle" : "password"}}) }}
+					<span class="input-group-text bg-white">
+						<i class="fa fa-eye"></i>
+					</span>
+				</div>
+				{{ form_errors(formUser.password.first) }}
+				{{ form_label(formUser.password.second) }}
+				<div class='col-12 mb-3  input-group'>
+					{{ form_widget(formUser.password.second , {'attr' : {"data-toggle" : "password"}}) }}
+					<span class="input-group-text bg-white">
+						<i class="fa fa-eye"></i>
+					</span>
+				</div>
+				{{ form_errors(formUser.password.second) }}
+				{{ form_row(formUser.prenom) }}
+				{{ form_row(formUser.nom) }}
+				
+
+				<input type="submit" value="S'inscrire" class="btn col-12  mt-3">
+
+
+				{{ form_end(formUser) }}
+			</div>
+
+		</div>
+
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	
+{% endblock %}

@@ -39,6 +39,11 @@ class Accueil
      */
     private $video;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $large;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Accueil
     public function setVideo(bool $video): self
     {
         $this->video = $video;
+
+        return $this;
+    }
+
+    public function getLarge(): ?bool
+    {
+        return $this->large;
+    }
+
+    public function setLarge(bool $large): self
+    {
+        $this->large = $large;
 
         return $this;
     }

@@ -589,8 +589,9 @@ span#tarteaucitronDisclaimerAlert {
 }
 
 #tarteaucitronRoot #tarteaucitronAlertBig {
-    background: #333;
-    color: #fff;
+    background: #3338;
+    /* color: #fff; */
+    color: #000;
     display: none;
     font-size: 15px !important;
     left: 0;
@@ -628,8 +629,9 @@ span#tarteaucitronDisclaimerAlert {
 #tarteaucitron #tarteaucitronPrivacyUrlDialog,
 #tarteaucitronRoot .tarteaucitronDeny,
 #tarteaucitronRoot .tarteaucitronAllow {
-    background: #008300;
-    color: #fff;
+    background:white;
+    /* background: #008300;
+    color: #fff; */
     cursor: pointer;
     display: inline-block;
     font-size: 16px!important;
@@ -640,7 +642,8 @@ span#tarteaucitronDisclaimerAlert {
 }
 
 #tarteaucitronRoot .tarteaucitronDeny {
-    background: #9C1A1A;
+    /* background: #9C1A1A; */
+    background: white;
 }
 
 #tarteaucitronAlertBig #tarteaucitronCloseAlert, #tarteaucitron #tarteaucitronPrivacyUrl, #tarteaucitron #tarteaucitronPrivacyUrlDialog {
@@ -721,13 +724,15 @@ span#tarteaucitronDisclaimerAlert {
 #tarteaucitronRoot .tarteaucitronCross::before {
     content: '\2717';
     display: inline-block;
-    color: white;
+    /* color: white; */
+    color: #000;
 }
 
 #tarteaucitronRoot .tarteaucitronCheck::before {
     content: '\2713';
     display: inline-block;
-    color: white;
+    color: #000;
+    /* color: white; */
 }
 
 #tarteaucitronRoot .tarteaucitronPlus::before {

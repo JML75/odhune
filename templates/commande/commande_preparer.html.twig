@@ -1,0 +1,309 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{ asset('css/panier.css') }}">
+
+
+{% endblock %}
+
+{% block content %}
+<div class="wrapper">
+	<main class='col-lg-10  col-12 mx-auto d-flex flex-lg-row flex-column justify-content-between'>
+		{% set sstotal = 0 %}
+
+
+		<div class="col-lg-8 col-12 d-flex flex-column">
+			<div class="module-promo">
+				<label for="promo-code">Saisir un code reduction</label>
+					<input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
+				<button class="btn ">Appliquer</button>
+			</div>
+
+			<div class="col-12 ">
+				<ul class="col-12 entete">
+					<li class="col-4">Description</li>
+					<li class="col-2">Prix</li>
+					<li class="col-2">Qté</li>
+					<li class="col-2">Ss-total</li>
+					<li class="col-2"></li>
+				</ul>
+			</div>
+
+			<div class="col-12">
+			
+				{% for produit in panier %}
+					<div id ="{{ produit.id_produit }}" class="col-12 ligne_produit">
+						<a class="col-2 mx-0" href="{{ path('fiche_produit', {'id' : produit.produit.id}) }}"><img src="{{ asset("img/photoProduitUpload/" ~ produit.nomPhoto) }}" alt="" style="width:100%"></a>
+						<a class="col-2 description" href="{{ path('fiche_produit', {'id' : produit.produit.id}) }}">
+							<div class="nom-produit">{{ produit.produit.nom}}</div>
+							<div class="col-12">
+							<div class="nom-couleur">{{ produit.produit.couleur }}</div>
+								{% if produit.produit.couleur == "Noir" %}<div id="noir" class ="echantillon"></div>{% endif %}
+								{% if produit.produit.couleur == "Cristal" %}<div id="cristal" class ="echantillon"></div>{% endif %}
+								{% if produit.produit.couleur == "Ecaille" %}<div id="ecaille" class ="echantillon"></div>{% endif %}
+							</div>
+							<div  class="reference">{{ produit.produit.ref }}</div>
+						</a>
+						<div id = {{ "prix" ~ produit.id_produit }} class="col-2 price text-align-center"> {{ produit.prix }}</div>
+
+						<div class="col-2"><input type="number" value="{{ produit.quantite }}" min="1" class="quantity-field" onchange = "changeQuantity('{{ produit.id_produit }}', this.value )"></div>
+
+						<div id = {{ "sstt" ~ produit.id_produit }} class=" col-2 subtotal"></div>
+						{% set sstotal = sstotal + produit.quantite  * produit.prix %}
+						<div class="col-2">
+							<button  class='supprimer' onclick = "suppProduit('{{ produit.id_produit }}')">X</button>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="col-12">
+				{{ user.prenom }}
+				{{ user.nom }}
+				{{ user.email }}
+				
+			</div>
+			<div class="col-12">
+				{% for adresse in user.getAdresses() %}
+					<div>{{adresse.adresse}} , {{adresse.cp}}  {{adresse.ville}}
+					<input type="checkbox">
+					</div>
+				
+				{% endfor %}
+				<br>
+				<a class ="btn btn-sm ajouter-adresse-btn" href="{{ path('adresse_ajouter', {'route':app.request.pathinfo })}}">Ajouter une adresse </a>
+				<br>
+				<div id='montant_commande'></div>
+				montant :  {{ sstotal }}
+				livraison : 
+
+
+
+
+		
+			</div>
+			
+
+		</div>
+
+
+	
+
+		<aside class="col-lg-3 col-12">
+			<div class="summary">
+				<div class="summary-total-items">
+					<span id = "nbItems" class="total-items"></span>dans votre panier</div>
+				<div class="summary-subtotal">
+					<div class="subtotal-title">Sous total</div>
+					<div class="subtotal-value" id="sstotal_panier">{{ sstotal }}</div>
+					<div class="summary-promo hide">
+						<div class="promo-title">Promotion</div>
+						<div class="promo-value" id="basket-promo"></div>
+					</div>
+				</div>
+				<div class="summary-delivery">
+					<select id='choix_livraison' name="delivery-collection" onchange='livraison()' class="summary-delivery-selection">
+						<option value="0" selected=>colissimo : gratuit</option>
+						<option value="10">chronopost : 10 €</option>
+					</select>
+					<div class="livraison_cout">
+						<p>livraison</p>
+						<p id="livraison">0</p>
+					</div>
+				</div>
+				<div class="summary-total">
+					<div class="total-title">Total</div>
+					<div class="total-value" id="total_panier"></div>
+				</div >
+				<div class="summary-checkout d-flex flex-column">
+					<form action="{{ path('ajouter-commande') }}">
+						<div class="d-flex">
+						<input id="cgv" name="cgv"  type="checkbox" class='bg-light mb-3'onchange='isChecked()'>
+						<label for="cgv" class='mx-3'>Valider les <a href="{{ path('cgv') }}" target="blank"> CGV</a>
+						</label>
+						</div>
+					<button id='commander'type='submit' disabled class="col-12 mx-auto btn mb-2" href ="">COMMANDER</button>
+					</form>
+				</div>
+
+                
+			</div>
+            
+           
+		</aside>
+
+
+	
+	</main>
+	</div>
+	<textarea hidden name="" id="panier2js" cols="30" rows="10">{{ panierStr }}</textarea>
+
+	var panier2 = {{ panier|json_encode }}
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script>
+
+	function isChecked () { //on teste si les CGV sont validées pour activer le bouton commander
+		element = document.querySelector('#cgv')
+		bouton =  document.querySelector('#commander')
+		if (element.checked){
+			bouton.removeAttribute('disabled')
+		}else {
+			bouton.setAttribute('disabled', 'disabled')
+		}
+	
+
+	}
+	var panier = JSON.parse (document.querySelector('#panier2js').value)
+
+
+	// onstocke les éléments dans des variables
+	var eltssTotalPanier = document.querySelector('#sstotal_panier')
+	var eltcout_livraison = document.querySelector('#livraison')
+	var elttotalPanier = document.querySelector('#total_panier')
+	var eltchoix_livraison = document.querySelector('#choix_livraison')
+	var eltnbItems = document.querySelector('#nbItems')
+
+	//on initalise les varirables globales
+	var totalPanier =0
+
+	// nombre d'articles dans le panier
+	function nbItems (){
+		var nbItems = panier.length
+		if (nbItems > 1){
+			eltnbItems.innerHTML = nbItems + " articles "  
+		}else {
+			eltnbItems.innerHTML = nbItems + " article "
+		}
+	}
+
+	function calculSousTotalProduit(id_produit, quantite){
+		let elementId  = 'prix' + id_produit
+		let prixProduit = document.getElementById(elementId).innerHTML
+		let ssTotalProduit = parseInt(quantite) * parseInt(prixProduit)
+		document.getElementById('sstt'+id_produit).innerHTML = ssTotalProduit
+
+	}
+
+	function calculPanier() {
+		// calcul du sous total panier
+		let ssttPanier = 0
+		for (i=0 ;i< panier.length; i++) {
+		let eltId = 'sstt'+ panier[i].id_produit
+		ssttPanier = ssttPanier + parseInt(document.getElementById(eltId).innerHTML)
+		}
+		eltssTotalPanier.innerHTML = ssttPanier
+
+		//cout de livraison
+		cout_livraison = parseInt(eltchoix_livraison.value)
+
+		// calcul du total panier
+		totalPanier = parseInt(ssttPanier) + parseInt(cout_livraison)
+
+		elttotalPanier.innerHTML = totalPanier
+	}
+
+	function livraison() {
+
+	cout_livraison  = parseInt(eltchoix_livraison.value)
+	eltcout_livraison.innerHTML = cout_livraison
+	ssTotalPanier = parseInt(eltssTotalPanier.innerHTML)
+
+	totalPanier = ssTotalPanier + cout_livraison
+	elttotalPanier.innerHTML =totalPanier
+	}
+
+
+	//------------- au chagemement de la page --------------------------
+	// nombre d'articles dans le panier
+	nbItems()
+
+	// on calcul les sous totaux produits  
+	for (i=0; i< panier.length ; i++) {
+	calculSousTotalProduit(panier[i].id_produit, panier[i].quantite)
+	}
+
+	// on calcul les totaux et sous totaux  
+	calculPanier()
+
+	//-----------------------fin du lancement de la page 
+
+
+	function suppProduit(id_produit){
+		let eltproduit = document.getElementById(id_produit)
+		eltproduit.remove()
+
+		for(i=0 ; i< panier.length ; i++) {
+			if ( panier [i]['id_produit'] == id_produit){
+				panier.splice(i,1)
+			}
+		}
+			nbItems()
+			calculPanier()
+			let nbCartItems = panier.length
+			if (nbCartItems>0){
+				document.querySelector('.cart-items-lg').innerHTML=nbCartItems
+				document.querySelector('.cart-items-md').innerHTML=nbCartItems
+				}
+			else{
+			// cart-items-lg est le badge panier en mode lg , cart-items-md en mode responsive 
+			document.querySelector('.cart-items-lg').innerHTML=""
+			document.querySelector('.cart-items-lg').setAttribute('visibility',"hidden")
+			document.querySelector('.cart-items-md').innerHTML=""
+			document.querySelector('.cart-items-md').setAttribute('visibility',"hidden")
+			}
+		
+
+
+		let url = "{{ path('panier_supprimer') }}"
+		let data = {
+			'id_produit': id_produit
+		}
+		$.ajax({
+				method: "post",
+				url: url,
+				data: data,
+					success: function(response)
+					{console.log("produit supprimé");},
+					error: function()
+					{alert('erreur');}
+			})
+
+	}
+
+
+	function changeQuantity(id_produit, quantite){
+		// recupération du prix produit et affichage du sstotal produit 
+		calculSousTotalProduit(id_produit, quantite)
+		calculPanier()
+
+		// on va changer le "vrai"  panier PHP en cas de rechargement de la page 
+		let url = "{{ path('panier_changer') }}"
+		let data = {
+			'id_produit': id_produit,
+			'qty': quantite
+		}
+		$.ajax({
+				method: "post",
+				url: url,
+				data: data,
+					success: function(response)
+					{console.log("qty changed");},
+					error: function()
+					{alert('erreur');}
+			})
+	}
+
+
+</script>
+
+
+
+{% endblock %}

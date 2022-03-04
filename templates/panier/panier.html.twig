@@ -88,7 +88,7 @@
 				</div >
 				<div class="summary-checkout d-flex flex-column">
                  	<a class="col-12 mx-auto btn mb-2" href = "{{ path('catalogue') }}">continuer vos achats</a>
-					<a class="col-12 mx-auto btn mb-2" href ="{{ path('panier_valider') }}">valider votre panier</a>
+					<a class="col-12 mx-auto btn mb-2" href ="{{ path('preparer-commande') }}">valider votre panier</a>
 				</div>
 
                 
@@ -109,152 +109,150 @@
 
 {% block javascripts %}
 
-<script>
-
-//on récupère le panier sous forme de ligne en cas d'usage 
-var panierstring =  document.querySelector('#panier2js').innerHTML
-var panier = JSON.parse(panierstring)
+<script> //on récupère le panier sous forme de ligne en cas d'usage 
+	var panierstring =  document.querySelector('#panier2js').innerHTML
+	var panier = JSON.parse(panierstring)
 
 
-// onstocke les éléments dans des variables
-var eltssTotalPanier = document.querySelector('#sstotal_panier')
-var eltcout_livraison = document.querySelector('#livraison')
-var elttotalPanier = document.querySelector('#total_panier')
-var eltchoix_livraison = document.querySelector('#choix_livraison')
-var eltnbItems = document.querySelector('#nbItems')
+	// onstocke les éléments dans des variables
+	var eltssTotalPanier = document.querySelector('#sstotal_panier')
+	var eltcout_livraison = document.querySelector('#livraison')
+	var elttotalPanier = document.querySelector('#total_panier')
+	var eltchoix_livraison = document.querySelector('#choix_livraison')
+	var eltnbItems = document.querySelector('#nbItems')
 
-//on initalise les varirables globales
-var totalPanier =0
+	//on initalise les varirables globales
+	var totalPanier =0
 
-// nombre d'articles dans le panier
-function nbItems (){
-    var nbItems = panier.length
-    if (nbItems > 1){
-         eltnbItems.innerHTML = nbItems + " articles "  
-    }else {
-         eltnbItems.innerHTML = nbItems + " article "
-    }
-}
+	// nombre d'articles dans le panier
+	function nbItems (){
+		var nbItems = panier.length
+		if (nbItems > 1){
+			eltnbItems.innerHTML = nbItems + " articles "  
+		}else {
+			eltnbItems.innerHTML = nbItems + " article "
+		}
+	}
 
-function calculSousTotalProduit(id_produit, quantite){
-    let elementId  = 'prix' + id_produit
-    let prixProduit = document.getElementById(elementId).innerHTML
-    let ssTotalProduit = parseInt(quantite) * parseInt(prixProduit)
-    document.getElementById('sstt'+id_produit).innerHTML = ssTotalProduit
+	function calculSousTotalProduit(id_produit, quantite){
+		let elementId  = 'prix' + id_produit
+		let prixProduit = document.getElementById(elementId).innerHTML
+		let ssTotalProduit = parseInt(quantite) * parseInt(prixProduit)
+		document.getElementById('sstt'+id_produit).innerHTML = ssTotalProduit
 
-}
+	}
 
-function calculPanier() {
-     // calcul du sous total panier
-    let ssttPanier = 0
-    for (i=0 ;i< panier.length; i++) {
-       let eltId = 'sstt'+ panier[i].id_produit
-       ssttPanier = ssttPanier + parseInt(document.getElementById(eltId).innerHTML)
-    }
-    eltssTotalPanier.innerHTML = ssttPanier
+	function calculPanier() {
+		// calcul du sous total panier
+		let ssttPanier = 0
+		for (i=0 ;i< panier.length; i++) {
+		let eltId = 'sstt'+ panier[i].id_produit
+		ssttPanier = ssttPanier + parseInt(document.getElementById(eltId).innerHTML)
+		}
+		eltssTotalPanier.innerHTML = ssttPanier
 
-    //cout de livraison
-    cout_livraison = parseInt(eltchoix_livraison.value)
+		//cout de livraison
+		cout_livraison = parseInt(eltchoix_livraison.value)
 
-     // calcul du total panier
-    totalPanier = parseInt(ssttPanier) + parseInt(cout_livraison)
+		// calcul du total panier
+		totalPanier = parseInt(ssttPanier) + parseInt(cout_livraison)
 
-    elttotalPanier.innerHTML = totalPanier
-}
+		elttotalPanier.innerHTML = totalPanier
+	}
 
-function livraison() {
+	function livraison() {
 
-cout_livraison  = parseInt(eltchoix_livraison.value)
-eltcout_livraison.innerHTML = cout_livraison
-ssTotalPanier = parseInt(eltssTotalPanier.innerHTML)
+	cout_livraison  = parseInt(eltchoix_livraison.value)
+	eltcout_livraison.innerHTML = cout_livraison
+	ssTotalPanier = parseInt(eltssTotalPanier.innerHTML)
 
-totalPanier = ssTotalPanier + cout_livraison
-elttotalPanier.innerHTML =totalPanier
-}
-
-
-//------------- au chagemement de la page --------------------------
-// nombre d'articles dans le panier
-nbItems()
-
-// on calcul les sous totaux produits  
-for (i=0; i< panier.length ; i++) {
-calculSousTotalProduit(panier[i].id_produit, panier[i].quantite)
-}
-
-// on calcul les totaux et sous totaux  
-calculPanier()
-
-//-----------------------fin du lancement de la page 
+	totalPanier = ssTotalPanier + cout_livraison
+	elttotalPanier.innerHTML =totalPanier
+	}
 
 
-function suppProduit(id_produit){
-     let eltproduit = document.getElementById(id_produit)
-     eltproduit.remove()
+	//------------- au chagemement de la page --------------------------
+	// nombre d'articles dans le panier
+	nbItems()
 
-     for(i=0 ; i< panier.length ; i++) {
-         if ( panier [i]['id_produit'] == id_produit){
-             panier.splice(i,1)
-         }
-     }
-        nbItems()
-        calculPanier()
-		let nbCartItems = panier.length
-    	if (nbCartItems>0){
-			document.querySelector('.cart-items-lg').innerHTML=nbCartItems
-			document.querySelector('.cart-items-md').innerHTML=nbCartItems
+	// on calcul les sous totaux produits  
+	for (i=0; i< panier.length ; i++) {
+	calculSousTotalProduit(panier[i].id_produit, panier[i].quantite)
+	}
+
+	// on calcul les totaux et sous totaux  
+	calculPanier()
+
+	//-----------------------fin du lancement de la page 
+
+
+	function suppProduit(id_produit){
+		let eltproduit = document.getElementById(id_produit)
+		eltproduit.remove()
+
+		for(i=0 ; i< panier.length ; i++) {
+			if ( panier [i]['id_produit'] == id_produit){
+				panier.splice(i,1)
 			}
-    	else{
-		// cart-items-lg est le badge panier en mode lg , cart-items-md en mode responsive 
-        document.querySelector('.cart-items-lg').innerHTML=""
-        document.querySelector('.cart-items-lg').setAttribute('visibility',"hidden")
-		document.querySelector('.cart-items-md').innerHTML=""
-        document.querySelector('.cart-items-md').setAttribute('visibility',"hidden")
-        }
-	
+		}
+			nbItems()
+			calculPanier()
+			let nbCartItems = panier.length
+			if (nbCartItems>0){
+				document.querySelector('.cart-items-lg').innerHTML=nbCartItems
+				document.querySelector('.cart-items-md').innerHTML=nbCartItems
+				}
+			else{
+			// cart-items-lg est le badge panier en mode lg , cart-items-md en mode responsive 
+			document.querySelector('.cart-items-lg').innerHTML=""
+			document.querySelector('.cart-items-lg').setAttribute('visibility',"hidden")
+			document.querySelector('.cart-items-md').innerHTML=""
+			document.querySelector('.cart-items-md').setAttribute('visibility',"hidden")
+			}
+		
 
 
-     let url = "{{ path('panier_supprimer') }}"
-     let data = {
-         'id_produit': id_produit
-     }
-     $.ajax({
-            method: "post",
-            url: url,
-            data: data,
-                success: function(response)
-                {console.log("produit supprimé");},
-                error: function()
-                {alert('erreur');}
-        })
+		let url = "{{ path('panier_supprimer') }}"
+		let data = {
+			'id_produit': id_produit
+		}
+		$.ajax({
+				method: "post",
+				url: url,
+				data: data,
+					success: function(response)
+					{console.log("produit supprimé");},
+					error: function()
+					{alert('erreur');}
+			})
 
-}
-
-
-function changeQuantity(id_produit, quantite){
-    // recupération du prix produit et affichage du sstotal produit 
-     calculSousTotalProduit(id_produit, quantite)
-     calculPanier()
-
-    // on va changer le "vrai"  panier PHP en cas de rechargement de la page 
-     let url = "{{ path('panier_changer') }}"
-     let data = {
-         'id_produit': id_produit,
-         'qty': quantite
-     }
-     $.ajax({
-            method: "post",
-            url: url,
-            data: data,
-                success: function(response)
-                {console.log("qty changed");},
-                error: function()
-                {alert('erreur');}
-        })
-}
+	}
 
 
-	</script>
+	function changeQuantity(id_produit, quantite){
+		// recupération du prix produit et affichage du sstotal produit 
+		calculSousTotalProduit(id_produit, quantite)
+		calculPanier()
+
+		// on va changer le "vrai"  panier PHP en cas de rechargement de la page 
+		let url = "{{ path('panier_changer') }}"
+		let data = {
+			'id_produit': id_produit,
+			'qty': quantite
+		}
+		$.ajax({
+				method: "post",
+				url: url,
+				data: data,
+					success: function(response)
+					{console.log("qty changed");},
+					error: function()
+					{alert('erreur');}
+			})
+	}
+
+
+</script>
 
 
 

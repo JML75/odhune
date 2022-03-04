@@ -23,11 +23,13 @@ security:
             form_login:
                 login_path: connexion
                 check_path: connexion
+                enable_csrf: true
                 default_target_path: roles
 
             logout:
                 path: deconnexion
                 target: accueil
+            custom_authenticator: App\Security\SecurityAuthenticator
 
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }

@@ -6,18 +6,21 @@ use App\Entity\User;
 use App\Form\UserType;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\PhotoProduitRepository;
+use App\Security\SecurityAuthenticator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class SecurityController extends AbstractController
 {
     /**
      * @Route("/inscription", name="inscription")
      */
-    public function inscription(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder, PhotoProduitRepository $repophoto): Response
+    public function inscription(Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $encoder,UserAuthenticatorInterface $userAuthenticator, SecurityAuthenticator $authenticator,PhotoProduitRepository $repophoto): Response
     {
         $user = new User;
         $form =$this->createForm(UserType::class, $user, ['inscription' => true]);
@@ -31,8 +34,10 @@ class SecurityController extends AbstractController
             $user->setPassword($hash);
             $manager->persist($user);
             $manager->flush();
-        
-            return $this->redirectToRoute("connexion");
+
+            $userAuthenticator->authenticateUser($user,$authenticator, $request);
+          
+            return $this->redirectToRoute("accueil");
         }
         // on créé un tableau avec les photos pour animer la page
         $photos=$repophoto->findAll();
@@ -83,8 +88,13 @@ class SecurityController extends AbstractController
      * 
      * @Route("/roles", name="roles")
      */
-    public function roles()
-    {
+    public function roles(SessionInterface $session)
+    { 
+    if($session->get('commande')){
+        return $this->redirectToRoute("commande");
+
+    }
+
         if($this->isGranted('ROLE_ADMIN'))
         {
             return $this->redirectToRoute("accueil");

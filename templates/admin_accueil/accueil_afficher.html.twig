@@ -14,10 +14,11 @@
             <table class="table table-hover table-striped text-center my-2">
                 <thead class="bg-dark text-white">
                     <tr>       
-                        <th>titre</th>
+                        <th>Titre</th>
                         <th>Photo</th>
+                        <th>Video</th>
+                         <th>Large</th>
                         <th>active</th>
-                        <th>Modifier</th>
                         <th>Supprimer</th>
                     
                     </tr>    
@@ -30,38 +31,40 @@
                             <td class="align-middle">{{ accueil.titre }}</td>
                             <td>
                             {% if accueil.video %}
-
-                            <video src="{{ asset("img/accueil/" ~ accueil.getNomPhotoVideo() ) }}" autoplay muted loop  type="video/mp4" alt="video accueil" style="width:100px">
-
-                                
+                                <video src="{{ asset("img/accueil/" ~ accueil.getNomPhotoVideo() ) }}" autoplay muted loop  type="video/mp4" alt="video accueil" style="width:100px">                               
                             {% else %}
-                            <img src="{{ asset("img/accueil/" ~  accueil.getNomPhotoVideo() ) }}" alt="image accueil" style="width:100px"> 
-                                
-                            {% endif %}
-                        
-                            
+                                <img src="{{ asset("img/accueil/" ~  accueil.getNomPhotoVideo() ) }}" alt="image accueil" style="width:100px">                                
+                            {% endif %}                         
                             </td>
-                            {% if accueil.active == 1 %}
+                            {% if accueil.video == 1 %}
+                                <td><img src="{{ asset('img/icones/button-green.png') }}" alt="icone positif"  style="width:24px"alt="image du produit">
+                                </td>    
+                            {% else %}
+                                <td> <img src="{{ asset('img/icones/button-red.png') }}" alt="icone negatif"  style="width:24px"alt="image du produit" > 
+                                </td>
+                            {% endif %}
+                            {% if accueil.large == 1 %}
+                                <td><img src="{{ asset('img/icones/button-green.png') }}" alt="icone positif"  style="width:24px"alt="image du produit">
+                                </td>    
+                            {% else %}
+                                <td> <img src="{{ asset('img/icones/button-red.png') }}" alt="icone negatif"  style="width:24px"alt="image du produit" > 
+                                </td>
+                            {% endif %}
+                             {% if accueil.active == 1 %}
                                 <td>
-
                                 <a href=" {{path('accueil_active' , {'id': accueil.id} ) }}">
                                     <img src="{{ asset('img/icones/button-green.png') }}" alt="icone positif"  style="width:24px"alt="image du produit" >
                                 </a>
-                                </td>
-                                
+                                </td>    
                             {% else %}
                                 <td>
                                 <a href=" {{path('accueil_active' , {'id': accueil.id} ) }}">
                                     <img src="{{ asset('img/icones/button-red.png') }}" alt="icone negatif"  style="width:24px"alt="image du produit" > 
                                     </a>
                                 </td>
-                                
                             {% endif %}
-                            <td class="align-middle">
-                                <a href="">
-                                    <img src="{{ asset('img/icones/update.png') }}" alt="icone editer"  style="width:36px">
-                                </a>
-                            </td>
+
+
 
                             <td class="align-middle">
                                 <a href=" {{path('accueil_supprimer' , {'id': accueil.id} ) }} , " onclick="return confirm('Confirmez-vous la suppression de cette accueil ?')">

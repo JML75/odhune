@@ -14,7 +14,6 @@
 <div class="wrapper">
 	<div class="col-md-12 d-flex flex-sm-column flex-md-column flex-lg-row flex-sm-wrap justify-content-around align-items-center my-5 pt-5">
   <div class="col-lg-6">
-  <php? echo ini_get('post_max_size');?>
 
 
               {# ----------  section dropzone #}
@@ -37,6 +36,7 @@
                         <div class="col-md-6 text-secondary">{{ form_row(formAccueil.titre) }}</div>
                         <div class="col-md-3 text-secondary align-item-center my-auto">
                         {{ form_label(formAccueil.active) }}  {{ form_widget(formAccueil.active) }}
+                        {{ form_label(formAccueil.large) }}  {{ form_widget(formAccueil.large) }}
                         </div>
                          <div class="col-md-3 text-secondary align-item-center my-auto">
                         {{ form_label(formAccueil.video) }}  {{ form_widget(formAccueil.video) }}

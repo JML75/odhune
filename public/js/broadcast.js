@@ -65,7 +65,7 @@ document.querySelector('#startrec').addEventListener('click' , function(e){
       socket.on("watcher", id => {
         const peerConnection = new RTCPeerConnection(config);
         peerConnections[id] = peerConnection;
-        console.log (peerConnection)
+       
       
         let stream = video.srcObject;
         stream.getTracks().forEach(track => peerConnection.addTrack(track, stream));
@@ -108,9 +108,9 @@ document.querySelector('#startrec').addEventListener('click' , function(e){
           elt_contain.removeAttribute ('class', 'gauche')
           elt_contain.setAttribute ('class', 'droite')
         }
-        elt_text.style.color= message.user.color
+        elt_text.style.color= '#000'
         elt_user.style.color= message.user.color
-        elt_text.style.backgroundColor= message.user.color+'33'
+        //elt_text.style.backgroundColor= message.user.color+'33'
         elt_text.innerHTML = message.text
         elt_user.innerHTML = message.user.prenom
         elt_contain.prepend(elt_text)

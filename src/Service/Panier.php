@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Repository\ProduitRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class Panier 
 {
@@ -14,11 +14,11 @@ class Panier
     public $repoProduit;
     public $manager;
 
-    public function __construct(SessionInterface $session, ProduitRepository $repoProduit, EntityManagerInterface $manager)
+    public function __construct(RequestStack $requestStack, ProduitRepository $repoProduit, EntityManagerInterface $manager)
         //  on instance les classes SessionInterface, ProduitRepository EntityManagerInterface grace aux dépendences 
         {
             // lorsqu'on instance la classe Panier on injecte l'objet $session de la classe SessionInterface dasn la propriéré $session on pourra ainsi accéder aux méthodes de ceytte dernière classe , de même pour les 2 autres 
-            $this->session = $session;
+            $this->session =$requestStack->getSession();
             $this->repoProduit = $repoProduit;
             $this->manager = $manager;
         }

@@ -121,6 +121,9 @@
     "phpstan/phpdoc-parser": {
         "version": "1.2.0"
     },
+    "phpstan/phpstan": {
+        "version": "1.4.6"
+    },
     "phpunit/php-code-coverage": {
         "version": "9.2.9"
     },
@@ -232,7 +235,10 @@
             "branch": "master",
             "version": "1.0",
             "ref": "9d254a22efca7264203eea98b866f16f944b2f09"
-        }
+        },
+        "files": [
+            "public/.htaccess"
+        ]
     },
     "symfony/asset": {
         "version": "v5.4.0"
@@ -618,6 +624,12 @@
     },
     "theseer/tokenizer": {
         "version": "1.2.1"
+    },
+    "tijsverkoyen/css-to-inline-styles": {
+        "version": "2.2.4"
+    },
+    "twig/cssinliner-extra": {
+        "version": "v3.3.5"
     },
     "twig/extra-bundle": {
         "version": "v3.3.4"

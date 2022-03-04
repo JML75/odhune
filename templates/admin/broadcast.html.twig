@@ -7,32 +7,31 @@
 
 
 <div class="wrapper">
-
-     <div class="broadcast col-12 d-flex flex-lg-row flex-column justify-content-start"  >
-            <div  class="chatArea col-lg-3  col-12 mx-auto">
-                <div class="input-group">
-                    <input class=" inputMessage form-control" placeholder="message...  taper sur ENTER ou click sur ENVOI.">
-                    <button id ="envoi" class = "btn btn-secondary">ENVOI</button>
+        <div class="col-12 d-flex justify-content-between" style="margin-top: 110px;">
+                    <button id ="startrec" class="btn btn-secondary my-2 col-md-5">start broadcast</button>
+                    <button id ="stoprec" class="btn btn-secondary  my-2 col-md-5">stop broadcast</button>
                 </div>
-                <div class="messages" ></div>
-            </div>
-
-        <div class = "video col-lg-7 col-11 mx-auto">
-                <video  class="col-12" playsinline autoplay controls></video>
-                    <div class="col-12 d-flex justify-content-between">
-                        <button id ="startrec" class="btn btn-secondary my-2 col-md-5">start broadcast</button>
-                        <button id ="stoprec" class="btn btn-secondary  my-2 col-md-5">stop broadcast</button>
-                    </div>
-                    
-                    <div id ="manage_file" class ="col-md-12 d-flex justify-content-between d-none" >
-                        <button id="save-to-disk" class="btn btn-secondary col-md-5 my-2">save to disk</button>
-                        <button id="upload-to-server" class="btn btn-secondary col-md-5 my-2" >Upload to Server</button>      
-                    </div>
+                
+                <div id ="manage_file" class ="col-md-12 d-flex justify-content-between d-none" >
+                    <button id="save-to-disk" class="btn btn-secondary col-md-5 my-2">save to disk</button>
+                    <button id="upload-to-server" class="btn btn-secondary col-md-5 my-2" >Upload to Server</button>      
                 </div>
-            
         </div>
 
-    </div>
+         <div class="broadcast d-flex flex-column align-items-center"  >
+            <div class="video  col-lg-6 col-12">
+                <video class="col-12 mx-auto" playsinline autoplay></video>
+            </div>
+            
+                <div class="messages col-lg-6 col-12 " ></div>
+          
+            <div class=" message col-lg-6 col-12 d-flex">
+                <input class=" inputMessage col-10" placeholder="message.. taper sur ENTER ou click sur ENVOI.">
+                <button id ="envoi" class = "btn btn-secondary col-2">envoi</button>
+            </div>
+
+        </div>
+               
 
 </div>
 

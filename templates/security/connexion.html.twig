@@ -17,7 +17,7 @@
 			<div class=" col-lg-3 col-6 mb-5 mx-auto d-flex flex-column justify-content-center">
 				<form action="{{ path('connexion')}}" method="post" class='col-12 mx-auto text-center mt-5'>
 
-					<div class="col-12 form-group mx-auto">
+					<div class="col-12 form-group mx-auto mt-2">
 						<input type="text" id="inputEmail" class="form-control " name="_username" placeholder="Email">
 					</div>
 					<div class="col-12 form-group mx-auto my-3">
@@ -28,10 +28,9 @@
 							</span>
 						</div>
 					</div>
+					 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 					<a class='reset-password-link' href="{{ path('app_forgot_password_request') }}">Mot de passe oublié ?</a>
-					{#_username et _password  font partie  l'ensemble sécurité #}
-
-					<input type="submit" value="Connexion" class="col-12 btn btn-dark mt-3">
+					<input type="submit" value="Connexion" class="col-12 btn btn-dark my-3">
 
 
 				</form>

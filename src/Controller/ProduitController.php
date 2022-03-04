@@ -65,86 +65,6 @@ class ProduitController extends AbstractController
 
 
     /**
-     * @Route("/couleur_ecaille/{id}", name="couleur_ecaille")
-     */
-
-    public function couleur_ecaille ($id, ProduitRepository $repoProduit): Response
-   
-
-    {$produitArray = $repoProduit->findBy(array('id'=>$id)); 
-        $produit = $produitArray[0];
-        $nomProduit=$produit->getNom();
-        $produitCouleur =  $repoProduit->findBy(array('couleur'=>'Ecaille' ,'nom'=>$nomProduit ) );
-        $produit =$produitCouleur [0];
-        $photos =  $produit->getPhotoProduits();
-
-        $nomPhotos =[];
-        foreach ( $photos as $photo) {
-            $nomPhotos []=$photo->getNom();
-        }
-        $nomPhotos_str = json_encode($nomPhotos) ;
-        return $this->render('produit/fiche_produit.html.twig', [
-            'produit'=>$produit,
-            'photos'=>$nomPhotos_str
-        ]);
-  
-    }
-
-    /**
-     * @Route("/couleur_noir/{id}", name="couleur_noir")
-     */
-
-    public function couleur_noir ($id, ProduitRepository $repoProduit): Response
-   
-    {
-        $produitArray = $repoProduit->findBy(array('id'=>$id)); 
-        $produit = $produitArray[0];
-        $nomProduit=$produit->getNom();
-        $produitCouleur =  $repoProduit->findBy(array('couleur'=>'Noir' ,'nom'=>$nomProduit ) );
-        $produit =$produitCouleur [0];
-        $photos =  $produit->getPhotoProduits();
-
-        $nomPhotos =[];
-        foreach ( $photos as $photo) {
-            $nomPhotos []=$photo->getNom();
-        }
-        $nomPhotos_str = json_encode($nomPhotos) ;
-        return $this->render('produit/fiche_produit.html.twig', [
-            'produit'=>$produit,
-            'photos'=>$nomPhotos_str
-        ]);
-
-  
-    }
-
-    /**
-     * @Route("/couleur_cristal/{id}", name="couleur_cristal")
-     */
-
-    public function couleur_cristal ($id, ProduitRepository $repoProduit): Response
-   
-
-    {
-        $produitArray = $repoProduit->findBy(array('id'=>$id)); 
-        $produit = $produitArray[0];
-        $nomProduit=$produit->getNom();
-        $produitCouleur =  $repoProduit->findBy(array('couleur'=>'Cristal' ,'nom'=>$nomProduit ) );
-        $produit =$produitCouleur [0];
-        $photos =  $produit->getPhotoProduits();
-
-        $nomPhotos =[];
-        foreach ( $photos as $photo) {
-            $nomPhotos []=$photo->getNom();
-        }
-        $nomPhotos_str = json_encode($nomPhotos) ;
-        return $this->render('produit/fiche_produit.html.twig', [
-            'produit'=>$produit,
-            'photos'=>$nomPhotos_str
-        ]);
-  
-    }
-
-    /**
      * @Route("/showcase", name="showcase")
      */
 
@@ -177,7 +97,6 @@ class ProduitController extends AbstractController
     public function fiche_produit($id, ProduitRepository $repoProduit,Request $request): Response
     {
         // si la requête vient du catalogue 
-       
         $produit = $repoProduit->find($id);
         $nomProduit=$produit->getNom();
       
@@ -188,28 +107,26 @@ class ProduitController extends AbstractController
             $produit=$produit[0]; // findBy retourne un tableau
         }
         
-
          // on cherche toutes les couleurs disponibles pour les retourner à la fiche produit
          $couleursProduit =  $repoProduit->findBy(array('nom'=>$nomProduit ));
          $couleursDispo =[];
- 
          foreach( $couleursProduit as $couleurProduit){
              $couleursDispo []=$couleurProduit->getCouleur();
          }
 
-         // on recupère les photos du produit concerné pour alimenter les vignettes du caroussel
+         // on recupère les photos du produit concerné pour alimenter les vignettes du caroussel c'est plus direct pour les récupérer en javascript que sous forme de varianle TWIG
          $photos = $produit->getPhotoProduits();
          $nomPhotos =[];
          foreach ( $photos as $photo) {
              $nomPhotos []=$photo->getNom();
          }
         $nomPhotos_str = json_encode($nomPhotos) ;
+
         return $this->render('produit/fiche_produit.html.twig', [
             'produit'=>$produit,
             'photos'=>$nomPhotos_str,
             'couleurs'=>$couleursDispo
         ]);
-  
     }
 
     

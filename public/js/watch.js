@@ -98,10 +98,11 @@ const config = {
         elt_contain.removeAttribute ('class', 'gauche')
         elt_contain.setAttribute ('class', 'droite')
       }
-      elt_text.style.color= message.user.color
+      // elt_text.style.color= message.user.color
+      elt_text.style.color= '#000'
       elt_user.style.color= message.user.color
-      elt_text.style.backgroundColor= message.user.color+'33'
-      elt_text.innerHTML = message.text
+      //elt_text.style.backgroundColor= message.user.color+'33'
+      elt_text.innerHTML =  message.text
       elt_user.innerHTML = message.user.prenom
       elt_contain.prepend(elt_text)
       elt_contain.prepend(elt_user)

@@ -14,46 +14,55 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AccueilController extends AbstractController
 {
     /**
-     * @Route("/odhune", name="accueil")
+     * @Route("/", name="accueil")
      */
     public function accueil(ProduitRepository $repoProduit, AccueilRepository $repoAccueil) :Response
     {
 
-        $produitsArray = $repoProduit->findAll();
-        $produitShowcase = [];
-        foreach ( $produitsArray as $produit){
-            $showcase =$produit->getShowcase();
-            if ($showcase) {
-               $produitShowcase[] = $produit;
-            }
-        }
-
-        $filesAccueil= $repoAccueil->findAll();
-        $activeFile = [];
-        foreach ( $filesAccueil as $file){
-            $active =$file->getActive();
-            if ($active) {
-               $activeFile[] = $file;
-            }
-        }
-        if (count( $activeFile) !== 0 ) {
-
-            $file = $activeFile[0];
+        // on récupère  les produits mis en avant 
+        $produitsShowcase = $repoProduit->findBy(array('showcase'=> true));
         
-            $nomFile= $file->getNomPhotoVideo();
-            $typeFile= $file->getVideo();
 
-        }else { 
-            $file = $filesAccueil[0];
-            $nomFile= $file->getNomPhotoVideo();
-            $typeFile= $file->getVideo();
+        // on récupére la photo/video du mode large active
+
+        $fileLgActive= $repoAccueil->findBy(array('active'=> true ,'large'=>true));
+    
+        // si aucune n'est active on prend la première non active ( il y en a au moins 1)
+        
+        if (count( $fileLgActive) == 0 ) {
+            $fileLgActive = $repoAccueil->findBy(array('large'=>true));
         }
+
+        $fileLgActive= $fileLgActive[0];
+
+
+         // on récupére la photo/video du mode SmartPhone Tablette
+
+         $fileMdActive= $repoAccueil->findBy(array('active'=> true ,'large'=>false));
+
+         // si aucune n'est active on prend la première non active ( il y en a au moins 1)
+         
+         if (count( $fileMdActive) == 0 ) {
+             $fileMdActive = $repoAccueil->findBy(array('large'=>false));
+         }
+
+
+         $fileMdActive = $fileMdActive[0];
+ 
+         $nomFileLg= $fileLgActive->getNomPhotoVideo();
+         $typeFileLg=  $fileLgActive->getVideo();
+
+         $nomFileMd = $fileMdActive->getNomPhotoVideo();
+         $typeFileMd = $fileMdActive->getVideo();
+
 
 
         return $this->render('accueil/accueil.html.twig', [
-            "produitsShowcase" => $produitShowcase,
-            "file"=>$nomFile,
-            "type"=>$typeFile
+            "produitsShowcase" => $produitsShowcase,
+            "fileMd"=>$nomFileMd,
+            "typeMd"=>$typeFileMd,
+            "fileLg"=>$nomFileLg,
+            "typeLg"=>$typeFileLg
 
         ]);
     }
@@ -63,6 +72,7 @@ class AccueilController extends AbstractController
      * @Route("/nous", name="nous")
      */
     public function nous (PhotoLifeRepository $repophoto, PresentationRepository $repopresentation) :Response
+    
     {
         $presentationActives =$repopresentation->findBy(array('active'=> true));
 

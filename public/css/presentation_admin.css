@@ -7,13 +7,13 @@ h1 {
 
 
     .wrapper {
-        background-color: #777;
+        background-color: #DDD;
         display: flex;
         flex-direction: column;
         justify-content: start;
         align-items: center;
         min-height: 1080px;
-        margin-top: -52.5px;   
+        margin-top: -127.75px;   
     } 
 
 .presentation {

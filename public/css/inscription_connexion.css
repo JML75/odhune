@@ -1,0 +1,33 @@
+h1 {
+    position: absolute;
+     top: -1000px; 
+     left: -1000px;
+ }
+
+
+ .wrapper {
+    margin-top: 0px;
+       
+} 
+
+p {
+    color: #777;
+    margin-top :20px;
+    margin-bottom :20px;
+    font-weight: normal;
+}
+
+.btn {
+    font-size: 20px;
+    background-color: #F2E4DC;
+    border: none;
+    color: #777;
+
+}.btn:hover {
+    color: white;
+    background-color: #ceae9c;
+
+}
+
+
+

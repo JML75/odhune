@@ -36,8 +36,11 @@ class AccueilType extends AbstractType
             ->add('active', CheckboxType::class, [
                 "label" => "active ",
                 "required" => false,
-                
-                    
+            ])
+
+            ->add('large', CheckboxType::class, [
+                "label" => "photo/video large ",
+                "required" => false,
             ])
         ;
     }

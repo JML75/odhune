@@ -143,24 +143,7 @@ class UserController extends AbstractController
         return $this->render('user/watchLive.html.twig', []);
     }
 
-        /**
-     * @Route("pdc", name="pdc")
-     */
-    public function pdc(PhotoProduitRepository $repophoto): Response
-    {
-
-         // on créé un tableau avec les photos pour animer la page
-         $photos=$repophoto->findAll();
-         $nomphotos = [];
-         foreach ( $photos as $photo) {
-             $nomPhotos []=$photo->getNom();
-         }
-         $nomPhotos_str = json_encode($nomPhotos) ;
-        return $this->render('user/pdc.html.twig', [
-            'photos'=> $nomPhotos_str
-
-        ]);
-    }
+ 
 
 
 }//fin de class

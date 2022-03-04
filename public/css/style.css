@@ -44,17 +44,14 @@ table {
 }
 /*--------------------------fin du reset --------------*/
 
-/*-------------------------- reset --------------*/
 
 
 body {
 	font-family: 'Heebo', sans-serif;	
 	width: 100%;
 	overflow-x: hidden;
-	
 }
-html{
-}
+
 	
 /*    navigation  */
 .navbar  {
@@ -69,10 +66,9 @@ html{
 }
 
 
-.nav-link, .navbar-brand{
+.nav-link {
 	white-space: nowrap;
 	font-size: 15px;
-	color: black;
 	font-weight: bold;
 	letter-spacing: 10px;	
 
@@ -113,16 +109,6 @@ html{
 	}
 
 
-.logo {
-	height: 200px;
-	position: absolute;
-	top: 0px;
-	left: 45%;
-	margin-top: -40px;
-	z-index: +1000;
-}
-
-
 .offcanvas-end {
 	top: 0;
 	right: 0;
@@ -140,13 +126,9 @@ html{
     box-shadow: none;
 }
 
-  .wrapper {
-	margin-top: -107.75px;
+.wrapper {
+margin-top: -107.75px;
 
-  }
-
-.navbar-light .navbar-toggler{
-	border-color: red;
 }
 
 /* panier  */
@@ -293,8 +275,6 @@ html{
 		margin-top:-54px
 	}
 	
-
-
 	.logo_footer{
 		width: 20%;
 	}
@@ -311,6 +291,9 @@ html{
 	.wrapper {
 		margin-top:-54px;
 	}
+	.logo_footer{
+		width: 20%;
+	}
 
 	}
 /* Galaxy from S6 */
@@ -321,6 +304,9 @@ html{
   and (orientation: portrait) {
 	.wrapper {
 		margin-top:-54px;
+	}
+	.logo_footer{
+		width: 20%;
 	}
     
 

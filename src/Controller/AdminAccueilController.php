@@ -30,6 +30,8 @@ class AdminAccueilController extends AbstractController
         ]);
     }
 
+    // ------------------------Ajouter une image / video d'accueil----------------------
+
     /**
      * @Route("/admin/accueil_ajouter", name="accueil_ajouter")
      */
@@ -50,10 +52,8 @@ class AdminAccueilController extends AbstractController
          if ($remove == false) {
         
              if (isset($_FILES['file'])) {
-                 var_dump($_FILES);
-                
-              
-             $files = $_FILES ['file'];
+    
+                 $files = $_FILES ['file'];
            
              
              for ($i=0 ; $i<count($files['name']); $i++){
@@ -110,7 +110,7 @@ class AdminAccueilController extends AbstractController
         ]);
         }
 
-
+// ------------------------Supprimer une image / video d'accueil----------------------
     /**
      * @Route("/admin/accueil_supprimer/{id}", name="accueil_supprimer")
      */
@@ -118,19 +118,27 @@ class AdminAccueilController extends AbstractController
     public function accueil_supprimer(Accueil $accueil, EntityManagerInterface $manager, AccueilRepository $repoAccueil): Response
 
     { 
-            $accueils = $repoAccueil->findAll();
-
-                // on fait attention qu'il reste toujours une image/video d'accueil
-                 if (count($accueils)> 0) {
-
-                    
-                    $manager->remove($accueil);
-                    $manager->flush() ;
-                    return $this->redirectToRoute('accueil_afficher');
+        //on verifie si la requête est pour le mode large ou pour le mode responsive 
+        if ( $accueil->getLarge()){
+            // on fait attention qu'il reste toujours au moins une image/video d'accueil pour le mode large
+            $accueilLg = $repoAccueil->findBy(array('large'=>true));
+            if (count($accueilLg)> 0) {
+                $manager->remove($accueil);
+                $manager->flush() ;
             }
-                   
-                return $this->redirectToRoute('accueil_afficher');
+        else { // la requête est pour le mode responsive
+            // on fait attention qu'il reste toujours au moins une image/video d'accueil pour le mode responsive
+            $accueilMd = $repoAccueil->findBy(array('large'=>false));
+            if (count($accueilMd)> 0) {
+                $manager->remove($accueil);
+                $manager->flush() ;
             }
+        }
+
+        }
+                
+        return $this->redirectToRoute('accueil_afficher');
+    }
 
 
     /**
