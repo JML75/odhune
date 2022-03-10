@@ -181,6 +181,12 @@ class AdminProduitController extends AbstractController
      */
     public function produit_modifier(Produit $produit, EntityManagerInterface $manager , Request $request): Response
     {
+
+
+        // $maxPost = ini_get('post_max_size');
+        // $maxSize = ini_get('upload_max_filesize');
+        // $variable = $maxPost." ".$maxSize ;
+        // dd($variable);
     // c'est une dépendence $produit sera le produit avec l'id :id
 
     // on recupère les photos pour charger la dropZone 
@@ -210,7 +216,6 @@ class AdminProduitController extends AbstractController
        if ($remove == false) {
            if (isset($_FILES['file'])) {
            $photoFile = $_FILES ['file'];
-           
            for ($i=0 ; $i<count($photoFile['name']); $i++){
               
                $path  = $photoFile ['tmp_name'][$i];

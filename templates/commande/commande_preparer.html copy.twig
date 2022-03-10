@@ -12,10 +12,9 @@
 {% block content %}
 <div class="wrapper">
 	<main class='col-lg-8  col-12 mx-auto d-flex flex-lg-row flex-column justify-content-between'>
-			{% set sstotal = 0 %}
-
+		{% set sstotal = 0 %}
 		<div class="col-lg-8 col-12 d-flex flex-column">
-			<div class="module-promo d-none">
+			<div class="module-promo">
 				<label for="promo-code">Saisir un code reduction</label>
 					<input id="promo-code" type="text" name="promo-code" maxlength="5" class="promo-code-field">
 				<button class="btn ">Appliquer</button>
@@ -60,64 +59,119 @@
 			</div>
 		</div>
 
-		<aside class="col-lg-3 col-12">
-			<div class="summary">
-				<div class="summary-total-items">
-					<span id = "nbItems" class="total-items"></span>dans votre panier</div>
-				<div class="summary-subtotal">
-					<div class="subtotal-title">Sous total</div>
-					<div class="subtotal-value" id="sstotal_panier">{{ sstotal }}</div>
-					<div class="summary-promo hide">
-						<div class="promo-title">Promotion</div>
-						<div class="promo-value" id="basket-promo"></div>
+		<aside class="col-lg-4 col-12">
+			<div class="summary">			
+				<div class="summary-total-items"><span id = "nbItems" class="total-items"></span>dans votre panier</div>
+				<form action="{{ path('ajouter-commande') }}" method='post'>
+					<div class="summary-subtotal">
+						<div class="subtotal-title">Sous total</div>
+						<input name="sstotal" class="subtotal-value" value="{{ sstotal }}" id="sstotal_panier" readonly>
+						<div class="summary-promo hide">
+							<div class="promo-title">Promotion</div>
+							<div class="promo-value" id="basket-promo"></div>
+						</div>
 					</div>
-				</div>
-				<div class="summary-delivery">
-					<select id='choix_livraison' name="delivery-collection" onchange='livraison()' class="summary-delivery-selection">
-						<option value="0" selected=>colissimo : gratuit</option>
-						<option value="10">chronopost : 10 €</option>
-					</select>
-					<div class="livraison_cout">
-						<p>livraison</p>
-						<p id="livraison">0</p>
+					<div class="summary-delivery">
+						<select id='choix_livraison' name="cout-livraison" onchange='livraison()' class="summary-delivery-selection">
+							<option value="0" selected >colissimo : gratuit</option>
+							<option value="10">chronopost : 10 €</option>
+						</select>
+						<div class="livraison_cout">
+							<p>livraison</p>
+							<p id="livraison">0</p>
+						</div>
 					</div>
-				</div>
-				<div class="summary-total">
+					<div class="col-12 text-center">
+						{{ user.prenom }}
+						{{ user.nom|upper}}
+						<br>
+						<br>
+						{{ user.email }}				
+					</div>
+					{% if adresses %}
+							<table class="table text-center">
+								<tbody>					
+									{% for adresse in adresses %}
+										<tr class="align-midle">
+											<td class='adresse text-align-left'>{{ adresse.complementNom }}
+											{{ adresse.adresse }}
+											{{ adresse.complementAdresse }} <br>
+											{{ adresse.cp }} {{ adresse.ville }} {{ adresse.pays }}</td>								<td>
+												{% if loop.index == 1 %}
+												<input id='isAdresse'type="radio" checked value= {{ adresse.id }} name='adresse-livraison'>
+												{% else %}
+												<input type="radio" value= {{ adresse.id }} name='adresse-livraison'>
+												{% endif %}
+											</td>                
+											<td >
+												<a href="{{ path('adresse_modifier', {'id' : adresse.id , 'route': app.request.pathinfo } ) }}">
+												modifier
+												</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+					{% else %}
+							<div class="col-12  text-center my-3">
+								<p>Aucune adresse enregistrée </p>
+							</div>
+					{% endif %}
+				<a class="col-12 mx-auto btn mb-2" href="{{ path('adresse_ajouter', {'route':app.request.pathinfo })}}">Ajouter une adresse </a>
+				<div class="col-12 text-center">ajouter un nom ou une raison sociale en modifiant l'adresse</div>
+				<div class="summary-total col-12 d-flex justify-content-between align-items-center">
 					<div class="total-title">Total</div>
-					<div class="total-value" id="total_panier"></div>
+					<input type='number' name='montant-total' class="total-value" id="total_panier " >
 				</div >
-				<div class="summary-checkout d-flex flex-column">
-                 	<a class="col-12 mx-auto btn mb-2" href = "{{ path('catalogue') }}">continuer vos achats</a>
-					<a class="col-12 mx-auto btn mb-2" href ="{{ path('preparer-commande') }}">valider votre panier</a>
+
+				<div class="summary-checkout d-flex flex-column">				
+						<div class="d-flex">
+						<input id="cgv" name="cgv"  type="checkbox" class='bg-light mb-3'onchange='isChecked()'>
+						<label for="cgv" class='mx-3'>Lire et valider les <a href="{{ path('cgv') }}" target="blank">conditions générales de vente</a>
+						</label>
+						</div>
+					<button id='commander'type='submit' disabled class="col-12 mx-auto btn mb-2" href ="">COMMANDER</button>
+					</form>
 				</div>
 
-                
                 
 			</div>
             
            
 		</aside>
-
-	
 	</main>
-	</div>	
+</div>
 
-    <textarea name="" hidden  id="panier2js" cols="30" rows="10">{{ panierstr }}</textarea>
-
-
+	<textarea hidden name="" id="panier2js" cols="30" rows="10">{{ panierStr }}</textarea>
 {% endblock %}
 
 {% block javascripts %}
 
-<script> //on récupère le panier sous forme de ligne en cas d'usage 
-	var panierstring =  document.querySelector('#panier2js').innerHTML
-	var panier = JSON.parse(panierstring)
+<script>
+
+	function isChecked () { //on teste si les CGV sont validées et s'il y a une adresse  pour activer le bouton commander 
+		element= document.querySelector('#cgv')
+		elementAdresse = document.querySelector('#isAdresse')
+		console.log('ici')
+		console.log (elementAdresse.value)
+		bouton =  document.querySelector('#commander')
+		if (element.checked){
+			bouton.removeAttribute('disabled')
+		}else {
+			bouton.setAttribute('disabled', 'disabled')
+		}
+	
+
+	}
+
+	//on initialise les vvariables
+	var panier = JSON.parse (document.querySelector('#panier2js').value)
 
 
 	// onstocke les éléments dans des variables
 	var eltssTotalPanier = document.querySelector('#sstotal_panier')
 	var eltcout_livraison = document.querySelector('#livraison')
-	var elttotalPanier = document.querySelector('#total_panier')
+	var eltTotalPanier = document.querySelector('#total_panier')
 	var eltchoix_livraison = document.querySelector('#choix_livraison')
 	var eltnbItems = document.querySelector('#nbItems')
 
@@ -149,25 +203,24 @@
 		let eltId = 'sstt'+ panier[i].id_produit
 		ssttPanier = ssttPanier + parseInt(document.getElementById(eltId).innerHTML)
 		}
-		eltssTotalPanier.innerHTML = ssttPanier
+		eltssTotalPanier.value = ssttPanier
 
 		//cout de livraison
-		cout_livraison = parseInt(eltchoix_livraison.value)
+		cout_livraison = eltchoix_livraison.value
 
 		// calcul du total panier
 		totalPanier = parseInt(ssttPanier) + parseInt(cout_livraison)
 
-		elttotalPanier.innerHTML = totalPanier
+		eltTotalPanier.value=totalPanier
 	}
 
 	function livraison() {
+		cout_livraison = parseInt(eltchoix_livraison.value)
+		eltcout_livraison.innerHTML = cout_livraison
+		ssTotalPanier = parseInt(eltssTotalPanier.value)
 
-	cout_livraison  = parseInt(eltchoix_livraison.value)
-	eltcout_livraison.innerHTML = cout_livraison
-	ssTotalPanier = parseInt(eltssTotalPanier.innerHTML)
 
-	totalPanier = ssTotalPanier + cout_livraison
-	elttotalPanier.innerHTML =totalPanier
+		eltTotalPanier.value = ssTotalPanier +cout_livraison
 	}
 
 

@@ -6414,7 +6414,8 @@
                 {
                   key: "accept",
                   value: function (e, t) {
-                    this.options.maxFilesize &&
+                    console.log ( 1024 * this.options.maxFilesize * 1024)
+                    this.options.maxFilesize= 2000
                     e.size > 1024 * this.options.maxFilesize * 1024
                       ? t(
                           this.options.dictFileTooBig
@@ -6450,7 +6451,7 @@
                       progress: 0,
                       total: e.size,
                       bytesSent: 0,
-                      filename: this._renameFile(e),
+                    
                     }),
                       this.files.push(e),
                       (e.status = i.ADDED),

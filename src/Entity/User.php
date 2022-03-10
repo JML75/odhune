@@ -178,8 +178,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
        return $this ;
    }
 
-   public function getSalt(){} // renvoie la string password non encodé que l'utilisateur a saisi
-
+   public function getSalt(): ?string 
+   {
+       
+   }
    
    public function eraseCredentials(){} // nettoie le mdp
 

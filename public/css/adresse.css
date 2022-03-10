@@ -6,10 +6,8 @@ h1 {
 
 
 .wrapper {
-    margin-top: -52.5px;   
-    min-height: 1080px;
-   
-       
+    margin-top: -107.75px;   
+          
 }
 label {
     font-size: 12px;
@@ -31,6 +29,7 @@ p {
 }.btn:hover {
     color: white;
     background-color: #ceae9c;
+    
 
 }
 

@@ -29,10 +29,20 @@ class Commande
      */
     private $user;
 
+     /**
+     * @ORM\Column(type="float")
+     */
+    private $montant_HT;
+
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $montant;
+
+     /**
+     * @ORM\Column(type="float")
+     */
+    private $cout_livraison;
 
     /**
      * @ORM\Column(type="datetime")
@@ -40,7 +50,7 @@ class Commande
     private $date_commande;
 
     /**
-     * @ORM\OneToOne(targetEntity=Adresse::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Adresse::class)
      */
     private $adresse_livraison;
 
@@ -55,9 +65,15 @@ class Commande
     private $statut;
 
     /**
-     * @ORM\OneToMany(targetEntity=LigneCommande::class, mappedBy="commande")
+     * @ORM\Column(type="string", length=255)
+     */
+    private $paiement;
+
+    /**
+     * @ORM\OneToMany(targetEntity=LigneCommande::class, mappedBy="Commande", orphanRemoval=true)
      */
     private $ligneCommandes;
+
 
     public function __construct()
     {
@@ -93,7 +109,7 @@ class Commande
         return $this;
     }
 
-    public function getMontant(): ?int
+    public function getMontant(): ?float
     {
         return $this->montant;
     }
@@ -153,6 +169,42 @@ class Commande
         return $this;
     }
 
+    public function getMontantHT(): ?float
+    {
+        return $this->montant_HT;
+    }
+
+    public function setMontantHT(float $montant_HT): self
+    {
+        $this->montant_HT = $montant_HT;
+
+        return $this;
+    }
+
+    public function getCoutLivraison(): ?float
+    {
+        return $this->cout_livraison;
+    }
+
+    public function setCoutLivraison(float $cout_livraison): self
+    {
+        $this->cout_livraison = $cout_livraison;
+
+        return $this;
+    }
+
+    public function getPaiement(): ?string
+    {
+        return $this->paiement;
+    }
+
+    public function setPaiement(string $paiement): self
+    {
+        $this->paiement = $paiement;
+
+        return $this;
+    }
+
     /**
      * @return Collection|LigneCommande[]
      */
@@ -182,4 +234,5 @@ class Commande
 
         return $this;
     }
+
 }

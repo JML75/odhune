@@ -80,7 +80,7 @@ class Produit
     private $prix_rev_ht;
 
     /**
-     * @ORM\OneToMany(targetEntity=PhotoProduit::class, mappedBy="produit", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=PhotoProduit::class, cascade={"persist"} ,mappedBy="produit", orphanRemoval=true)
      */
     private $photoProduits;
 
@@ -99,10 +99,20 @@ class Produit
      */
     private $entretien;
 
+    /**
+     * @ORM\OneToMany(targetEntity=LigneCommande::class, mappedBy="produit",orphanRemoval=true)
+     */
+    private $ligneCommandes;
+
+
+
     public function __construct()
     {
         $this->photoProduits = new ArrayCollection();
+        $this->ligneCommandes = new ArrayCollection();
     }
+
+    
 
    
     public function getId(): ?int
@@ -280,6 +290,41 @@ class Produit
     public function setEntretien(string $entretien): self
     {
         $this->entretien = $entretien;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @return Collection|LigneCommande[]
+     */
+    public function getLigneCommandes(): Collection
+    {
+        return $this->ligneCommandes;
+    }
+
+    public function addLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if (!$this->ligneCommandes->contains($ligneCommande)) {
+            $this->ligneCommandes[] = $ligneCommande;
+            $ligneCommande->setProduit($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLigneCommande(LigneCommande $ligneCommande): self
+    {
+        if ($this->ligneCommandes->removeElement($ligneCommande)) {
+            // set the owning side to null (unless already changed)
+            if ($ligneCommande->getProduit() === $this) {
+                $ligneCommande->setProduit(null);
+            }
+        }
 
         return $this;
     }

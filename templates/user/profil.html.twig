@@ -61,7 +61,7 @@
                             </td>
                             
                             <td class="">
-                            <a href="{{ path('adresse_supprimer', {'id' : adresse.id } ) }}" onclick="return confirm('Confirmez-vous la suppression cette adresse ?')">
+                            <a href="{{ path('adresse_supprimer', {'id' : adresse.id , 'route': app.request.pathinfo }) }}" onclick="return confirm('Confirmez-vous la suppression cette adresse ?')">
                                 <img src="{{ asset('img/icones/delete.png') }}" alt="icone effacer" style="width:12px">
                        
                             </td>

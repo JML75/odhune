@@ -11,10 +11,8 @@
 
 {% block content %}
 <div class="wrapper">
-	<main class='col-lg-10  col-12 mx-auto d-flex flex-lg-row flex-column justify-content-between'>
+	<main class='col-lg-8  col-12 mx-auto d-flex flex-lg-row flex-column justify-content-between'>
 		{% set sstotal = 0 %}
-
-
 		<div class="col-lg-8 col-12 d-flex flex-column">
 			<div class="module-promo">
 				<label for="promo-code">Saisir un code reduction</label>
@@ -59,98 +57,104 @@
 					</div>
 				{% endfor %}
 			</div>
-
-			<div class="col-12">
-				{{ user.prenom }}
-				{{ user.nom }}
-				{{ user.email }}
-				
-			</div>
-			<div class="col-12">
-				{% for adresse in user.getAdresses() %}
-					<div>{{adresse.adresse}} , {{adresse.cp}}  {{adresse.ville}}
-					<input type="checkbox">
-					</div>
-				
-				{% endfor %}
-				<br>
-				<a class ="btn btn-sm ajouter-adresse-btn" href="{{ path('adresse_ajouter', {'route':app.request.pathinfo })}}">Ajouter une adresse </a>
-				<br>
-				<div id='montant_commande'></div>
-				montant :  {{ sstotal }}
-				livraison : 
-
-
-
-
-		
-			</div>
-			
-
 		</div>
 
-
-	
-
-		<aside class="col-lg-3 col-12">
-			<div class="summary">
-				<div class="summary-total-items">
-					<span id = "nbItems" class="total-items"></span>dans votre panier</div>
-				<div class="summary-subtotal">
-					<div class="subtotal-title">Sous total</div>
-					<div class="subtotal-value" id="sstotal_panier">{{ sstotal }}</div>
-					<div class="summary-promo hide">
-						<div class="promo-title">Promotion</div>
-						<div class="promo-value" id="basket-promo"></div>
+		<aside class="col-lg-4 col-12">
+			<div class="summary">			
+				<div class="summary-total-items"><span id = "nbItems" class="total-items"></span>dans votre panier</div>
+				<form action="{{ path('payer-commande') }}" method='post'>
+					<div class="summary-subtotal">
+						<div class="subtotal-title">SOUS TOTAL (EUR)</div>
+						<input name="sstotal" class="subtotal-value" value="{{ sstotal }}" id="sstotal_panier" readonly>
+						<div class="summary-promo hide">
+							<div class="promo-title">Promotion</div>
+							<div class="promo-value" id="basket-promo"></div>
+						</div>
 					</div>
-				</div>
-				<div class="summary-delivery">
-					<select id='choix_livraison' name="delivery-collection" onchange='livraison()' class="summary-delivery-selection">
-						<option value="0" selected=>colissimo : gratuit</option>
-						<option value="10">chronopost : 10 €</option>
-					</select>
-					<div class="livraison_cout">
-						<p>livraison</p>
-						<p id="livraison">0</p>
+					<div class="summary-delivery">
+						<select id='choix_livraison' name="cout-livraison" onchange='livraison()' class="summary-delivery-selection">
+							<option value="0" selected >colissimo : gratuit</option>
+							<option value="10">chronopost : 10 €</option>
+						</select>
+						<div class="livraison_cout">
+							<p>LIVRAISON (EUR)</p>
+							<p id="livraison">0</p>
+						</div>
 					</div>
-				</div>
-				<div class="summary-total">
-					<div class="total-title">Total</div>
-					<div class="total-value" id="total_panier"></div>
+					<div class="col-12 text-center nom d-flex justify-content-between" >
+						<div>{{ user.prenom }}	{{ user.nom|upper}}</div>
+						<div>{{ user.email }}</div>	
+					</div>
+					{% if adresses|length >0 %}
+							<table class="table text-center">
+								<tbody>					
+									{% for adresse in adresses %}
+										<tr class="align-midle">
+											<td class='adresse text-align-left'>{{ adresse.complementNom }}
+											{{ adresse.adresse }}
+											{{ adresse.complementAdresse }} <br>
+											{{ adresse.cp }} {{ adresse.ville }} {{ adresse.pays }}</td>								<td>
+												{% if loop.index == 1 %}
+												<input type="radio" checked value= {{ adresse.id }} name='adresse-livraison'>
+												{% else %}
+												<input type="radio" value= {{ adresse.id }} name='adresse-livraison'>
+												{% endif %}
+											</td>                
+											<td >
+												<a href="{{ path('adresse_modifier', {'id' : adresse.id , 'route': app.request.pathinfo } ) }}">Modifier</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+							<div class="col-12  text-center my-3">
+								<p class='adress'>Verifier l'adrresse de livraison </p>
+								<p class='adress'>Ajouter un autre nom ou une raison sociale en modifiant l'adresse </p>
+							</div>
+					{% else %}
+							<div class="col-12  text-center my-3">
+								<p class='no-adress'>Ajouter une adresse de livraison</p>
+							</div>
+					{% endif %}
+							
+				<a class="col-12 mx-auto btn mb-2" href="{{ path('adresse_ajouter', {'route':app.request.pathinfo })}}">Ajouter une adresse </a>
+				<div class="summary-total col-12 d-flex justify-content-between align-items-center">
+					<div class="total-title">TOTAL (EUR)</div>
+					<input name='montant-total' class="total-value" id="total_panier" readonly>
 				</div >
-				<div class="summary-checkout d-flex flex-column">
-					<form action="{{ path('ajouter-commande') }}">
+
+
+					{% if adresses|length >0 %}
+				<div class="summary-checkout d-flex flex-column">				
 						<div class="d-flex">
 						<input id="cgv" name="cgv"  type="checkbox" class='bg-light mb-3'onchange='isChecked()'>
-						<label for="cgv" class='mx-3'>Valider les <a href="{{ path('cgv') }}" target="blank"> CGV</a>
+						<label for="cgv" class='mx-3'>Lire et valider les <a href="{{ path('cgv') }}" target="blank">conditions générales de vente</a>
 						</label>
 						</div>
-					<button id='commander'type='submit' disabled class="col-12 mx-auto btn mb-2" href ="">COMMANDER</button>
+					<button id='commander'type='submit' disabled class="col-12 mx-auto btn mb-2" href ="">PAYER et COMMANDER</button>
 					</form>
 				</div>
+				{% endif %}
+				
 
                 
 			</div>
             
            
 		</aside>
-
-
-	
 	</main>
-	</div>
+</div>
+
 	<textarea hidden name="" id="panier2js" cols="30" rows="10">{{ panierStr }}</textarea>
-
-	var panier2 = {{ panier|json_encode }}
-
-
 {% endblock %}
 
 {% block javascripts %}
+<script type="text/javascript" src="https://api.payplug.com/js/1/form.latest.js"></script>
 
 <script>
 
 	function isChecked () { //on teste si les CGV sont validées pour activer le bouton commander
+	
 		element = document.querySelector('#cgv')
 		bouton =  document.querySelector('#commander')
 		if (element.checked){
@@ -161,13 +165,15 @@
 	
 
 	}
+
+	//on initialise les vvariables
 	var panier = JSON.parse (document.querySelector('#panier2js').value)
 
 
 	// onstocke les éléments dans des variables
 	var eltssTotalPanier = document.querySelector('#sstotal_panier')
 	var eltcout_livraison = document.querySelector('#livraison')
-	var elttotalPanier = document.querySelector('#total_panier')
+	var eltTotalPanier = document.querySelector('#total_panier')
 	var eltchoix_livraison = document.querySelector('#choix_livraison')
 	var eltnbItems = document.querySelector('#nbItems')
 
@@ -199,25 +205,24 @@
 		let eltId = 'sstt'+ panier[i].id_produit
 		ssttPanier = ssttPanier + parseInt(document.getElementById(eltId).innerHTML)
 		}
-		eltssTotalPanier.innerHTML = ssttPanier
+		eltssTotalPanier.value = ssttPanier
 
 		//cout de livraison
-		cout_livraison = parseInt(eltchoix_livraison.value)
+		cout_livraison = eltchoix_livraison.value
 
 		// calcul du total panier
 		totalPanier = parseInt(ssttPanier) + parseInt(cout_livraison)
 
-		elttotalPanier.innerHTML = totalPanier
+		eltTotalPanier.value=totalPanier
 	}
 
 	function livraison() {
+		cout_livraison = parseInt(eltchoix_livraison.value)
+		eltcout_livraison.innerHTML = cout_livraison
+		ssTotalPanier = parseInt(eltssTotalPanier.value)
 
-	cout_livraison  = parseInt(eltchoix_livraison.value)
-	eltcout_livraison.innerHTML = cout_livraison
-	ssTotalPanier = parseInt(eltssTotalPanier.innerHTML)
 
-	totalPanier = ssTotalPanier + cout_livraison
-	elttotalPanier.innerHTML =totalPanier
+		eltTotalPanier.value = ssTotalPanier +cout_livraison
 	}
 
 

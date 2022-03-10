@@ -14,8 +14,26 @@ class AdresseType extends AbstractType
     {
         $builder
 
+            ->add('complement_nom', TextType::class, [
+                "label" => "Complement de nom / raison sociale",
+                "required" => false,
+                "empty_data" => '',
+                "attr" => [
+                    "class" => "bg-light"
+                ]
+            ])
+
             ->add('adresse', TextType::class, [
                 "label" => "Adresse",
+                "required" => false,
+                "empty_data" => '',
+                 "attr" => [
+                    "class" => "bg-light"
+                ]
+            ])
+
+            ->add('complement_adresse', TextType::class, [
+                "label" => "Complement d'adresse",
                 "required" => false,
                 "empty_data" => '',
                  "attr" => [

@@ -93,6 +93,8 @@ class AdresseController extends AbstractController
 
         $manager->remove($adresse);
         $manager->flush() ;
-        return $this->redirectToRoute('profil');
+        $route = $_GET ['route'];
+        $route = substr($route,1);
+        return $this->redirectToRoute($route);
     }
 }

@@ -1,0 +1,59 @@
+<p>Bonjour {{ user.prenom }}  {{ user.nom }}</p>
+
+<br>
+<p>Odhune vous remercie pour votre commmande N° {{ commande.numero }} comprenant :</p>
+
+<br>
+
+
+        <table>
+        <thead>
+                <tr>       
+                        <th>Produit</th>
+                        <th>   </th>  
+                        <th>Couleur</th>
+                         <th>   </th>  
+                        <th>Reference</th>
+                        <th>   </th>  
+                        <th>Prix unit TTC </th>
+                        <th>   </th>  
+                        <th>quantite</th> 
+                        <th>        </th>       
+                        <th>        </th>
+                      
+                </tr>    
+        </thead>
+
+        <tbody>  
+                {% for produit in panier %}
+                        <tr>
+                        <td style="text-align: center;">{{ produit.produit.nom}}</td>
+                        <td>   </td>  
+                        <td style="text-align: center;">{{ produit.produit.couleur}}</td>
+                         <td>   </td>  
+                        <td style="text-align: center;">{{ produit.produit.ref }}</td>
+                         <td>   </td>  
+                        <td style="text-align: center;">{{ produit.prix }}</td>
+                         <td>   </td>  
+                        <td style="text-align: center;">{{ produit.quantite }}</td>
+                        <td>         </td>  
+                        <td> <img src="{{ email.image('@images/' ~ produit.nomPhoto) }}" alt="" style="width:80px"></td>
+                        </tr>         
+        
+	        {% endfor %}
+        </tbody> 
+        </table>
+        
+
+        <p>Pour un montant total TTC de {{ commande.montant }} euros, incluant la livraison. </p>
+
+   
+
+
+Comme vous le savez sans doute, toutes les lunettes ODHUNE sont fabriquées à la main et sont des pièces uniques. La fabrication commencera le plus vite possible et votre commande devrait être expédiée le {{ date }} .
+
+<p>N'hésitez pas à nous contacter à <a href="mailto:contact@odhune.com">contact@odhune.com </a>si vous avez des questions. </p>
+ 
+<p>Cordialement</p>
+
+<p>l'équipe Odhune</p>

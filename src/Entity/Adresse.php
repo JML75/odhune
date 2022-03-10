@@ -53,6 +53,16 @@ class Adresse
      */
     private $livraison;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complement_nom;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $complement_adresse;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -141,6 +151,30 @@ class Adresse
 
         return $this;
     }
+    public function getComplementNom(): ?string
+    {
+        return $this->complement_nom;
+    }
+
+    public function setComplementNom(string $complement_nom): self
+    {
+        $this->complement_nom = $complement_nom;
+
+        return $this;
+    }
+
+    public function getComplementAdresse(): ?string
+    {
+        return $this->complement_adresse;
+    }
+
+    public function setComplementAdresse(string $complement_adresse): self
+    {
+        $this->complement_adresse = $complement_adresse;
+
+        return $this;
+    }
+
 
 
     public function __toString()
@@ -148,6 +182,7 @@ class Adresse
         return $this->nom;
     }
 
+   
 
 
 

@@ -19,11 +19,13 @@ class LigneCommande
 
     /**
      * @ORM\ManyToOne(targetEntity=Commande::class, inversedBy="ligneCommandes")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $commande;
 
     /**
-     * @ORM\OneToOne(targetEntity=Produit::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Produit::class,inversedBy="ligneCommandes")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $produit;
 
@@ -33,12 +35,12 @@ class LigneCommande
     private $qty;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $prix;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="float")
      */
     private $sstotal;
 
@@ -47,24 +49,24 @@ class LigneCommande
         return $this->id;
     }
 
-    public function getCommande(): ?Commande
+    public function getCommande(): ?commande
     {
         return $this->commande;
     }
 
-    public function setCommande(?Commande $commande): self
+    public function setCommande(?commande $commande): self
     {
         $this->commande = $commande;
 
         return $this;
     }
 
-    public function getProduit(): ?Produit
+    public function getProduit(): ?produit
     {
         return $this->produit;
     }
 
-    public function setProduit(?Produit $produit): self
+    public function setProduit(?produit $produit): self
     {
         $this->produit = $produit;
 
@@ -83,24 +85,24 @@ class LigneCommande
         return $this;
     }
 
-    public function getPrix(): ?int
+    public function getPrix(): ?float
     {
         return $this->prix;
     }
 
-    public function setPrix(int $prix): self
+    public function setPrix(float $prix): self
     {
         $this->prix = $prix;
 
         return $this;
     }
 
-    public function getSstotal(): ?int
+    public function getSstotal(): ?float
     {
         return $this->sstotal;
     }
 
-    public function setSstotal(int $sstotal): self
+    public function setSstotal(float $sstotal): self
     {
         $this->sstotal = $sstotal;
 

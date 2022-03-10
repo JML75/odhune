@@ -91,7 +91,7 @@ class SecurityController extends AbstractController
     public function roles(SessionInterface $session)
     { 
     if($session->get('commande')){
-        return $this->redirectToRoute("commande");
+        return $this->redirectToRoute("preparer-commande");
 
     }
 

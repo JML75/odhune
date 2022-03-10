@@ -17,10 +17,12 @@
 			</div>
 
 
-			<div class=" col-lg-3 col-sm-8 mx-auto my-5 d-flex flex-column justify-content-center">
+			<div class=" col-lg-3 col-8 mx-auto my-auto d-flex flex-column">
 
 				{{ form_start(formAdress) }}
+				{{ form_row(formAdress.complement_nom) }}
                 {{ form_row(formAdress.adresse) }}
+				{{ form_row(formAdress.complement_adresse) }}
                 <div class= "col-12 d-flex justify-content-between">
                 <div class="col-3"> {{ form_row(formAdress.cp) }}</div>
                 <div class="col-7">  {{ form_row(formAdress.ville) }}</div>
@@ -32,7 +34,7 @@
                  {{ form_row(formAdress.livraison) }}
                  </div>
 
-				<input type="submit" value="Enregistrer" class="btn col-12  mt-3">
+				<input type="submit" value="Enregistrer" class="btn col-12  mt-2">
 
 
 				{{ form_end(formAdress) }}

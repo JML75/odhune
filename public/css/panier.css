@@ -49,9 +49,8 @@ strong {
 .subtotal:after,
 .subtotal-value:after,
 .total-value:after,
-.promo-value:after,
-#livraison:after {
-  content: ' €';
+.promo-value:after {
+  content: ' EUR';
 }
 
 .hide {
@@ -246,7 +245,7 @@ aside {
   border: 1px solid #aaa;
   padding: 1rem;
   position: fixed;
-  width: 250px;
+  width: 350px;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -277,6 +276,11 @@ aside {
   color: #111;
   float: left;
   width: 50%;
+}
+
+.subtotal-value, .total-value {
+  border: none;
+  background-color: #EEE;
 }
 
 .summary-promo {
@@ -310,6 +314,14 @@ aside {
   display: flex;
 
 }
+.adress {
+  font-size: 12px;
+}
+
+.no-adress {
+  font-size: 12px;
+  color: coral;
+}
 
 .summary-delivery-selection {
   background-color: #ccc;
@@ -319,6 +331,7 @@ aside {
   height: 3em;
   width: 100%;
 }
+
 
 @media only screen 
   and (min-device-width: 375px) 
